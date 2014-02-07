@@ -46,3 +46,4 @@ doyoubi_*
 *~
 .gitignore
 *swp
+webroot/

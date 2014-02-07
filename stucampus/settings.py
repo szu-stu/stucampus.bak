@@ -8,6 +8,15 @@ ROOT = os.path.dirname(os.path.dirname(__file__))
 def path(*a):
     return os.path.abspath(os.path.join(ROOT, *a))
 
+# DjangoUeditor setting
+UEDITOR_SETTINGS = {
+    "images_upload":{
+        'allow_type': 'jpg, png, gif',
+        'path': 'img_upload_file/',
+        'max_size': '3000kb',
+        },
+    }
+
 
 ALLOWED_HOSTS = ["*"]
 TIME_ZONE = 'Asia/Shanghai'
@@ -16,10 +25,13 @@ SITE_ID = 1
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-MEDIA_ROOT = ''
-MEDIA_URL = ''
 
-STATIC_ROOT = ''
+LOGIN_URL = '/account/signin'
+
+MEDIA_ROOT = path(ROOT, 'webroot', 'media')
+MEDIA_URL = '/media/'
+
+STATIC_ROOT = path(ROOT, 'webroot', 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     path('stucampus', 'static'),
@@ -63,6 +75,8 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'DjangoUeditor',
     'stucampus.master',
     'stucampus.account',
     'stucampus.infor',
@@ -70,6 +84,7 @@ INSTALLED_APPS = (
     'stucampus.lecture',
     'stucampus.spider',
     'stucampus.activity',
+    #'stucampus.articles',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

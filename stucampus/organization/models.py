@@ -1,3 +1,4 @@
+#-*- coding: utf-8
 from django.db import models
 
 from stucampus.account.models import Student
@@ -7,11 +8,11 @@ class Organization(models.Model):
 
     class Meta:
         permissions = (
-            ('organizations_list', 'List all organizations'),
-            ('organization_show', 'Show information of an organization.'),
-            ('organization_create', 'Create an organization'),
-            ('organization_edit', 'Edit information of an organization'),
-            ('organization_del', 'Delete an organization')
+            ('organizations_list', u'列出所有组织List all organizations'),
+            ('organization_show', u'展示组织信息Show information of an organization.'),
+            ('organization_create', u'创建新组织Create an organization'),
+            ('organization_edit', u'修改组织信息Edit information of an organization'),
+            ('organization_del', u'删除组织Delete an organization')
         )
 
     name = models.CharField(max_length=20)

@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import user_passes_test
 
 from stucampus.custom.permission import admin_group_check
+from stucampus.custom.permission import check_admin
 
 
 @user_passes_test(admin_group_check)

@@ -2,6 +2,8 @@ from django.conf.urls import patterns, include, url
 
 from django.contrib import admin
 
+from django.conf import settings
+
 
 admin.autodiscover()
 
@@ -15,8 +17,8 @@ urlpatterns = patterns(
     url(r'^organization/', include('stucampus.organization.urls',
                                    namespace='organization')),
     url(r'^infor/', include('stucampus.infor.urls', namespace='infor')),
-    url(r'^lost_and_found/', include('stucampus.lost_and_found.urls',
-                                     namespace='lost_and_found')),
+    #url(r'^articles/', include('stucampus.articles.urls',
+    #                            namespace='articles')),
     url(r'^lecture/', include('stucampus.lecture.urls',
                               namespace='lecture')),
     url(r'^spider/', include('stucampus.spider.urls', namespace='spider')),
@@ -24,6 +26,13 @@ urlpatterns = patterns(
                                namespace='activity')),
     url(r'^admin/', include(admin.site.urls)),
 )
+
+# serve media file when using developing server
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
+            {'document_root': settings.MEDIA_ROOT,}),
+        )
 
 
 handler404 = 'stucampus.master.views.front.page_not_found'

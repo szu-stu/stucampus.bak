@@ -1,0 +1,13 @@
+<html>
+    <head>
+        {{ form.media }}
+    </head>
+    <body>
+        <form method="post" enctype="multipart/form-data"
+            action="{{ post_url }}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="submit">
+        </form>
+    </body>
+</html>

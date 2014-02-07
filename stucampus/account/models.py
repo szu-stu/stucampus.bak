@@ -7,19 +7,19 @@ class Student(models.Model):
 
     class Meta:
         permissions = (
-            ('students_list', 'List all students'),
-            ('student_show', 'Show the information of student.'),
-            ('student_create', 'Create a new student.'),
-            ('student_edit', 'Edit the information of students.'),
-            ('student_del', 'Delete students'),
+            ('students_list', u'列出所有学生帐号List all students'),
+            ('student_show', u'展示学生帐号信息Show the information of student.'),
+            ('student_create', u'创建学生帐号Create a new student.'),
+            ('student_edit', u'修改学生信息Edit the information of students.'),
+            ('student_del', u'删除学生帐号Delete students'),
 
-            ('org_managers_list', 'List all managers of an organization.'),
-            ('org_managers_create', 'Create a new manager.'),
-            ('org_managers_del', 'Remove a manager from an organization.'),
-            ('members_list', 'List the members in an organization.'),
-            ('member_show', 'Show the information of member.'),
-            ('member_create', 'Create a new member in organization.'),
-            ('member_del', 'Remove a member from an organization.')
+            ('org_managers_list', u'列出所有组织管理员List all managers of an organization.'),
+            ('org_managers_create', u'创建新管理员Create a new manager.'),
+            ('org_managers_del', u'删除组织管理员Remove a manager from an organization.'),
+            ('members_list', u'列出组织所有成员List the members in an organization.'),
+            ('member_show', u'展示成员信息Show the information of member.'),
+            ('member_create', u'创建新组织成员Create a new member in organization.'),
+            ('member_del', u'删除组织成员Remove a member from an organization.')
         )
 
     COLLEGE_CHOICES = (
