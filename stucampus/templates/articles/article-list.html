@@ -7,7 +7,7 @@
 {% block content %}
 
 {% for article in page %}
-	{{ article.title }}
+	<a href="{% url 'articles:display' %}?id={{ article.pk }}">{{ article.title }}</a>
 {% endfor %}
 
 {% include 'utils/paginator.html' with page=page %}

@@ -1,3 +1,4 @@
+#-*- coding: utf-8
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -10,18 +11,29 @@ from stucampus.articles.models import Article, Category
 from stucampus.utils import get_client_ip 
 
 
-def manage(request):
+NO_CATEGORY = u'未分类'
+
+
+def create_page(request):
     category = request.GET.get('category')
     if not category:
         article_list = Article.objects.all()
     else:
-        category = Category.objects.get(name=category)
+        if category == NO_CATEGORY:
+            category = None
+        else:
+            category = Category.objects.get(name=category)
         article_list = Article.objects.filter(category=category)
     paginator = Paginator(article_list, 4)
     try:
         page = paginator.page(request.GET.get('page'))
     except InvalidPage:
         page = paginator.page(1)
+    return page
+
+
+def manage(request):
+    page = create_page(request)
     return render(request, 'articles/manage.html',
             {'page': page})
 
@@ -85,11 +97,18 @@ def set_important(request):
 
 class CategoryView(View):
 
-    def get(self, request):
+    @staticmethod
+    def create_category_list():
         category_list = Category.objects.all()
         category_list = {category.name: \
                 len(Article.objects.filter(category=category)) \
                 for category in Category.objects.all()}
+        category_list[NO_CATEGORY] = \
+                len(Article.objects.filter(category=None))
+        return category_list
+
+    def get(self, request):
+        category_list = CategoryView.create_category_list()
         formset = CategoryFormset()
         return render(request, 'articles/category-form.html',
                 {'formset': formset, 'category_list': category_list})
@@ -97,10 +116,7 @@ class CategoryView(View):
     def post(self, request):
         formset = CategoryFormset(request.POST)
         if not formset.is_valid():
-            category_list = Category.objects.all()
-            category_list = {category.name: \
-                    len(Article.objects.filter(category=category)) \
-                    for category in Category.objects.all()}
+            category_list = create_category_list()
             return render(request, 'articles/category-form.html',
                     {'formset': formset, 'category_list': category_list})
         formset.save()
@@ -108,17 +124,7 @@ class CategoryView(View):
 
 
 def article_list(request):
-    category = request.GET.get('category')
-    if not category:
-        article_list = Article.objects.all()
-    else:
-        category = Category.objects.get(name=category)
-        article_list = Article.objects.filter(category=category)
-    paginator = Paginator(article_list, 4)
-    try:
-        page = paginator.page(request.GET.get('page'))
-    except InvalidPage:
-        page = paginator.page(1)
+    page = create_page(request)
     return render(request, 'articles/article-list.html',
             {'page': page})
 
@@ -126,5 +132,7 @@ def article_list(request):
 def article_display(request):
     article_id = request.GET.get('id')
     article = Article.objects.get(id=article_id)
+    article.click_count += 1
+    article.save()
     return render(request, 'articles/article-display.html',
             {'article': article})

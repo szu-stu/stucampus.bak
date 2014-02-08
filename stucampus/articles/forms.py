@@ -19,5 +19,5 @@ class CategoryForm(forms.ModelForm):
         model = Category
         exclude = ['priority']
 
-CategoryFormset = modelformset_factory(Category, extra=1)
+CategoryFormset = modelformset_factory(Category, extra=1, can_delete=True)
         
