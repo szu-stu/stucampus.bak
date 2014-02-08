@@ -103,3 +103,4 @@ class Password(View):
         current_user.set_password(form.cleaned_data.get('new_password'))
         current_user.save()
         return spec_json(status='success')
+

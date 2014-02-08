@@ -1,0 +1,31 @@
+{% extends 'master/base.html' %}
+
+{% block htmlhead %}
+    {% load html_tools %}
+    {{ form.media }}
+{% endblock %}
+
+{% block content %}
+
+	{% autoescape off %}
+	{% for article in page %}
+		{{ article.pk }}
+		{{ article.title }}
+		{{ article.category }}
+		{{ article.click_count }}
+		{{ article.editor.username }}
+		{{ article.create_date }}
+		{{ article.modify_date }}
+		{{ article.create_ip }}
+		<a href="{% url 'articles:del_article' %}?id={{ article.pk }}">{% if article.deleted %} recover {% else %} delete {% endif %}</a>
+		<a href="{% url 'articles:set_important' %}?id={{ article.pk }}">{% if article.important %} set not important {% else %} set important {% endif %}</a>
+
+		{{ article.content }}
+		<a href="{% url 'articles:modify' %}?id={{ article.pk }}">edit</a>
+	{% endfor %}
+	<div>----------------</div>
+	{% endautoescape %}
+
+    {% include 'utils/paginator.html' with page=page %}
+
+{% endblock %}

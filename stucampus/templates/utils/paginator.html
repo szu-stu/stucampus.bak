@@ -1,0 +1,15 @@
+<div class="paginator page">
+    [第{{ page.number }}页/共{{ page.paginator.num_pages }}页/共{{ page.paginator.count }}项] 
+    <span class="num">
+        <a href="?page=1">首页</a>
+    </span>
+    {% if page.has_previous %}
+        <a href="?page={{ page.previous_page_number }}" class="previous">上一页</a>
+    {% endif %}
+    {% if page.has_next %}
+        <a class="next" href="?page={{ page.next_page_number }}">下一页</a>
+    {% endif %}
+    <span class="num">
+        <a href="?page={{ page.paginator.num_pages }}">尾页</a>
+    </span>
+</div>

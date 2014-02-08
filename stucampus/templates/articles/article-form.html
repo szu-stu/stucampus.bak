@@ -1,13 +1,15 @@
-<html>
-    <head>
-        {{ form.media }}
-    </head>
-    <body>
+{% extends 'master/base.html' %}
+
+{% block htmlhead %}
+    {% load html_tools %}
+    {{ form.media }}
+{% endblock %}
+
+{% block content %}
         <form method="post" enctype="multipart/form-data"
-            action="{{ post_url }}">
+            action="{{ post_url }}?id={{ article_id }}">
             {% csrf_token %}
             {{ form.as_p }}
             <input type="submit" value="submit">
         </form>
-    </body>
-</html>
+{% endblock %}

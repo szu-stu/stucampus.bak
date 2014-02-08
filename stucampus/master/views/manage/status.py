@@ -6,15 +6,15 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import user_passes_test
 
 from stucampus.custom.permission import admin_group_check
-from stucampus.custom.permission import check_admin
+from stucampus.account.permission import check_admin
 
 
-@user_passes_test(admin_group_check)
+@check_admin
 def redirect(request):
     return HttpResponseRedirect('/manage/status')
 
 
-@user_passes_test(admin_group_check)
+@check_admin
 def status(request):
     python_version = platform.python_version()
     domain = request.get_host()
