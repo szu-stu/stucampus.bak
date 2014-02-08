@@ -1,15 +1,23 @@
-from django.forms import ModelForm
+#-*- coding: utf-8
+from django import forms
+from django.forms.models import modelformset_factory
 
 from stucampus.articles.models import Article, Category
 
 
-class ArticleForm(ModelForm):
+class ArticleForm(forms.ModelForm):
+    category = forms.ModelChoiceField(queryset=Category.objects.all(),
+                                      empty_label=u'请选择分类')
     class Meta:
         model = Article
         exclude = ['editor', 'create_ip', 'click_count',
                    'deleted', 'important']
 
 
-class CategoryForm(ModelForm):
+class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
+        exclude = ['priority']
+
+CategoryFormset = modelformset_factory(Category, extra=1)
+        

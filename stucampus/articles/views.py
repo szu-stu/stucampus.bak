@@ -5,12 +5,18 @@ from django.views.generic import View
 from django.core.paginator import InvalidPage, Paginator
 
 from stucampus.articles.forms import ArticleForm, CategoryForm
+from stucampus.articles.forms import CategoryFormset
 from stucampus.articles.models import Article, Category
 from stucampus.utils import get_client_ip 
 
 
 def manage(request):
-    article_list = Article.objects.all()
+    category = request.GET.get('category')
+    if not category:
+        article_list = Article.objects.all()
+    else:
+        category = Category.objects.get(name=category)
+        article_list = Article.objects.filter(category=category)
     paginator = Paginator(article_list, 4)
     try:
         page = paginator.page(request.GET.get('page'))
@@ -77,21 +83,48 @@ def set_important(request):
     return HttpResponseRedirect(reverse('articles:manage'))
 
 
-def category(request):
-    category_list = Category.objects.all()
-    form = CategoryForm()
-    return render(request, 'articles/category-form.html',
-            {'form': form, 'category_list': category_list})
+class CategoryView(View):
 
-
-def add_category(request):
-    form = CategoryForm(request.POST)
-    if not form.is_valid():
+    def get(self, request):
+        category_list = Category.objects.all()
+        category_list = {category.name: \
+                len(Article.objects.filter(category=category)) \
+                for category in Category.objects.all()}
+        formset = CategoryFormset()
         return render(request, 'articles/category-form.html',
-                {'form': form})
-    article = form.save()
-    return HttpResponseRedirect(reverse('articles:category'))
+                {'formset': formset, 'category_list': category_list})
+
+    def post(self, request):
+        formset = CategoryFormset(request.POST)
+        if not formset.is_valid():
+            category_list = Category.objects.all()
+            category_list = {category.name: \
+                    len(Article.objects.filter(category=category)) \
+                    for category in Category.objects.all()}
+            return render(request, 'articles/category-form.html',
+                    {'formset': formset, 'category_list': category_list})
+        formset.save()
+        return HttpResponseRedirect(reverse('articles:category'))
 
 
-def change_priority(request):
-    pass
+def article_list(request):
+    category = request.GET.get('category')
+    if not category:
+        article_list = Article.objects.all()
+    else:
+        category = Category.objects.get(name=category)
+        article_list = Article.objects.filter(category=category)
+    paginator = Paginator(article_list, 4)
+    try:
+        page = paginator.page(request.GET.get('page'))
+    except InvalidPage:
+        page = paginator.page(1)
+    return render(request, 'articles/article-list.html',
+            {'page': page})
+
+
+def article_display(request):
+    article_id = request.GET.get('id')
+    article = Article.objects.get(id=article_id)
+    return render(request, 'articles/article-display.html',
+            {'article': article})

@@ -6,14 +6,17 @@
 {% endblock %}
 
 {% block content %}
-        {% for category in category_list %}
-            {{ category.name }}
-            {{ category.priority }}
+        {% for name, count in category_list.items %}
+            <a href="{% url 'articles:manage' %}?category={{ name }}">{{ name }}</a>
+            {{ count }}
         {% endfor %}
         <form method="post" enctype="multipart/form-data"
-            action="{% url 'articles:add_category' %}">
+            action="{% url 'articles:category' %}">
             {% csrf_token %}
-            {{ form.as_p }}
+            {{ formset.management_form }}
+            {% for form in formset %}
+                <div>{{ form }}</div>
+            {% endfor %}
             <input type="submit" value="submit">
         </form>
 {% endblock %}

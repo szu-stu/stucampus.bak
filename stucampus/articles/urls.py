@@ -3,7 +3,9 @@ from django.conf.urls import url, patterns
 from stucampus.articles.views import AddView, ModifyView
 from stucampus.articles.views import manage
 from stucampus.articles.views import del_article, set_important
-from stucampus.articles.views import add_category, category
+from stucampus.articles.views import CategoryView
+
+from stucampus.articles.views import article_list, article_display
 
 
 urlpatterns = patterns(
@@ -13,7 +15,8 @@ urlpatterns = patterns(
     url(r'^modify/$', ModifyView.as_view(), name='modify'),
     url(r'^del_article/$', del_article, name='del_article'),
     url(r'^set_important/$', set_important, name='set_important'),
+    url(r'^category/$', CategoryView.as_view(), name='category'),
 
-    url(r'^category/$', category, name='category'),
-    url(r'^add_category/$', add_category, name='add_category'),
+    url(r'^list/$', article_list, name='list'),
+    url(r'^display/$', article_display, name='display'),
 )

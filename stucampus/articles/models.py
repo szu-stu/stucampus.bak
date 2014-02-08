@@ -8,8 +8,13 @@ from stucampus.custom.models_utils import file_save_path
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=30)
-    priority = models.PositiveIntegerField()
+    name = models.CharField(verbose_name=u'分类名', max_length=30, unique=True)
+    # priority 越小，越先放在前面
+    priority = models.PositiveIntegerField(verbose_name=u'优先级', unique=True)
+
+    # used in ArticleForm.category to display category name in template
+    def __unicode__(self):
+        return self.name
 
 
 class Article(models.Model):
@@ -24,7 +29,8 @@ class Article(models.Model):
     title = models.CharField(max_length=50)
     summary = models.CharField(max_length=50, blank=True, null=True)
     content = UEditorField(height=500, width=700, toolbars='mini')
-    category = models.CharField(max_length=30)
+    category = models.ForeignKey(Category, default=u'未分类',
+                                 on_delete=models.SET_DEFAULT)
 
     author = models.CharField(max_length=30)
     editor = models.ForeignKey(User)

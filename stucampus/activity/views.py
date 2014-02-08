@@ -51,3 +51,4 @@ def submit(request):
     page = paginator.page(request.GET.get('page'))
     page.formset = formset
     return render(request, 'activity/manage.html', {'page': page})
+
