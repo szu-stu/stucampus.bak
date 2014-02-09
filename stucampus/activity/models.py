@@ -1,20 +1,30 @@
+# -*- coding:utf-8 -*-
 from datetime import datetime, timedelta
 
-import django.db.models
+from django.db import models
 from django.utils import timezone
 
-from stucampus.custom import models
+
+MORNING = u'上午'
+AFTERNOON = u'下午'
 
 
-class ActivityMessage(django.db.models.Model):
+class ActivityMessage(models.Model):
+
+    TIME = (
+        (MORNING, MORNING),
+        (AFTERNOON, AFTERNOON),
+        )
+
     title = models.CharField(max_length=30)
-    date_time = models.DateTimeField()
+    date= models.DateTimeField()
+    time = models.CharField(max_length=10, choices=TIME)
     place = models.CharField(max_length=20)
     summary = models.CharField(max_length=140)
 
     modified_date_time = models.DateTimeField(editable=False, auto_now=True) 
-    is_check = models.BooleanField(default=False)
-    is_delete = models.BooleanField(default=False)
+    checked = models.BooleanField(default=False)
+    deleted = models.BooleanField(default=False)
 
     @classmethod
     def get_activity_list(cls):
@@ -44,12 +54,13 @@ class ActivityMessage(django.db.models.Model):
     @staticmethod
     def fill_in_table(message_table):
         messages_this_week = ActivityMessage.get_messages_this_week()
-        to_be_published = messages_this_week.filter(is_check=True, is_delete=False)
+        to_be_published = messages_this_week.filter(
+                checked=True, deleted=False)
         for msg in to_be_published:
-            if msg.date_time.hour < 12:
-                message_table['morning'][msg.date_time.weekday()].append(msg)
+            if msg.date == MORNING:
+                message_table['morning'][msg.date.weekday()].append(msg)
             else:
-                message_table['afternoon'][msg.date_time.weekday()].append(msg)
+                message_table['afternoon'][msg.date.weekday()].append(msg)
         return message_table
 
     @classmethod
@@ -58,6 +69,7 @@ class ActivityMessage(django.db.models.Model):
         date_of_this_Monday = now - timedelta(days=now.weekday())
         date_of_next_Monday = date_of_this_Monday + timedelta(days=7)
         lecture_held_this_week = cls.objects.filter(
-            date_time__gte=date_of_this_Monday,
-            date_time__lt=date_of_next_Monday)
+
+            date__gte=date_of_this_Monday,
+            date__lt=date_of_next_Monday)
         return lecture_held_this_week

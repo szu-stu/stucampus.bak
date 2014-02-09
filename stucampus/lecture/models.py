@@ -2,18 +2,16 @@
 from itertools import chain
 from datetime import datetime, timedelta
 from django.utils import timezone
-import django.db.models
+from django.db import models
 from django.db import IntegrityError
 from django.core.exceptions import ObjectDoesNotExist
-
-from stucampus.custom import models
 
 
 MORNING = u'上午'
 AFTERNOON = u'下午'
 
 
-class LectureMessage(django.db.models.Model):
+class LectureMessage(models.Model):
 
     TIME = (
         (MORNING, MORNING),

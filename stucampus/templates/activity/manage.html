@@ -1,4 +1,4 @@
-{% extends 'plugin/manage_base.html' %}
+{% extends 'master/base.html' %}
 
 {% block htmltitle %}
 {% endblock %}
@@ -21,7 +21,7 @@
     {% url 'activity:index' %}
 {% endblock %}
 
-{% block manage_form %}
+{% block content %}
 <form method="POST" action="{% url 'activity:manage' %}?page={{ page.number }}">
 {% csrf_token %}
 {% with formset=page.formset %}
@@ -30,7 +30,7 @@
     {% for form in formset %}
     
         <!-- 信息  Begin -->
-    {% if form.is_delete.value %}
+    {% if form.deleted.value %}
     	<div class="act_message is_delete">
     {% else %}
     	<div class="act_message not_delete">
@@ -61,11 +61,22 @@
                 <!-- 地点  End -->
                 <!-- 日期时间  Begin -->
                 <div class="input_list">
-                    <div class="title">Date Time</div>
-                    {{ form.date_time }}
+                    <div class="title">Date</div>
+                    {{ form.date }}
                 </div>
                 <div class="error">
-                    {% for error in form.date_time.errors %}
+                    {% for error in form.date.errors %}
+                        {{ error }}&nbsp
+                    {% endfor %}
+                </div>
+                <!-- 日期时间  End -->
+                <!-- 日期时间  Begin -->
+                <div class="input_list">
+                    <div class="title">Time</div>
+                    {{ form.time }}
+                </div>
+                <div class="error">
+                    {% for error in form.time.errors %}
                         {{ error }}&nbsp
                     {% endfor %}
                 </div>
@@ -83,8 +94,8 @@
                 <!-- 概要  End -->
     
                 <div class="choose_container">
-                    <div class="choose check">已核{{ form.is_check }}</div>
-                    <div class="choose delete">删除{{ form.is_delete }}</div>
+                    <div class="choose check">已核{{ form.checked }}</div>
+                    <div class="choose delete">删除{{ form.deleted }}</div>
                 </div>         
                 {{ form.id }}
             </div>
@@ -98,8 +109,7 @@
     <div class="button"><input type="submit" value="submit" /></div>
     <!-- submit按钮  End -->
 </form>
-{% endblock %}
 
-{% block paginator %}
     {% include 'plugin/paginator.html' with page=page %}
+
 {% endblock %}
