@@ -41,6 +41,9 @@
                 {% if 1 %}<li><a href="{% url 'articles:add' %}">添加文章</a></li>{% endif %}
                 {% if 1 %}<li><a href="{% url 'articles:category' %}">文章分类</a></li>{% endif %}
 
+                {% if 1 %}<li><a href="{% url 'lecture:manage' %}">讲座信息</a></li>{% endif %}
+                {% if 1 %}<li><a href="{% url 'activity:manage' %}">活动信息</a></li>{% endif %}
+
                 <!-- 以下为提供给社团组织的管理界面 -->
                 {% if perms.organization.organization_show and user|is_org_manage %}<li><a href="/manage/organization">组织概况</a></li>{% endif %}
                 {% if perms.infor.infors_list and user|is_org_manage %}<li><a href="/manage/infor/list">信息管理</a></li> {% endif %}
