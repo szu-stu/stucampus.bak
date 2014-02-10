@@ -3,10 +3,10 @@ from django.conf.urls import patterns, url
 from stucampus.master.views.manage.account import ListAccount, ShowAccount
 from stucampus.master.views.manage.infor import ListInfor, PostInfor
 from stucampus.master.views.manage.infor import Information
-from stucampus.master.views.manage.organization import ListOrganzation
+from stucampus.master.views.manage.organization import ListOrganization
 from stucampus.master.views.manage.organization import ShowOrganization
 from stucampus.master.views.manage.organization import OrganzationManager
-from stucampus.organization.views import EditOrganzation
+from stucampus.organization.views import EditOrganization
 
 
 urlpatterns = patterns(
@@ -17,7 +17,7 @@ urlpatterns = patterns(
     url(r'^status$',
         'stucampus.master.views.manage.status.status', name='admin_status'),
 
-    url(r'^organization/list$', ListOrganzation.as_view(),
+    url(r'^organization/list$', ListOrganization.as_view(),
         name='manage_organization_list'),
     url(r'^organization/(?P<id>\d+)$', ShowOrganization.as_view(),
         name='manage_organization_show'),
@@ -36,7 +36,7 @@ urlpatterns = patterns(
     url(r'^organization$',
         'stucampus.organization.views.organization_manage',
         name='organization_manage'),
-    url(r'^organization/(?P<id>\d+)/edit$', EditOrganzation.as_view(),
+    url(r'^organization/(?P<id>\d+)/edit$', EditOrganization.as_view(),
         name='organization_edit'),
 
 )

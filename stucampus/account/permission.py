@@ -3,6 +3,8 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import Group
 from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.shortcuts import render
+from django.core.exceptions import ObjectDoesNotExist
 
 from stucampus.utils import spec_json
 
@@ -28,7 +30,7 @@ def check_perms(perm, message=u'无权限'):
                 perms = perm
             if not request.user.has_perms(perms):
                 return render(request, 'master/deny.html',
-                              messages=messages)
+                              message=messages)
             return fucntion(request, *args, **kwargs)
         return wrapped_check
     return decorator
@@ -40,9 +42,24 @@ def check_admin(function):
             admin_group = Group.objects.get(name='StuCampus')
         except Group.DoesNotExist:
             return render(request, 'master/deny.html',
-                          messages=u'StuCampus组织未创建')
+                    {'message': u'StuCampus组织未创建'})
         if not admin_group in request.user.groups.all():
             return render(request, 'master/deny.html',
-                          messages=u'非网站管理员')
+                    {'message': u'非网站管理员'})
         return function(request, *args, **kwargs)
     return wrapped_check
+
+
+def check_org_manager(function):
+    def wrapped_check(request, *args, **kwargs):
+        ''' require id indicating organization in url '''
+        try:
+            org = Organization.objects.get(id=id)
+        except ObjectDoesNotExist:
+            raise ObjectDoesNotExist(u'id对应的组织不存在')
+        if not request.user.student in org.managers.all():
+            return render(request, 'master/deny.html',
+                    {'message': u'非s%的管理员' % org.name})
+        return function(request, *args, **kwargs)
+    return wrapped_check
+

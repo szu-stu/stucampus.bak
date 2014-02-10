@@ -28,7 +28,7 @@ class Article(models.Model):
 
     title = models.CharField(max_length=50)
     summary = models.CharField(max_length=50, blank=True, null=True)
-    content = UEditorField(height=500, width=700, toolbars='mini')
+    content = UEditorField(height=500, width=300, toolbars='mini')
     category = models.ForeignKey(Category, null=True,
                                  on_delete=models.SET_NULL)
 

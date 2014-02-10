@@ -9,12 +9,10 @@ from stucampus.custom.permission import admin_group_check
 from stucampus.account.permission import check_admin
 
 
-@check_admin
 def redirect(request):
     return HttpResponseRedirect('/manage/status')
 
 
-@check_admin
 def status(request):
     python_version = platform.python_version()
     domain = request.get_host()

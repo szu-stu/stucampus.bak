@@ -14,8 +14,6 @@ from stucampus.utils import spec_json
 
 class ListAccount(View):
     """List all accounts class-base view"""
-    @method_decorator(permission_required('account.students_list'))
-    @method_decorator(user_passes_test(admin_group_check))
     def get(self, request):
         students = Student.objects.all()
         return render(request, 'master/account-list.html',
@@ -24,42 +22,26 @@ class ListAccount(View):
 
 class ShowAccount(View):
     """Show a specific account class-base view"""
-    @method_decorator(permission_required('account.student_show'))
-    @method_decorator(user_passes_test(admin_group_check))
     def get(self, request, id):
         student = get_object_or_404(Student, id=id)
         return render(request, 'master/account-view.html',
                       {'student': student})
 
-    @method_decorator(permission_required('account.student_edit'))
-    @method_decorator(user_passes_test(admin_group_check))
     def put(self, request, id):
-        form = AccountBanForm(request.PUT)
+        #form = AccountBanForm(request.PUT)
+        print 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
         student = get_object_or_404(Student, id=id)
-        try:
-            admin_group = Group.objects.get(name=name)
-        except Group.DoesNotExist:
-            return HttpResponse(status=403)
 
-        if admin_group in student.user.groups.all():
+        if student.user.has_perm('website_admin'):
             return spec_json(status='user_is_admin')
 
         student.user.is_active = False
         student.user.save()
         return spec_json(status='success')
 
-    @method_decorator(permission_required('account.student_del'))
-    @method_decorator(user_passes_test(admin_group_check))
     def delete(self, request, id):
         student = get_object_or_404(Student, id=id)
-        try:
-            admin_group = Group.objects.get(name=name)
-        except Group.DoesNotExist:
-            return HttpResponse(status=403)
-
-        student = get_object_or_404(Student, id=id)
-
-        if admin_group in student.user.groups.all():
+        if student.user.has_perm('website_admin'):
             return spec_json(status='user_is_admin')
 
         student.user.delete()
