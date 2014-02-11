@@ -19,7 +19,7 @@
 			<a href="{% url 'articles:display' %}?id={{ article.pk }}">
 				<div class="cont_headline_entry">
 					<div class="headline_pic"></div>
-					<h3>{{ article.title }}</h3>
+					<h3>{{ article.title | truncatechars:19  }}</h3>
 					<p>这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，字数多少慢慢斟酌，高度已固定，记得加省略号……</p>
 				</div>
 			</a>
@@ -35,11 +35,13 @@
 					{% for article in article_list %}
 						{% if forloop.first %}
 						<a href="{% url 'articles:display' %}?id={{ article.pk }}">
-							{{ article.title }}
+							{{ article.title | truncatechars:20 }}
 							<p>{{ article.summary | truncatechars:45 }}</p>
 						</a>
 						{% else %}
-						<a href="{% url 'articles:display' %}?id={{ article.pk }}">{{ article.title }}</a>
+						<a href="{% url 'articles:display' %}?id={{ article.pk }}">
+							{{ article.title | truncatechars:20  }}
+						</a>
 						{% endif %}
 					{% endfor %}
 				</ul>
@@ -76,14 +78,14 @@
 	</div><!--end of content-->
 
 	<div class="sidebar">
-		<div class="widget">
+<!-- 		<div class="widget">
 			<h2>信息中心</h2><a class="widget_more" href="">更多…</a>
 			<div class="widget_content">
 				<ul>
 					<li><a href="">硬盘足够快就可以取消内存吗？</a></li>
 				</ul>
 			</div>
-		</div>
+		</div> -->
 		<div class="widget">
 			<h2>讲座预告</h2><a class="widget_more" href="{% url 'lecture:index' %}">更多…</a>
 			<div class="widget_content">

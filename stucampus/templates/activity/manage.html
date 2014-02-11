@@ -80,6 +80,16 @@
                         {{ error }}&nbsp
                     {% endfor %}
                 </div>
+
+                <div class="input_list">
+                    <div class="title">specific Time</div>
+                    {{ form.specific_time }}
+                </div>
+                <div class="error">
+                    {% for error in form.specific_time.errors %}
+                        {{ error }}&nbsp
+                    {% endfor %}
+                </div>
                 <!-- 日期时间  End -->
                 <!-- 概要  Begin -->
                 <div class="input_list">

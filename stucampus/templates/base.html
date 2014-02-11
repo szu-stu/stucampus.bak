@@ -40,9 +40,10 @@
 			<a href="{% url 'activity:index' %}">活动预告</a>
 			<a href="{% url 'account:sign_in' %}">用户登录</a>
 			<a href="http://stu.szu.edu.cn:8080">服务专区</a>
-			<a href="">文章分类5</a>
-			<a href="">文章分类6</a>
-			<a href="">关于学子</a>
+			<a href="{% url 'aboutus' %}">关于学子</a>
+			{% for category, article_list in article_dict.items %}
+			<a href="{% url 'articles:list' %}?category={{ category }}">{{ category }}</a>
+			{% endfor %}
 		</div>
 	</div>
 </div>

@@ -93,10 +93,17 @@
                 </div>
                 <!-- 演讲者  End -->
                 <!-- URL ID  Begin -->
-                <a class="url" href="http://www.szu.edu.cn/board/view.asp?id={{ form.url_id.value }}">公文通</a>
+                <div class="input_list">
+                    <div class="title">url id</div>
+                    {{ form.url_id }}
+                </div>
+                <div class="error">
+                    {% for error in form.url_id.errors %}
+                        {{ error }}&nbsp
+                    {% endfor %}
+                </div>
                 <!-- URL ID End -->
-    
-                <div class="hidden">{{ form.url_id }}</div>
+
                 <!-- 已核-删除  Begin -->
                 <div class="choose_container">
                     <div class="choose check">checked

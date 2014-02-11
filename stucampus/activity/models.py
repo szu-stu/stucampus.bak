@@ -19,6 +19,7 @@ class ActivityMessage(models.Model):
     title = models.CharField(max_length=30)
     date= models.DateTimeField()
     time = models.CharField(max_length=10, choices=TIME)
+    specific_time = models.CharField(max_length=20)
     place = models.CharField(max_length=20)
     summary = models.CharField(max_length=140)
 

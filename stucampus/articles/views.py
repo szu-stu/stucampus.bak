@@ -1,6 +1,6 @@
 #-*- coding: utf-8
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.views.generic import View
 from django.core.paginator import InvalidPage, Paginator
@@ -14,7 +14,7 @@ from stucampus.utils import get_client_ip
 NO_CATEGORY = u'未分类'
 
 
-def create_page(request):
+def create_page(request, include_deleted=False):
     category = request.GET.get('category')
     if not category:
         article_list = Article.objects.all()
@@ -24,6 +24,8 @@ def create_page(request):
         else:
             category = get_object_or_404(Category, name=category)
         article_list = Article.objects.filter(category=category)
+    if not include_deleted:
+        article_list = article_list.filter(deleted=False)
     paginator = Paginator(article_list, 4)
     try:
         page = paginator.page(request.GET.get('page'))
@@ -125,10 +127,16 @@ class CategoryView(View):
 
 def article_list(request):
     page = create_page(request)
-    hot_articles_list = Article.objects.all().order_by('click_count')[:10]
-    newest_articles_list = Article.objects.all().order_by('-pk')[:10]
+    category = request.GET.get('category')
+    if not category:
+        raise Http404
+    hot_articles_list = \
+        Article.objects.filter(deleted=False).order_by('click_count')[:10]
+    newest_articles_list = \
+        Article.objects.filter(deleted=False).order_by('-pk')[:10]
     return render(request, 'articles/article-list.html',
-            {'page': page, 'hot_articles_list': hot_articles_list,
+            {'page': page, 'category': category,
+             'hot_articles_list': hot_articles_list,
              'newest_articles_list': newest_articles_list})
 
 
@@ -139,3 +147,4 @@ def article_display(request):
     article.save()
     return render(request, 'articles/article-display.html',
             {'article': article})
+
