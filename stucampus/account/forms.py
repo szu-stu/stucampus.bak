@@ -129,13 +129,3 @@ class PasswordForm(forms.Form):
             raise forms.ValidationError(_(u'Password must match'))
         return confirm
 
-
-class AccountBanForm(forms.Form):
-    ban = forms.BooleanField()
-
-    def clean_ban(self):
-        ban = self.cleaned_data.get('ban')
-        if not ban:
-            msg = _(u'Data is invalid.')
-            raise forms.ValidationError(msg)
-        return ban

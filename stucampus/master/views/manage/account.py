@@ -6,7 +6,6 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import (user_passes_test,
                                             permission_required)
 
-from stucampus.account.forms import AccountBanForm
 from stucampus.account.models import Student
 from stucampus.custom.permission import admin_group_check
 from stucampus.utils import spec_json
@@ -28,14 +27,12 @@ class ShowAccount(View):
                       {'student': student})
 
     def put(self, request, id):
-        #form = AccountBanForm(request.PUT)
-        print 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
         student = get_object_or_404(Student, id=id)
 
         if student.user.has_perm('website_admin'):
             return spec_json(status='user_is_admin')
 
-        student.user.is_active = False
+        student.user.is_active = not student.user.is_active
         student.user.save()
         return spec_json(status='success')
 

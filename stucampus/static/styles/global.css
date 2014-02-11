@@ -1,0 +1,599 @@
+﻿*{
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	font-family: Microsoft Yahei, sans-serif;
+	padding: 28px 28px 68px;
+	min-width: 1024px;
+	background: #eee;
+}
+
+img{
+	border: none;
+}
+
+a,button,input,h1,h2,h3{
+	transition: all 0.2s ease-out;
+}
+
+.inner_body{
+	position: relative;
+	overflow: hidden;
+	max-width: 1266px;
+	margin: 0 auto;
+	border-radius: 2px;
+	box-shadow:0 0 8px #ccc;
+	background-color: #fff;
+}
+
+.central{
+	position: relative;
+	overflow: hidden;
+	width: 980px;
+	margin: 0 auto;
+}
+
+/**style of header**/
+
+.header{
+	position: relative;
+	overflow: hidden;
+	height: 380px;
+	background: #5bc4be center url(../images/coverphoto/current.jpg) no-repeat;
+}
+/** center url(static/images/coverphoto/current.jpg) no-repeat **/
+
+.header .coverphoto_author{
+	position: absolute;
+	top: 12px;
+	right: 18px;
+	font-family: serif;
+	font-size: 14px;
+	color: #fff;
+}
+.header .home_title{
+	position: relative;
+	overflow: hidden;
+	margin: 108px 0 0;
+	font-size: 68px;
+	font-weight: normal;
+	color: #fff;
+	letter-spacing:10pt;
+	text-align: center;
+	text-shadow: 0 0 1px #f5f5f5;
+}
+.header .home_description{
+	position: relative;
+	overflow: hidden;
+	color: #fff;
+	margin: 30px 0;
+	text-align: center;
+	text-shadow: 0 0 1px #f5f5f5;
+}
+
+.header .home_nav{
+	position: relative;
+	overflow: visible;
+	font-family: serif;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 78px 0 0;
+	border-top: 1px solid #bbb;
+	border-top: 1px solid rgba(255,255,255,0.45);
+}
+
+.header .home_nav a{
+	float: left;
+	position: relative;
+	overflow: visible;
+	text-decoration: none;
+	border-top: 1px solid #bbb;
+	border-top: 1px solid rgba(255,255,255,0);
+	margin-top: -1px;
+	padding: 18px;
+	letter-spacing:1pt;
+	color: #999;
+	color: rgba(255,255,255,0.65);
+}
+
+.header .home_nav a.nav_current{
+	border-color: rgb(255,255,255);
+	color: rgb(255,255,255);
+	
+}
+
+.header .home_nav a:hover{
+	color: rgb(255,255,255);
+}
+
+/**style of content**/
+
+.content{
+	float: left;
+	position: relative;
+	overflow: hidden;
+	width: 650px;
+	margin: 38px 0 28px;
+}
+
+.content h2{
+	font-weight: normal;
+	font-size: 28px;
+	margin-bottom: 8px;
+	padding-bottom: 3px;
+	color: #000;
+	border-bottom: 2px solid #5bc4be;
+/**
+	border-left: 8px solid #5bc4be;
+	padding: 2px 0 3px 8px;
+**/
+}
+
+.content .cont_headline{
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 58px;
+}
+
+.content .cont_headline a{
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+	text-decoration: none;
+	margin: 8px 0;
+}
+
+.content .cont_headline a:hover .cont_headline_entry h3{
+	background: #5bc4be;
+	color: #fff;
+}
+
+.content .cont_headline a .cont_headline_entry{
+	position: relative;
+	overflow: hidden;
+	padding: 0 8px 0 192px;
+	height: 120px;
+}
+
+
+
+.content .cont_headline a .cont_headline_entry .headline_pic{
+	position: absolute;
+	overflow: hidden;
+	background: #f3f3f3;
+	height: 120px;
+	width: 180px;
+	left: 0;
+}
+
+.content .cont_headline a .cont_headline_entry h3{
+	position: relative;
+	overflow: hidden;
+	font-weight: normal;
+	font-size: 22px;
+	padding: 5px 0;
+	margin-bottom: 5px;
+	color: rgb(9,108,111);
+	text-align: center;
+}
+
+.content .cont_headline a .cont_headline_entry p{
+	position: relative;
+	overflow: hidden;
+	font-size: 14px;
+	font-family: serif;
+	color: #999;
+	line-height: 21px;
+	padding: 0 5px;
+}
+
+.content .categories_list{
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 28px;
+}
+
+.content .categories_list a{
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+	text-decoration: none;
+	margin: 5px 0;
+}
+
+.content .categories_list a:hover{
+	background: #f7f7f7;
+}
+
+.content .categories_list a .categories_list_entry{
+	position: relative;
+	overflow: hidden;
+	padding: 0 8px 0 148px;
+	height: 90px;
+}
+
+
+
+.content .categories_list a .categories_list_entry .entry_pic{
+	position: absolute;
+	overflow: hidden;
+	background: #f3f3f3;
+	height: 90px;
+	width: 135px;
+	left: 0;
+}
+
+.content .categories_list a .categories_list_entry h3{
+	position: relative;
+	overflow: hidden;
+	font-weight: normal;
+	font-size: 18px;
+	padding: 3px 0;
+	margin-bottom: 3px;
+	color: rgb(9,108,111);
+	text-align: left;
+}
+
+.content .categories_list a .categories_list_entry h3 span{
+	position: absolute;
+	overflow: hidden;
+	right: 8px;
+	top: 3px;
+	font-size: 13px;
+	color: #ababab;
+}
+
+.content .categories_list a .categories_list_entry p{
+	position: relative;
+	overflow: hidden;
+	font-size: 14px;
+	font-family: serif;
+	color: #999;
+	line-height: 17px;
+	padding: 0 3px;
+}
+
+.content .pagingbar{
+	position: relative;
+	overflow: hidden;
+	text-align: left;
+	margin-bottom: 38px;
+}
+
+.content .pagingbar a{
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+	background: #5bc4be;
+	text-decoration: none;
+	color: #fff;
+	font-size: 14px;
+	padding: 5px 8px 6px;
+	border-radius: 1px;
+}
+
+.content .pagingbar a:hover{
+	background: rgb(9,108,111)
+}
+
+.content .pagingbar span{
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+	font-size: 14px;
+	padding: 5px 8px 6px;
+	color: #666;
+}
+
+.content .cont_articles{
+	position: relative;
+	overflow: hidden;
+}
+
+ .content .cont_articles .mgright{
+ 	margin-right: 50px;
+ }
+
+.content .articles_list{
+	float: left;
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 58px;
+	width: 300px;
+}
+
+.content .cont_articles .articles_list a.articles_list_more{
+	position: absolute;
+	overflow: hidden;
+	font-size: 14px;
+	right: 10px;
+	top: 10px;
+	text-decoration: none;
+	color: #333;
+	visibility: hidden;
+}
+
+.content .cont_articles .articles_list:hover a.articles_list_more{
+	visibility: visible;
+}
+
+.content .cont_articles .articles_list a.articles_list_more:hover{
+	text-decoration: underline;
+}
+
+.content .cont_articles .articles_list ul{
+
+}
+
+.content .cont_articles .articles_list ul a p{
+	font-family: serif;
+	font-size: 13px;
+	color: #999;
+	padding: 8px 5px 2px;
+}
+
+.content .cont_articles .articles_list ul a{
+	position: relative;
+	overflow: hidden;
+	display: block;
+	padding: 4px 3px 4px;
+	font-size: 15px;
+	text-decoration: none;
+	color: #222;
+}
+
+.content .cont_articles .articles_list ul a:hover,.content .cont_articles .articles_list ul a:hover p{
+	background: #5bc4be;
+	color: #fff;
+}
+
+.content .co_media{
+	position: relative;
+	overflow: hidden;
+}
+
+.content .co_media a{
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+	text-decoration: none;
+	margin: 8px 0;
+}
+
+.content .co_media .co_media_box{
+	position: relative;
+	overflow: hidden;
+	border: 1px solid #eee;
+	border-radius: 1px;
+	padding: 18px 18px 18px 343px;
+	height: 130px;
+	font-family: serif;
+	font-size: 13px;
+	line-height: 19px;
+	color: #666;
+}
+
+.content .co_media .co_media_box .co_media_logo{
+	position: absolute;
+	overflow: hidden;
+	height: 130px;
+	width: 310px;
+	left: 18px;
+	background: #f8f8f8;
+	border-radius: 2px;
+}
+
+.content .co_media .co_media_box h3{
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+	background-color: #5bc4be;
+	color: #fff;
+	padding: 3px 5px 3px;
+	border-radius: 2px;
+	margin-bottom: 8px;
+	font-family: Microsoft Yahei, sans-serif;
+	font-weight: normal;
+	font-size: 15px;
+	letter-spacing: 1pt;
+}
+
+.content .co_media a:hover .co_media_box h3{
+	background: rgb(9,108,111);
+}
+
+/**style of article**/
+
+.article{
+	position: relative;
+	overflow: hidden;
+	margin: 38px auto 28px;
+}
+
+.article .article_header{
+	position: relative;
+	overflow: hidden;
+	text-align: center;
+}
+
+.article .article_header h2{
+	position: relative;
+	overflow: hidden;
+	font-size: 33px;
+	font-weight: normal;
+}
+
+.article .article_header .article_meta{
+	position: relative;
+	overflow: hidden;
+	padding: 38px;
+	font-family: serif;
+	font-size: 14px;
+	color: #666;
+}
+
+.article .article_header .article_meta span{
+	padding: 0 18px;
+}
+
+.article .article_body{
+	position: relative;
+	overflow: hidden;
+	padding: 0 58px;
+	margin-bottom: 18px;
+}
+
+.article .article_body .article_text{
+	position: relative;
+	overflow: hidden;
+	font-size: 18px;
+	line-height: 38px;
+}
+
+.article .article_body .article_text p{
+	margin-bottom: 18px;
+	text-indent: 2em;
+}
+
+.article .article_body .article_text img{
+	border: 1px solid #eee;
+	background: #f8f8f8;
+	padding: 8px;
+}
+
+/**style of sidebar**/
+
+.sidebar{
+	float: right;
+	position: relative;
+	overflow: hidden;
+	width: 290px;
+	margin: 38px 0 28px;
+}
+
+.sidebar .widget{
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 38px;
+}
+
+.sidebar .widget h2{
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+	font-size: 16px;
+	font-weight: normal;
+	background-color: #5bc4be;
+	color: #fff;
+	padding: 11px 18px 8px;
+	border-radius: 2px 2px 0 0;
+}
+
+.sidebar .widget a.widget_more{
+	position: absolute;
+	overflow: hidden;
+	font-size: 15px;
+	right: 8px;
+	top: 8px;
+	text-decoration: none;
+	color: #333;
+	visibility: hidden;
+}
+
+.sidebar .widget:hover a.widget_more{
+	visibility: visible;
+}
+
+.sidebar .widget a.widget_more:hover{
+	text-decoration: underline;
+}
+
+.sidebar .widget .widget_content{
+	border-top: 3px solid #5bc4be;
+}
+
+.sidebar .widget .widget_content ul li{
+	position: relative;
+	overflow: hidden;
+	list-style: none;
+}
+
+.sidebar .widget .widget_content ul li a{
+	position: relative;
+	overflow: hidden;
+	display: block;
+	text-decoration: none;
+	font-size: 14px;
+	border: 1px solid #eee;
+	border-top: none;
+	padding: 10px;
+	background-color: #fff;
+	color: #000;
+}
+
+.sidebar .widget .widget_content ul li a:hover{
+	background-color: #fcfcfc;
+	color: #5bc4be;
+}
+
+.sidebar .widget .widget_content ul.widget_co_league{
+	position: relative;
+	overflow: hidden;
+	border: 1px solid #eee;
+	border-top: none;
+	padding: 10px;
+}
+
+.sidebar .widget .widget_content ul.widget_co_league a{
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+	font-size: 15px;
+	text-decoration: none;
+	padding: 3px 8px 4px;
+	margin: 2px;
+	color: #fff;
+	background-color: #5bc4be;
+	border-radius: 2px;
+}
+
+.sidebar .widget .widget_content ul.widget_co_league a:hover{
+	background-color: rgb(9,108,111);
+}
+
+/**style of footer**/
+
+.footer{
+	position: relative;
+	overflow: hidden;
+	text-align: center;
+	padding: 8px 0;
+}
+
+.footer a{
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+	padding: 18px 28px;
+	text-decoration: none;
+	background: #5bc4be;
+	color: #ecf8f8;
+	font-size: 16px;
+}
+
+.footer a:hover{
+	background: rgb(9,108,111);
+}
+
+/**style of copyright**/
+
+.copyright{
+	position: relative;
+	overflow: hidden;
+	text-align: center;
+	padding: 18px 0 28px;
+	font-size: 14px;
+	color: #999;
+}

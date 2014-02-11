@@ -1,5 +1,5 @@
 #-*- coding: utf-8
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views.generic import View
@@ -22,7 +22,7 @@ def create_page(request):
         if category == NO_CATEGORY:
             category = None
         else:
-            category = Category.objects.get(name=category)
+            category = get_object_or_404(Category, name=category)
         article_list = Article.objects.filter(category=category)
     paginator = Paginator(article_list, 4)
     try:
@@ -61,7 +61,7 @@ class ModifyView(View):
 
     def get(self, request):
         article_id = request.GET.get('id')
-        article = Article.objects.get(id=article_id)
+        article = get_object_or_404(Article, pk=article_id)
         form = ArticleForm(instance=article)
         return render(request, 'articles/article-form.html',
                 {'form': form, 'article_id': article_id,
@@ -69,7 +69,7 @@ class ModifyView(View):
 
     def post(self, request):
         article_id = request.GET.get('id')
-        article = Article.objects.get(id=article_id)
+        article = get_object_or_404(Article, pk=article_id)
         form = ArticleForm(request.POST, instance=article)
         if not form.is_valid():
             return render(request, 'articles/article-form.html',
@@ -81,7 +81,7 @@ class ModifyView(View):
 
 def del_article(request):
     article_id = request.GET.get('id')
-    article = Article.objects.get(id=article_id)
+    article = get_object_or_404(Article, pk=article_id)
     article.deleted = not article.deleted
     article.save()
     return HttpResponseRedirect(reverse('articles:manage'))
@@ -89,7 +89,7 @@ def del_article(request):
 
 def set_important(request):
     article_id = request.GET.get('id')
-    article = Article.objects.get(id=article_id)
+    article = get_object_or_404(Article, pk=article_id)
     article.important = not article.important
     article.save()
     return HttpResponseRedirect(reverse('articles:manage'))
@@ -124,14 +124,17 @@ class CategoryView(View):
 
 
 def article_list(request):
+    hot_articles_list = Article.objects.all().order_by('click_count')[:10]
+    newest_articles_list = Article.objects.all().order_by('-pk')[:10]
     page = create_page(request)
     return render(request, 'articles/article-list.html',
-            {'page': page})
+            {'page': page, 'hot_articles_list': hot_articles_list,
+             'newest_articles_list': newest_articles_list})
 
 
 def article_display(request):
     article_id = request.GET.get('id')
-    article = Article.objects.get(id=article_id)
+    article = get_object_or_404(Article, pk=article_id)
     article.click_count += 1
     article.save()
     return render(request, 'articles/article-display.html',

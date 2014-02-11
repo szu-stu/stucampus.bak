@@ -10,106 +10,216 @@
 {% load py_utils %}
 
 {% block content %}
-    <div class="main">
-        <div class="container">
-            <div id="news-slider">
-                <ul class="bjqs">
-                {% for news in tops %}
-                    <li><a href="/news/{{news.id}}">
-                        <img src="{{news.coverImage}}" title="{{news.title}}" alt="图片：{{news.title}}" width="605" height="415" />
-                    </a></li>
-                {% endfor %}
-                </ul>
-            </div>
-            <div class="infor-center">
-                <h2 class="right">信息中心</h2>
-                <ul>
-                    {% for infor in infors %}
-                    <li>
-                        <a href="/infor/{{infor.id}}" title="{{infor.title}}">{{infor.title|ellipsis:"(10, '...')"}}</a>
-                        <div class="time-asso">
-                            <span>{{infor.create|friendly_date}}&nbsp&nbsp来自</span>
-                            <a href="#">{{infor.organization}}</a>
-                        </div>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
+<div class="central">
+	<div class="content">
 
-        <div class="container">
-            <div class="subfield left">
-                <h2 class="left">新闻速递</h2>
-                <ul>
-                    {% for news in newslist %}
-                    <li>
-                        <a href="/news/{{news.id}}" title="{{news.title}}">{{ news.title|ellipsis:"(10, '...')" }}</a>
-                        <span>{{ news.created|friendly_date }}</span>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div class="subfield right">
-                <h2 class="right">媒体聚焦</h2>
-                <ul>
-                    {% for medium in media %}
-                    <li>
-                        <a href="/news/{{ medium.id }}" title="{{ medium.title }}">{{ medium.title|ellipsis:"(10, '...')" }}</a>
-                        <span>{{ news.created|friendly_date }}</span>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
+		<div class="cont_headline">
+			<h2>深大焦点</h2>
+			<a href="">
+				<div class="cont_headline_entry">
+					<div class="headline_pic"></div>
+					<h3>浩贤哥携三千佳丽亮相深大 BOSS吃醋</h3>
+					<p>这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，字数多少慢慢斟酌，高度已固定，记得加省略号……</p>
+				</div>
+			</a>
+			<a href="">
+				<div class="cont_headline_entry">
+					<div class="headline_pic"></div>
+					<h3>小斌斌远赴非洲送情书 林酋长十动然拒</h3>
+					<p>这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，字数多少慢慢斟酌，高度已固定，记得加省略号……</p>
+				</div>
+			</a>
+			<a href="">
+				<div class="cont_headline_entry">
+					<div class="headline_pic"></div>
+					<h3>陈文欢郑佳生公布恋情 向日葵小太阳终成双</h3>
+					<p>这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，字数多少慢慢斟酌，高度已固定，记得加省略号……</p>
+				</div>
+			</a>
+		</div><!--end of cont_headline-->
 
-        <div class="container">
-            <div class="subfield left">
-                <h2 class="left">讲座预告</h2>
-                <li>
-                    <a href="#" title="【小编推荐】你唯一能把握的是变成最好的自己">【小编推荐】你唯一能把握的是变成最好的自己</a>
-                    <span>7天前</span>
-                </li>
-            </div>
-            <div class="subfield right">
-                <h2 class="right">活动预告</h2>
-                <li>
-                    <a href="#" title="【小编推荐】你唯一能把握的是变成最好的自己">【小编推荐】你唯一能把握的是变成最好的自己</a>
-                    <span>7天前</span>
-                </li>
-            </div>
-        </div>
+		<div class="cont_articles">
+			<div class="articles_list mgright">
+				<h2>文章分类1</h2><a class="articles_list_more" href="">更多…</a>
+				<ul>
+					<a href="">
+						为啥飞机起落架是三个轮？不是四个轮？
+						<p>这里是该列表的最新文章链接的摘要，至于限制字数是多少还需要斟酌。记得结尾加省略号…</p>
+					</a>
+					<a href="">AI聊天机器人单机版要怎么制作？</a>
+					<a href="">攻击未联网电脑真的能做到吗？</a>
+					<a href="">带自动瞄准的步枪是什么原理？</a>
+					<a href="">如何改变人们对文身的态度？</a>
+				</ul>
+			</div>
+			<div class="articles_list">
+				<h2>文章分类2</h2><a class="articles_list_more" href="">更多…</a>
+				<ul>
+					<a href="">
+						Calyx Canthus也表示腊梅吗？
+						<p>这里是该列表的最新文章链接的摘要，至于限制字数是多少还需要斟酌。记得结尾加省略号…</p>
+					</a>
+					<a href="">球状闪电是怎么回事呢？</a>
+					<a href="">海洋生物渴了怎么办？</a>
+					<a href="">地球的氧气都是植物产生的吗？</a>
+					<a href="">英语中有类似绝句这样的短诗吗？</a>
+				</ul>
+			</div>
+			<div class="articles_list mgright">
+				<h2>文章分类3</h2><a class="articles_list_more" href="">更多…</a>
+				<ul>
+					<a href="">
+						硬盘足够快就可以取消内存吗？
+						<p>这里是该列表的最新文章链接的摘要，至于限制字数是多少还需要斟酌。记得结尾加省略号…</p>
+					</a>
+					<a href="">如何对付讨厌而又不能出声反对的亲戚？</a>
+					<a href="">薯片的塑料包装袋中充的是什么气体？</a>
+					<a href="">如何对付讨厌而又不能出声反对的亲戚？</a>
+					<a href="">【手绘DIY】晒几张中土主题书签&卡片吧</a>
+				</ul>
+			</div>
+			<div class="articles_list">
+				<h2>文章分类4</h2><a class="articles_list_more" href="">更多…</a>
+				<ul>
+					<a href="">
+						为啥飞机起落架是三个轮？不是四个轮？
+						<p>这里是该列表的最新文章链接的摘要，至于限制字数是多少还需要斟酌。记得结尾加省略号…</p>
+					</a>
+					<a href="">AI聊天机器人单机版要怎么制作？</a>
+					<a href="">攻击未联网电脑真的能做到吗？</a>
+					<a href="">带自动瞄准的步枪是什么原理？</a>
+					<a href="">如何改变人们对文身的态度？</a>
+				</ul>
+			</div>
+			<div class="articles_list mgright">
+				<h2>文章分类5</h2><a class="articles_list_more" href="">更多…</a>
+				<ul>
+					<a href="">
+						硬盘足够快就可以取消内存吗？
+						<p>这里是该列表的最新文章链接的摘要，至于限制字数是多少还需要斟酌。记得结尾加省略号…</p>
+					</a>
+					<a href="">如何对付讨厌而又不能出声反对的亲戚？</a>
+					<a href="">薯片的塑料包装袋中充的是什么气体？</a>
+					<a href="">如何对付讨厌而又不能出声反对的亲戚？</a>
+					<a href="">【手绘DIY】晒几张中土主题书签&卡片吧</a>
+				</ul>
+			</div>
+			<div class="articles_list">
+				<h2>文章分类6</h2><a class="articles_list_more" href="">更多…</a>
+				<ul>
+					<a href="">
+						为啥飞机起落架是三个轮？不是四个轮？
+						<p>这里是该列表的最新文章链接的摘要，至于限制字数是多少还需要斟酌。记得结尾加省略号…</p>
+					</a>
+					<a href="">AI聊天机器人单机版要怎么制作？</a>
+					<a href="">攻击未联网电脑真的能做到吗？</a>
+					<a href="">带自动瞄准的步枪是什么原理？</a>
+					<a href="">《霍比特人》：法师甘道夫是如何当VC好的</a>
+				</ul>
+			</div>
 
-        <div class="container">
-            <div class="magazine">
-                <h2 class="left">合作杂志</h2>
-                <div class="container">
-                    <a href="/szuyouth/pdf" title="深青杂志在线版">
-                        <img src="/static/images/new_index/suy.png">
-                    </a>
-                    <div class="introduction">
-                        <h3>深大青年杂志社</h3>
-                        <p>在这里，你可以了解荔园的资讯，<br />在这里，你可以知晓明星师生背后的点点滴滴，<br />在这里，你可以分享自己对热点动态的独特视角，<br />在这里，你可以品读文学，阐释经典，解读行走，<br />在这里，读懂深大。</p>
-                    </div>
-                </div>
-                <div class="magazine-line"></div>
-                <div class="container">
-                    <a href="/magazine/ltsshekan" title="浪淘沙文学社">
-                        <img src="/static/images/new_index/lts.png">
-                    </a>
-                    <div class="introduction">
-                        <h3>浪淘沙文学社</h3>
-                        <p style=text-indent:2em>假如现实世界残酷分崩离析，至少还有文字可以温暖彼此。</p>
-                    </div>
-                </div>
-            </div>
+		</div><!--end of cont_articles-->
 
-            <div class="railway">
-                <h2 class="right">订票系统</h2>
-                <a href="http://192.168.2.113/"><img src="/static/images/new_index/railway.jpg" title="火车票订票系统" width="225px" height="100px"></a>
-                <h3>回家•路</h3>
-                <div class="railway-blue"></div>
-            </div>
-        </div>
-    </div>
-    
+		<div class="co_media">
+			<h2>合作媒体</h2>
+			<a href="">
+				<div class="co_media_box">
+					<div class="co_media_logo"><img src="static/images/co_media/szuyouth.png" height="130px" width="310px" /></div>
+					<h3>深大青年杂志社</h3>
+					<p>
+						在这里，你可以了解荔园的资讯，<br />
+						在这里，你可以知晓明星师生背后的点点滴滴，<br />
+						在这里，你可以分享自己对热点动态的独特视角，<br />
+						在这里，你可以品读文学，阐释经典，解读行走，<br />
+						在这里，读懂深大。<br />
+					</p>
+				</div>
+			</a>
+			<a href="">
+				<div class="co_media_box">
+					<div class="co_media_logo"><img src="static/images/co_media/langtaosha.png" height="130px" width="310px" /></div>
+					<h3>浪淘沙文学社</h3>
+					<p>
+						假如现实世界残酷分崩离析，至少还有文字可以温暖彼此。
+					</p>
+				</div>
+			</a>
+		</div><!--end of co_media-->
+
+	</div><!--end of content-->
+
+	<div class="sidebar">
+		<div class="widget">
+			<h2>信息中心</h2><a class="widget_more" href="">更多…</a>
+			<div class="widget_content">
+				<ul>
+					<li><a href="">硬盘足够快就可以取消内存吗？</a></li>
+					<li><a href="">如何对付讨厌而又不能出声反对的亲戚？</a></li>
+					<li><a href="">薯片的塑料包装袋中充的是什么气体？</a></li>
+					<li><a href="">如何对付讨厌而又不能出声反对的亲戚？</a></li>
+					<li><a href="">【手绘DIY】晒几张中土主题书签&卡片吧</a></li>
+					<li><a href="">如何对付讨厌而又不能出声反对的亲戚？</a></li>
+					<li><a href="">薯片的塑料包装袋中充的是什么气体？</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="widget">
+			<h2>讲座预告</h2><a class="widget_more" href="">更多…</a>
+			<div class="widget_content">
+				<ul>
+					<li><a href="">硬盘足够快就可以取消内存吗？</a></li>
+					<li><a href="">如何对付讨厌而又不能出声反对的亲戚？</a></li>
+					<li><a href="">薯片的塑料包装袋中充的是什么气体？</a></li>
+					<li><a href="">如何对付讨厌而又不能出声反对的亲戚？</a></li>
+					<li><a href="">【手绘DIY】晒几张中土主题书签&卡片吧</a></li>
+					<li><a href="">如何对付讨厌而又不能出声反对的亲戚？</a></li>
+					<li><a href="">薯片的塑料包装袋中充的是什么气体？</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="widget">
+			<h2>活动预告</h2><a class="widget_more" href="">更多…</a>
+			<div class="widget_content">
+				<ul>
+					<li><a href="">硬盘足够快就可以取消内存吗？</a></li>
+					<li><a href="">如何对付讨厌而又不能出声反对的亲戚？</a></li>
+					<li><a href="">薯片的塑料包装袋中充的是什么气体？</a></li>
+					<li><a href="">如何对付讨厌而又不能出声反对的亲戚？</a></li>
+					<li><a href="">【手绘DIY】晒几张中土主题书签&卡片吧</a></li>
+					<li><a href="">如何对付讨厌而又不能出声反对的亲戚？</a></li>
+					<li><a href="">薯片的塑料包装袋中充的是什么气体？</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="widget">
+			<h2>合作社团</h2>
+			<div class="widget_content">
+				<ul class="widget_co_league">
+					<a href="" target="_blank">浩贤哥粉丝团</a>
+					<a href="" target="_blank">林部落</a>
+					<a href="" target="_blank">超人组</a>
+					<a href="" target="_blank">奴隶兽联盟</a>
+					<a href="" target="_blank">山口组</a>
+					<a href="" target="_blank">深大猫</a>
+				</ul>
+			</div>
+		</div>
+
+		<div class="widget">
+			<a href="" target="_blank"><img src="static/images/banner/train.png" width="310px" /></a>
+		</div>
+
+		<!--<div class="widget">
+			<h2>公文通</h2>
+			<div class="widget_content">
+				<ul>
+					<iframe src="http://www.szu.edu.cn/board/mylist.asp?ptime=0&fsize=14&top=8" height="360px" width="310px;" name="frmmails" frameborder="0" scrolling="yes"></iframe>
+				</ul>
+			</div>
+		</div>-->
+
+
+	</div><!--end of sidebar-->
+</div><!--end of central-->
 {% endblock %}

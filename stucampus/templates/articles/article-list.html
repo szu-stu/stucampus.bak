@@ -6,10 +6,66 @@
 
 {% block content %}
 
-{% for article in page %}
-	<a href="{% url 'articles:display' %}?id={{ article.pk }}">{{ article.title }}</a>
-{% endfor %}
+<div class="central">
+	<div class="content">
 
-{% include 'utils/paginator.html' with page=page %}
+		<div class="categories_list">
+			<h2>文章分类1</h2>
+			{% for article in page %}
+			<a href="{% url 'articles:display' %}?id={{ article.pk }}">
+				<div class="categories_list_entry">
+					<div class="entry_pic"></div>
+					<h3>{{ article.title }}<span>{{ article.create_date | date:"Y年n月d日"}}</span></h3>
+					<p>这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，字数多少慢慢斟酌，高度已固定，记得加省略号……</p>
+				</div>
+			</a>
+			{% endfor %}
+		</div><!--end of categories_list-->
+
+		<div class="pagingbar">
+        	<a href="?page=1">首页</a>
+   			{% if page.has_previous %}
+        		<a href="?page={{ page.previous_page_number }}" class="previous">上一页</a>
+    		{% endif %}
+
+    		<span>第 {{ page.number }} 页，共 {{ page.paginator.num_pages }} 页</span>
+    
+    		{% if page.has_next %}
+        		<a class="next" href="?page={{ page.next_page_number }}">下一页</a>
+    		{% endif %}
+        	<a href="?page={{ page.paginator.num_pages }}">尾页</a>
+		</div>
+
+	</div><!--end of content-->
+
+	<div class="sidebar">
+		<div class="widget">
+			<h2>热门排行</h2><a class="widget_more" href="">更多…</a>
+			<div class="widget_content">
+				<ul>
+					{% for article in hot_articles_list %}
+					<li>
+						<a href="{% url 'articles:display' %}?id={{ article.pk }}">{{ article.title }}</a>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+
+		<div class="widget">
+			<h2>最近更新</h2><a class="widget_more" href="">更多…</a>
+			<div class="widget_content">
+				<ul>
+					{% for article in newest_articles_list %}
+					<li>
+						<a href="{% url 'articles:display' %}?id={{ article.pk }}">{{ article.title }}</a>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div><!--end of sidebar-->
+
+</div><!--end of central-->
 
 {% endblock %}

@@ -35,7 +35,13 @@ ul li div{
                 <div style="width:10%">{{ stu | get_student_status }}</div>
             </a>
                 <div style="width:10%">
-                    <a href="javascript:void(0)" onclick="$S.Account.remove({{stu.id}})">删除</a> | <a href="javascript:void(0)" onclick="$S.Account.ban({{stu.id}})">禁用</a>
+                    <a href="javascript:void(0)" onclick="$S.Account.remove({{stu.id}})">删除</a> | <a href="javascript:void(0)" onclick="$S.Account.ban({{stu.id}})">
+                    {% if stu.user.is_active %}
+                        禁用
+                    {% else %}
+                        恢复
+                    {% endif %}
+                    </a>
                 </div>
             </li>
         {% endfor %}

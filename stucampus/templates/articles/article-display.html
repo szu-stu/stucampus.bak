@@ -6,13 +6,34 @@
 
 {% block content %}
 
-{{ article.title }}
+<div class="central article">
+	<div class="article_header">
+		<h2>{{ article.title }}</h2>
+		<div class="article_meta">
+			<span>发表日期：{{ article.create_date | date:"Y年n月d日"}}</span>
+			<span>文章分类：{{ article.category }}</span>
+			{% if article.source %}
+			<span>来源：{{ article.source }}</span>
+			{% endif %}
+			<span>作者：{{ article.author }}</span>
+			<span>责任编辑：{{ article.editor.student.true_name }}</span>
+		</div>
+	</div>
 
-{% autoescape off %}
-{{ article.content }}
-{% endautoescape %}
+	<div class="article_body">
+		<div class="article_text">
+		{% autoescape off %}
+			{{ article.content }}
+		{% endautoescape %}
+		</div>
+		{% if article.source %}
+            <p>[消息来源：<a href="{{ article.source_link }}" target="_blank">{{ article.source }}</a>]</p>
+			<div class="article_share">分享</div>
+        {% endif %}
+	</div>
 
-
-{% include 'utils/paginator.html' with page=page %}
+	<div class="article_footer">
+	</div>
+</div><!--end of central article-->
 
 {% endblock %}
