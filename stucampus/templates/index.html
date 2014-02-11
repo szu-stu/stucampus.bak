@@ -15,109 +15,36 @@
 
 		<div class="cont_headline">
 			<h2>深大焦点</h2>
-			<a href="">
+			{% for article in important_articles %}
+			<a href="{% url 'articles:display' %}?id={{ article.pk }}">
 				<div class="cont_headline_entry">
 					<div class="headline_pic"></div>
-					<h3>浩贤哥携三千佳丽亮相深大 BOSS吃醋</h3>
+					<h3>{{ article.title }}</h3>
 					<p>这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，字数多少慢慢斟酌，高度已固定，记得加省略号……</p>
 				</div>
 			</a>
-			<a href="">
-				<div class="cont_headline_entry">
-					<div class="headline_pic"></div>
-					<h3>小斌斌远赴非洲送情书 林酋长十动然拒</h3>
-					<p>这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，字数多少慢慢斟酌，高度已固定，记得加省略号……</p>
-				</div>
-			</a>
-			<a href="">
-				<div class="cont_headline_entry">
-					<div class="headline_pic"></div>
-					<h3>陈文欢郑佳生公布恋情 向日葵小太阳终成双</h3>
-					<p>这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，字数多少慢慢斟酌，高度已固定，记得加省略号……</p>
-				</div>
-			</a>
+			{% endfor %}
 		</div><!--end of cont_headline-->
 
 		<div class="cont_articles">
-			<div class="articles_list mgright">
-				<h2>文章分类1</h2><a class="articles_list_more" href="">更多…</a>
+			{% for category, article_list in article_dict.items %}
+			<div class="articles_list {% cycle 'mgright' '' %}">
+				<h2>{{ category }}</h2>
+				<a class="articles_list_more" href="{% url 'articles:list' %}?category={{ category }}">更多…</a>
 				<ul>
-					<a href="">
-						为啥飞机起落架是三个轮？不是四个轮？
-						<p>这里是该列表的最新文章链接的摘要，至于限制字数是多少还需要斟酌。记得结尾加省略号…</p>
-					</a>
-					<a href="">AI聊天机器人单机版要怎么制作？</a>
-					<a href="">攻击未联网电脑真的能做到吗？</a>
-					<a href="">带自动瞄准的步枪是什么原理？</a>
-					<a href="">如何改变人们对文身的态度？</a>
+					{% for article in article_list %}
+						{% if forloop.first %}
+						<a href="{% url 'articles:display' %}?id={{ article.pk }}">
+							{{ article.title }}
+							<p>{{ article.summary | truncatechars:45 }}</p>
+						</a>
+						{% else %}
+						<a href="{% url 'articles:display' %}?id={{ article.pk }}">{{ article.title }}</a>
+						{% endif %}
+					{% endfor %}
 				</ul>
 			</div>
-			<div class="articles_list">
-				<h2>文章分类2</h2><a class="articles_list_more" href="">更多…</a>
-				<ul>
-					<a href="">
-						Calyx Canthus也表示腊梅吗？
-						<p>这里是该列表的最新文章链接的摘要，至于限制字数是多少还需要斟酌。记得结尾加省略号…</p>
-					</a>
-					<a href="">球状闪电是怎么回事呢？</a>
-					<a href="">海洋生物渴了怎么办？</a>
-					<a href="">地球的氧气都是植物产生的吗？</a>
-					<a href="">英语中有类似绝句这样的短诗吗？</a>
-				</ul>
-			</div>
-			<div class="articles_list mgright">
-				<h2>文章分类3</h2><a class="articles_list_more" href="">更多…</a>
-				<ul>
-					<a href="">
-						硬盘足够快就可以取消内存吗？
-						<p>这里是该列表的最新文章链接的摘要，至于限制字数是多少还需要斟酌。记得结尾加省略号…</p>
-					</a>
-					<a href="">如何对付讨厌而又不能出声反对的亲戚？</a>
-					<a href="">薯片的塑料包装袋中充的是什么气体？</a>
-					<a href="">如何对付讨厌而又不能出声反对的亲戚？</a>
-					<a href="">【手绘DIY】晒几张中土主题书签&卡片吧</a>
-				</ul>
-			</div>
-			<div class="articles_list">
-				<h2>文章分类4</h2><a class="articles_list_more" href="">更多…</a>
-				<ul>
-					<a href="">
-						为啥飞机起落架是三个轮？不是四个轮？
-						<p>这里是该列表的最新文章链接的摘要，至于限制字数是多少还需要斟酌。记得结尾加省略号…</p>
-					</a>
-					<a href="">AI聊天机器人单机版要怎么制作？</a>
-					<a href="">攻击未联网电脑真的能做到吗？</a>
-					<a href="">带自动瞄准的步枪是什么原理？</a>
-					<a href="">如何改变人们对文身的态度？</a>
-				</ul>
-			</div>
-			<div class="articles_list mgright">
-				<h2>文章分类5</h2><a class="articles_list_more" href="">更多…</a>
-				<ul>
-					<a href="">
-						硬盘足够快就可以取消内存吗？
-						<p>这里是该列表的最新文章链接的摘要，至于限制字数是多少还需要斟酌。记得结尾加省略号…</p>
-					</a>
-					<a href="">如何对付讨厌而又不能出声反对的亲戚？</a>
-					<a href="">薯片的塑料包装袋中充的是什么气体？</a>
-					<a href="">如何对付讨厌而又不能出声反对的亲戚？</a>
-					<a href="">【手绘DIY】晒几张中土主题书签&卡片吧</a>
-				</ul>
-			</div>
-			<div class="articles_list">
-				<h2>文章分类6</h2><a class="articles_list_more" href="">更多…</a>
-				<ul>
-					<a href="">
-						为啥飞机起落架是三个轮？不是四个轮？
-						<p>这里是该列表的最新文章链接的摘要，至于限制字数是多少还需要斟酌。记得结尾加省略号…</p>
-					</a>
-					<a href="">AI聊天机器人单机版要怎么制作？</a>
-					<a href="">攻击未联网电脑真的能做到吗？</a>
-					<a href="">带自动瞄准的步枪是什么原理？</a>
-					<a href="">《霍比特人》：法师甘道夫是如何当VC好的</a>
-				</ul>
-			</div>
-
+			{% endfor %}
 		</div><!--end of cont_articles-->
 
 		<div class="co_media">
@@ -154,40 +81,34 @@
 			<div class="widget_content">
 				<ul>
 					<li><a href="">硬盘足够快就可以取消内存吗？</a></li>
-					<li><a href="">如何对付讨厌而又不能出声反对的亲戚？</a></li>
-					<li><a href="">薯片的塑料包装袋中充的是什么气体？</a></li>
-					<li><a href="">如何对付讨厌而又不能出声反对的亲戚？</a></li>
-					<li><a href="">【手绘DIY】晒几张中土主题书签&卡片吧</a></li>
-					<li><a href="">如何对付讨厌而又不能出声反对的亲戚？</a></li>
-					<li><a href="">薯片的塑料包装袋中充的是什么气体？</a></li>
 				</ul>
 			</div>
 		</div>
 		<div class="widget">
-			<h2>讲座预告</h2><a class="widget_more" href="">更多…</a>
+			<h2>讲座预告</h2><a class="widget_more" href="{% url 'lecture:index' %}">更多…</a>
 			<div class="widget_content">
 				<ul>
-					<li><a href="">硬盘足够快就可以取消内存吗？</a></li>
-					<li><a href="">如何对付讨厌而又不能出声反对的亲戚？</a></li>
-					<li><a href="">薯片的塑料包装袋中充的是什么气体？</a></li>
-					<li><a href="">如何对付讨厌而又不能出声反对的亲戚？</a></li>
-					<li><a href="">【手绘DIY】晒几张中土主题书签&卡片吧</a></li>
-					<li><a href="">如何对付讨厌而又不能出声反对的亲戚？</a></li>
-					<li><a href="">薯片的塑料包装袋中充的是什么气体？</a></li>
+					{% for lecture in lecture_list %}
+					<li>
+						<a href="http://www.szu.edu.cn/board/view.asp?id={{ lecture.url_id }}">
+							{{ lecture.title | truncatechars:18 }}
+						</a>
+					</li>
+					{% endfor %}
 				</ul>
 			</div>
 		</div>
 		<div class="widget">
-			<h2>活动预告</h2><a class="widget_more" href="">更多…</a>
+			<h2>活动预告</h2><a class="widget_more" href="{% url 'activity:index' %}">更多…</a>
 			<div class="widget_content">
 				<ul>
-					<li><a href="">硬盘足够快就可以取消内存吗？</a></li>
-					<li><a href="">如何对付讨厌而又不能出声反对的亲戚？</a></li>
-					<li><a href="">薯片的塑料包装袋中充的是什么气体？</a></li>
-					<li><a href="">如何对付讨厌而又不能出声反对的亲戚？</a></li>
-					<li><a href="">【手绘DIY】晒几张中土主题书签&卡片吧</a></li>
-					<li><a href="">如何对付讨厌而又不能出声反对的亲戚？</a></li>
-					<li><a href="">薯片的塑料包装袋中充的是什么气体？</a></li>
+					{% for activity in activity_list %}
+					<li>
+						<a href="">
+							{{ activity.title | truncatechars:18 }}
+						</a>
+					</li>
+					{% endfor %}
 				</ul>
 			</div>
 		</div>
@@ -207,7 +128,7 @@
 		</div>
 
 		<div class="widget">
-			<a href="" target="_blank"><img src="static/images/banner/train.png" width="310px" /></a>
+			<a href="" target="_blank"><img src="/static/images/banner/train.png" width="310px" /></a>
 		</div>
 
 		<!--<div class="widget">

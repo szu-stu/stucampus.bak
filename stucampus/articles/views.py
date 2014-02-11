@@ -116,7 +116,7 @@ class CategoryView(View):
     def post(self, request):
         formset = CategoryFormset(request.POST)
         if not formset.is_valid():
-            category_list = create_category_list()
+            category_list = CategoryView.create_category_list()
             return render(request, 'articles/category-form.html',
                     {'formset': formset, 'category_list': category_list})
         formset.save()
@@ -124,9 +124,9 @@ class CategoryView(View):
 
 
 def article_list(request):
+    page = create_page(request)
     hot_articles_list = Article.objects.all().order_by('click_count')[:10]
     newest_articles_list = Article.objects.all().order_by('-pk')[:10]
-    page = create_page(request)
     return render(request, 'articles/article-list.html',
             {'page': page, 'hot_articles_list': hot_articles_list,
              'newest_articles_list': newest_articles_list})
