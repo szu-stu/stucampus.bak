@@ -10,12 +10,14 @@ def index(request):
     # 深大焦点
     important_articles = \
             Article.objects.filter(
+                    publish=True,
                     deleted=False,
                     important=True).order_by('-pk')[:3]
     # 不同类别的文章
     article_dict = \
             {category: \
              Article.objects.filter(
+                 publish=True,
                  deleted=False,
                  category=category).order_by('-pk')[:5] \
              for category in Category.objects.all()}

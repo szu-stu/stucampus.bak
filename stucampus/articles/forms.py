@@ -11,7 +11,7 @@ class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
         exclude = ['editor', 'create_ip', 'click_count',
-                   'deleted', 'important']
+                   'deleted', 'important', 'publish']
 
 
 class CategoryForm(forms.ModelForm):

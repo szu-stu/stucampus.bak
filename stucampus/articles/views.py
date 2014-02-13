@@ -14,28 +14,22 @@ from stucampus.utils import get_client_ip
 NO_CATEGORY = u'未分类'
 
 
-def create_page(request, include_deleted=False):
+
+def manage(request):
     category = request.GET.get('category')
     if not category:
         article_list = Article.objects.all()
     else:
         if category == NO_CATEGORY:
-            category = None
+            article_list = Article.objects.filter(category=NO_CATEGORY)
         else:
             category = get_object_or_404(Category, name=category)
-        article_list = Article.objects.filter(category=category)
-    if not include_deleted:
-        article_list = article_list.filter(deleted=False)
+            article_list = Article.objects.filter(category=category)
     paginator = Paginator(article_list, 4)
     try:
         page = paginator.page(request.GET.get('page'))
     except InvalidPage:
         page = paginator.page(1)
-    return page
-
-
-def manage(request):
-    page = create_page(request)
     return render(request, 'articles/manage.html',
             {'page': page})
 
@@ -96,6 +90,13 @@ def set_important(request):
     article.save()
     return HttpResponseRedirect(reverse('articles:manage'))
 
+def publish(request):
+    article_id = request.GET.get('id')
+    article = get_object_or_404(Article, pk=article_id)
+    article.publish = not article.publish
+    article.save()
+    return HttpResponseRedirect(reverse('articles:manage'))
+
 
 class CategoryView(View):
 
@@ -126,14 +127,25 @@ class CategoryView(View):
 
 
 def article_list(request):
-    page = create_page(request)
     category = request.GET.get('category')
-    if not category:
-        raise Http404
+    category = get_object_or_404(Category, name=category)
+    article_list = Article.objects.filter(category=category,
+                                          publish=True,
+                                          deleted=False)
+    paginator = Paginator(article_list, 4)
+    try:
+        page = paginator.page(request.GET.get('page'))
+    except InvalidPage:
+        page = paginator.page(1)
+
     hot_articles_list = \
-        Article.objects.filter(deleted=False).order_by('click_count')[:10]
+        Article.objects.filter(
+                publish=True,
+                deleted=False).order_by('click_count')[:10]
     newest_articles_list = \
-        Article.objects.filter(deleted=False).order_by('-pk')[:10]
+        Article.objects.filter(
+                publish=True,
+                deleted=False).order_by('-pk')[:10]
     return render(request, 'articles/article-list.html',
             {'page': page, 'category': category,
              'hot_articles_list': hot_articles_list,
@@ -142,7 +154,7 @@ def article_list(request):
 
 def article_display(request):
     article_id = request.GET.get('id')
-    article = get_object_or_404(Article, pk=article_id)
+    article = get_object_or_404(Article, pk=article_id, publish=True)
     article.click_count += 1
     article.save()
     return render(request, 'articles/article-display.html',

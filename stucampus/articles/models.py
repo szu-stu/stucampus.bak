@@ -46,4 +46,5 @@ class Article(models.Model):
     click_count = models.IntegerField(default=0, editable=False)
     deleted = models.BooleanField(default=False)
     important = models.BooleanField(default=False)
+    publish = models.BooleanField(default=False)
 
