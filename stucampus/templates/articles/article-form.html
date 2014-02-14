@@ -9,7 +9,71 @@
         <form method="post" enctype="multipart/form-data"
             action="{{ post_url }}?id={{ article_id }}">
             {% csrf_token %}
-            {{ form.as_p }}
+
+            <div>
+                标题
+            {{ form.title }}
+            {% for error in form.title.errors %}
+                {{ error }}
+            {% endfor %}
+            </div>
+
+            <div>
+                摘要
+            {{ form.summary }}
+            {% for error in form.summary.errors %}
+                {{ error }}
+            {% endfor %}
+            </div>
+
+            <div>
+                内容
+            {{ form.content }}
+            {% for error in form.content.errors %}
+                {{ error }}
+            {% endfor %}
+            </div>
+
+            <div>
+                文章分类
+            {{ form.category }}
+            {% for error in form.category.errors %}
+                {{ error }}
+            {% endfor %}
+            </div>
+
+            <div>
+                作者
+            {{ form.author }}
+            {% for error in form.author.errors %}
+                {{ error }}
+            {% endfor %}
+            </div>
+
+            <div>
+                来源
+            {{ form.source }}
+            {% for error in form.source.errors %}
+                {{ error }}
+            {% endfor %}
+            </div>
+
+            <div>
+                来源链接
+            {{ form.source_link }}
+            {% for error in form.source_link.errors %}
+                {{ error }}
+            {% endfor %}
+            </div>
+
+            <div>
+                封面图片
+            {{ form.cover }}
+            {% for error in form.cover.errors %}
+                {{ error }}
+            {% endfor %}
+            </div>
+
             <input type="submit" value="submit">
         </form>
 {% endblock %}

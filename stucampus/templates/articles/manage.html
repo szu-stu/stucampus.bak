@@ -7,43 +7,65 @@
 
 {% block content %}
 
-	{% autoescape off %}
 	{% for article in page %}
 	<div>
+        文章id
 		{{ article.pk }}
+
+        标题
 		{{ article.title }}
-		{{ article.category }}
+
+        文章分类
+        {% if article.category %}
+		    {{ article.category }}
+        {% else %}
+            未分类
+        {% endif %}
+
+        点击次数
 		{{ article.click_count }}
+
+        小编
 		{{ article.editor.username }}
-		{{ article.create_date }}
-		{{ article.modify_date }}
+
+        创建日期
+		{{ article.create_date | date:"Y年n月d日" }}
+
+        修改日期
+		{{ article.modify_date | date:"Y年n月d日" }}
+
+        创建人ip
 		{{ article.create_ip }}
+
 		<a href="{% url 'articles:del_article' %}?id={{ article.pk }}">
 			{% if article.deleted %} 
-				recover 
+                恢复
 			{% else %} 
-				delete 
+                删除
 			{% endif %}
 		</a>
+
 		<a href="{% url 'articles:set_important' %}?id={{ article.pk }}">
 			{% if article.important %} 
-				set not important 
+                从首页焦点下架
 			{% else %} 
-				set important 
+                放上首页焦点
 			{% endif %}
 		</a>
+
 		<a href="{% url 'articles:publish' %}?id={{ article.pk }}">
 			{% if article.publish %} 
-				not publish
+                解除发布
 			{% else %} 
-				publish 
+                发布文章
 			{% endif %}
 			</a>
-		<a href="{% url 'articles:modify' %}?id={{ article.pk }}">edit</a>
+
+		<a href="{% url 'articles:modify' %}?id={{ article.pk }}">编辑</a>
+
 	</div>
 	{% endfor %}
 	<div>----------------</div>
-	{% endautoescape %}
 
     {% include 'utils/paginator.html' with page=page %}
 

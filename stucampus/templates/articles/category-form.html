@@ -15,7 +15,33 @@
             {% csrf_token %}
             {{ formset.management_form }}
             {% for form in formset %}
-                <div>{{ form }}</div>
+
+                {{ form.id }}
+
+                <div>
+                    分类名
+                {{ form.name }}
+                {% for error in form.name.errors %}
+                    {{ error }}
+                {% endfor %}
+                </div>
+
+                <div>
+                    优先级
+                {{ form.priority }}
+                {% for error in form.priority.errors %}
+                    {{ error }}
+                {% endfor %}
+                </div>
+
+                <div>
+                    删除
+                {{ form.DELETE }}
+                {% for error in form.DELETE.errors %}
+                    {{ error }}
+                {% endfor %}
+                </div>
+
             {% endfor %}
             <input type="submit" value="submit">
         </form>

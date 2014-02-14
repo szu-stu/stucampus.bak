@@ -14,14 +14,13 @@ from stucampus.utils import get_client_ip
 NO_CATEGORY = u'未分类'
 
 
-
 def manage(request):
     category = request.GET.get('category')
     if not category:
         article_list = Article.objects.all()
     else:
         if category == NO_CATEGORY:
-            article_list = Article.objects.filter(category=NO_CATEGORY)
+            article_list = Article.objects.filter(category=None)
         else:
             category = get_object_or_404(Category, name=category)
             article_list = Article.objects.filter(category=category)
