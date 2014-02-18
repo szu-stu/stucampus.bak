@@ -1,0 +1,16 @@
+{% extends 'master/base.html' %}
+
+{% block htmlhead %}
+    {% load html_tools %}
+{% endblock %}
+
+{% block content %}
+        <form method="post" enctype="multipart/form-data"
+            action="{{ post_url }}">
+            {% csrf_token %}
+
+			{{ form }}
+
+            <input type="submit" value="submit">
+        </form>
+{% endblock %}
