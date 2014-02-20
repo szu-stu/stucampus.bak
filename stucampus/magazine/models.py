@@ -6,7 +6,7 @@ from stucampus.custom.models_utils import file_save_path
 
 
 def save_path(instance, filename):
-    return os.path.join(instance.name, filename)
+    return os.path.join('magazine', instance.name, filename)
 
 
 class Magazine(models.Model):

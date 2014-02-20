@@ -1,4 +1,6 @@
 #-*- coding: utf-8
+import os
+
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
@@ -16,9 +18,11 @@ def magazine_list(request, name):
     return render(request, 'magazine/list.html', {'list': maga_list})
 
 
-def display(request, name, issue):
-    magazine = get_object_or_404(Magazine, name=name, issue=issue)
-    return render(request, 'magazine/display.html', {'magazine': magazine})
+def display(request, id):
+    magazine = get_object_or_404(Magazine, id=id)
+    pdfjs_url = os.path.join('/', 'pdfjs', 'web', 'viewer.html')
+    pdf_path = os.path.join('/', 'media', str(magazine.pdf_file))
+    return HttpResponseRedirect(pdfjs_url + '?file=' + pdf_path)
 
 
 def manage(request):
