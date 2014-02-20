@@ -9,9 +9,6 @@ class Student(models.Model):
         permissions = (
             ('website_admin', u'学子天地网站管理员'),
             ('student_manager', u'学生帐号管理员'),
-            ('organization_manager', u'组织帐号管理员'),
-            ('articles_add', u'添加文章'),
-            ('articles_post', u'发布文章'),
         )
 
     COLLEGE_CHOICES = (

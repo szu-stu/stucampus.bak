@@ -24,8 +24,7 @@ class Article(models.Model):
     class Meta:
         permissions = (
             ('article_add', u'添加文章'),
-            ('article_modify', u'编辑文章'),
-            ('article_post', u'发布文章'),
+            ('article_manage', u'编审文章'),
         )
 
     title = models.CharField(max_length=20)

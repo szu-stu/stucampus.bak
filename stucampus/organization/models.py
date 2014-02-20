@@ -6,6 +6,11 @@ from stucampus.account.models import Student
 
 class Organization(models.Model):
 
+    class Meta:
+        permissions = (
+            ('organization_manager', u'组织帐号管理员'),
+        )
+
     name = models.CharField(max_length=20)
     phone = models.CharField(max_length=11)
     url = models.URLField()

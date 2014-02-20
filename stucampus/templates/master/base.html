@@ -32,22 +32,35 @@
             <ul class="block_menu">
                 {% load permission_check %}
                 {% if 1 %}<li><a href="/manage/status">运行状态</a></li>{% endif %}
-                {% if 1 %}<li><a href="/manage/account/list">用户管理</a></li>{% endif %}
-                {% if 1 %}<li><a href="/magazine/manage/">杂志管理</a></li>{% endif %}
+                {% if perms.account.student_manager %}
+                    <li><a href="/manage/account/list">用户管理</a></li>
+                {% endif %}
 
-                {% if 1 %}<li><a href="/manage/organization/list">组织管理</a></li>{% endif %}
-                {% if 1 %}<li><a href="/manage/organization">组织概况</a></li>{% endif %}
+                {% if perms.account.website_admin %}
+                    <li><a href="/magazine/manage/">杂志管理</a></li>
+                {% endif %}
 
-                {% if 1 %}<li><a href="{% url 'articles:manage' %}">文章编审</a></li>{% endif %}
-                {% if 1 %}<li><a href="{% url 'articles:add' %}">添加文章</a></li>{% endif %}
-                {% if 1 %}<li><a href="{% url 'articles:category' %}">文章分类</a></li>{% endif %}
+                {% if perms.organization.organization_manager %}
+                    <li><a href="/manage/organization/list">组织管理</a></li>
+                    <li><a href="/manage/organization">组织概况</a></li>
+                {% endif %}
 
-                {% if 1 %}<li><a href="{% url 'lecture:manage' %}">讲座信息</a></li>{% endif %}
-                {% if 1 %}<li><a href="{% url 'activity:manage' %}">活动信息</a></li>{% endif %}
+                {% if perms.articles.article_add %}
+                    <li><a href="{% url 'articles:add' %}">添加文章</a></li>
+                    <li><a href="{% url 'articles:manage' %}">文章编审</a></li>
+                    <li><a href="{% url 'articles:category' %}">文章分类</a></li>
+                {% endif %}
 
+                {% if perms.account.website_admin %}
+                    <li><a href="{% url 'lecture:manage' %}">讲座信息</a></li>
+                    <li><a href="{% url 'activity:manage' %}">活动信息</a></li>
+                {% endif %}
+
+                <!-- 以下代码未完成 -->
                 <!-- 以下为提供给社团组织的管理界面 -->
-                {% if 1 %}<li><a href="/organization/">组织管理</a></li>{% endif %}
-
+                {% if 0 %}
+                    <li><a href="/organization/">组织管理</a></li>
+                {% endif %}
 
                 {% if perms.infor.infors_list and user|is_org_manage %}<li><a href="/manage/infor/list">信息管理</a></li> {% endif %}
                 {% if perms.infor.infor_create and user|is_org_manage %}<li><a href="/manage/infor/post">发布信息</a></li> {% endif %}

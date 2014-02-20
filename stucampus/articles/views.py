@@ -4,16 +4,18 @@ from django.http import HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.views.generic import View
 from django.core.paginator import InvalidPage, Paginator
+from django.utils.decorators import method_decorator
 
 from stucampus.articles.forms import ArticleForm, CategoryForm
 from stucampus.articles.forms import CategoryFormset
 from stucampus.articles.models import Article, Category
 from stucampus.utils import get_client_ip 
+from stucampus.account.permission import check_perms
 
 
 NO_CATEGORY = u'未分类'
 
-
+@check_perms('articles.article_add')
 def manage(request):
     category = request.GET.get('category')
     if not category:
@@ -24,7 +26,7 @@ def manage(request):
         else:
             category = get_object_or_404(Category, name=category)
             article_list = Article.objects.filter(category=category)
-    paginator = Paginator(article_list, 4)
+    paginator = Paginator(article_list.order_by('-pk'), 4)
     try:
         page = paginator.page(request.GET.get('page'))
     except InvalidPage:
@@ -35,11 +37,13 @@ def manage(request):
 
 class AddView(View):
 
+    @method_decorator(check_perms('articles.article_add'))
     def get(self, request):
         form = ArticleForm()
         return render(request, 'articles/article-form.html',
                 {'form': form, 'post_url': reverse('articles:add')})
 
+    @method_decorator(check_perms('articles.article_add'))
     def post(self, request):
         form = ArticleForm(request.POST)
         if not form.is_valid():
@@ -54,6 +58,7 @@ class AddView(View):
 
 class ModifyView(View):
 
+    @method_decorator(check_perms('articles.article_add'))
     def get(self, request):
         article_id = request.GET.get('id')
         article = get_object_or_404(Article, pk=article_id)
@@ -62,6 +67,7 @@ class ModifyView(View):
                 {'form': form, 'article_id': article_id,
                  'post_url': reverse('articles:modify')})
 
+    @method_decorator(check_perms('articles.article_add'))
     def post(self, request):
         article_id = request.GET.get('id')
         article = get_object_or_404(Article, pk=article_id)
@@ -74,6 +80,7 @@ class ModifyView(View):
         return HttpResponseRedirect(reverse('articles:manage'))
 
 
+@check_perms('articles.article_manage')
 def del_article(request):
     article_id = request.GET.get('id')
     article = get_object_or_404(Article, pk=article_id)
@@ -82,6 +89,7 @@ def del_article(request):
     return HttpResponseRedirect(reverse('articles:manage'))
 
 
+@check_perms('articles.article_manage')
 def set_important(request):
     article_id = request.GET.get('id')
     article = get_object_or_404(Article, pk=article_id)
@@ -89,6 +97,7 @@ def set_important(request):
     article.save()
     return HttpResponseRedirect(reverse('articles:manage'))
 
+@check_perms('articles.article_manage')
 def publish(request):
     article_id = request.GET.get('id')
     article = get_object_or_404(Article, pk=article_id)
@@ -109,12 +118,14 @@ class CategoryView(View):
                 len(Article.objects.filter(category=None))
         return category_list
 
+    @method_decorator(check_perms('articles.article_manage'))
     def get(self, request):
         category_list = CategoryView.create_category_list()
         formset = CategoryFormset()
         return render(request, 'articles/category-form.html',
                 {'formset': formset, 'category_list': category_list})
 
+    @method_decorator(check_perms('articles.article_manage'))
     def post(self, request):
         formset = CategoryFormset(request.POST)
         if not formset.is_valid():

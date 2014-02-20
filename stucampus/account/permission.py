@@ -30,24 +30,10 @@ def check_perms(perm, message=u'无权限'):
                 perms = perm
             if not request.user.has_perms(perms):
                 return render(request, 'master/deny.html',
-                              message=messages)
-            return fucntion(request, *args, **kwargs)
+                        {'message': message})
+            return function(request, *args, **kwargs)
         return wrapped_check
     return decorator
-
-
-def check_admin(function):
-    def wrapped_check(request, *args, **kwargs):
-        try:
-            admin_group = Group.objects.get(name='StuCampus')
-        except Group.DoesNotExist:
-            return render(request, 'master/deny.html',
-                    {'message': u'StuCampus组织未创建'})
-        if not admin_group in request.user.groups.all():
-            return render(request, 'master/deny.html',
-                    {'message': u'非网站管理员'})
-        return function(request, *args, **kwargs)
-    return wrapped_check
 
 
 def check_org_manager(function):
