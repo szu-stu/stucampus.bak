@@ -11,6 +11,7 @@
 			{{ magazine.issue }}
 			{{ magazine.pdf_file }}
 			<a href="{% url 'magazine:modify' %}?id={{ magazine.id }}">modify</a>
+			<br>
 		{% endfor %}
 		<a href="{% url 'magazine:add' %}">add</a>
 {% endblock %}

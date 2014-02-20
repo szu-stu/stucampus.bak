@@ -37,7 +37,7 @@ class AddView(View):
                 {'form': form, 'post_url': reverse('magazine:add')})
 
     def post(self, request):
-        form = MagazineForm(request.POST)
+        form = MagazineForm(request.POST, request.FILES)
         if not form.is_valid():
             return render(request, 'magazine/magazine-form.html',
                     {'form': form, 'post_url': reverse('magazine:add')})
@@ -57,7 +57,7 @@ class ModifyView(View):
     def post(self, request):
         maga_id = request.GET.get('id')
         magazine = get_object_or_404(Magazine, id=maga_id)
-        form = MagazineForm(request.POST, instance=magazine)
+        form = MagazineForm(request.POST, request.FILES, instance=magazine)
         if not form.is_valid():
             return render(request, 'magazine/magazine-form.html',
                     {'form': form,

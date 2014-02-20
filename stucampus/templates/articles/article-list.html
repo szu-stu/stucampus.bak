@@ -14,7 +14,7 @@
 			{% for article in page %}
 			<a href="{% url 'articles:display' %}?id={{ article.pk }}">
 				<div class="categories_list_entry">
-					<div class="entry_pic"></div>
+					<div class="entry_pic"><img src="{{ article.cover }}" width=135 height=90 ></div>
 					<h3>{{ article.title }}<span>{{ article.create_date | date:"Y年n月d日"}}</span></h3>
 					<p>这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，字数多少慢慢斟酌，高度已固定，记得加省略号……</p>
 				</div>

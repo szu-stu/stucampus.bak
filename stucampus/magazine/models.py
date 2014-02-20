@@ -1,4 +1,6 @@
 #-*- coding: utf-8
+import os
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -19,9 +21,9 @@ class Magazine(models.Model):
 
     name = models.CharField(max_length=30)
     title = models.CharField(max_length=40)
-    issue = models.IntegerField(unique=True)
+    issue = models.IntegerField()
     summary = models.CharField(max_length=300, null=True, blank=True)
-    pdf_file = models.FileField(upload_to=save_path, null=True, blank=True)
+    pdf_file = models.FileField(upload_to=save_path)
 
     create_date = models.DateField(auto_now_add=True)
     modify_date = models.DateField(auto_now=True)

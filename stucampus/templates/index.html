@@ -18,7 +18,7 @@
 			{% for article in important_articles %}
 			<a href="{% url 'articles:display' %}?id={{ article.pk }}">
 				<div class="cont_headline_entry">
-					<div class="headline_pic"></div>
+					<div class="headline_pic"><img src="{{ article.cover }}" width=180 height=120 ></div>
 					<h3>{{ article.title | truncatechars:19  }}</h3>
 					<p>这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，字数多少慢慢斟酌，高度已固定，记得加省略号……</p>
 				</div>
@@ -51,9 +51,9 @@
 
 		<div class="co_media">
 			<h2>合作媒体</h2>
-			<a href="">
+			<a href="{% url 'magazine:list' '深大青年'%}">
 				<div class="co_media_box">
-					<div class="co_media_logo"><img src="static/images/co_media/szuyouth.png" height="130px" width="310px" /></div>
+					<div class="co_media_logo"><img src="/static/images/szuyouth.png" height="130px" width="310px" /></div>
 					<h3>深大青年杂志社</h3>
 					<p>
 						在这里，你可以了解荔园的资讯，<br />
@@ -64,9 +64,9 @@
 					</p>
 				</div>
 			</a>
-			<a href="">
+			<a href="{% url 'magazine:list' '浪淘沙'%}">
 				<div class="co_media_box">
-					<div class="co_media_logo"><img src="static/images/co_media/langtaosha.png" height="130px" width="310px" /></div>
+					<div class="co_media_logo"><img src="/static/images/langtaosha.png" height="130px" width="310px" /></div>
 					<h3>浪淘沙文学社</h3>
 					<p>
 						假如现实世界残酷分崩离析，至少还有文字可以温暖彼此。

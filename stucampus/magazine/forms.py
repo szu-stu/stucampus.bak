@@ -14,3 +14,14 @@ class MagazineForm(forms.ModelForm):
     class Meta:
         model = Magazine
 
+    def clean(self):
+        if 'issue' not in self.cleaned_data or \
+           'name' not in self.cleaned_data:
+            return super(MagazineForm, self).clean()
+        if Magazine.objects.filter(name=self.cleaned_data['name'],
+                issue=self.cleaned_data['issue']).exists():
+            msg = u'该期数已存在'
+            self._errors['issue'] = self.error_class([msg])
+            del self.cleaned_data['issue']
+        return self.cleaned_data
+
