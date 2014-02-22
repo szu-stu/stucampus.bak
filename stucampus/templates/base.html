@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="Content-Language" content="zh-CN" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="keywords" content="{% block keywords %}深圳大学,深大,荔园,学子天地,校园传媒,校媒,大学生{% endblock %}" />
@@ -25,6 +25,16 @@
     {% block htmlhead %}
     {% endblock %}
 </head>
+<script>
+	$(function(){
+	   $('.home_nav > a').each(function(){
+	   	if( $(this).attr('href').search('^'+location.pathname,'i') == 0){
+			$(this).addClass('nav_current');
+			return false;
+		}
+	   }); 
+	});
+</script>
 <body>
 
 <div class="inner_body">
