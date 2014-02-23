@@ -13,5 +13,6 @@ class ActivityMessageForm(ModelForm):
 
 ActivityMessageFormSet = modelformset_factory(ActivityMessage,
                                               form=ActivityMessageForm,
+                                              can_delete=True,
                                               extra=1)
 

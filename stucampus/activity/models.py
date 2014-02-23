@@ -25,7 +25,6 @@ class ActivityMessage(models.Model):
 
     modified_date_time = models.DateTimeField(editable=False, auto_now=True) 
     checked = models.BooleanField(default=False)
-    deleted = models.BooleanField(default=False)
 
     @classmethod
     def get_activity_list(cls):
@@ -55,8 +54,7 @@ class ActivityMessage(models.Model):
     @staticmethod
     def fill_in_table(message_table):
         messages_this_week = ActivityMessage.get_messages_this_week()
-        to_be_published = messages_this_week.filter(
-                checked=True, deleted=False)
+        to_be_published = messages_this_week.filter(checked=True)
         for msg in to_be_published:
             if msg.date == MORNING:
                 message_table['morning'][msg.date.weekday()].append(msg)

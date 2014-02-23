@@ -12,4 +12,6 @@ class LectureForm(forms.ModelForm):
 
 
 LectureFormset = modelformset_factory(LectureMessage,
-                                      form=LectureForm, extra=1)
+                                      form=LectureForm,
+                                      can_delete=True,
+                                      extra=1)

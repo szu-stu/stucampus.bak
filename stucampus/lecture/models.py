@@ -27,7 +27,6 @@ class LectureMessage(models.Model):
 
     download_date = models.DateTimeField(editable=False, auto_now_add=True)
     checked = models.BooleanField(default=False)
-    deleted = models.BooleanField(default=False)
 
     @classmethod
     def generate_messages_table(cls):
@@ -53,8 +52,7 @@ class LectureMessage(models.Model):
     @staticmethod
     def fill_in_table(message_table):
         messages_this_week = LectureMessage.get_messages_this_week()
-        to_be_published = messages_this_week.filter(
-                checked=True, deleted=False)
+        to_be_published = messages_this_week.filter(checked=True)
         for msg in to_be_published:
             if msg.time == MORNING:
                 message_table['morning'] \
