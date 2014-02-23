@@ -9,11 +9,22 @@ from django.core.paginator import InvalidPage
 from stucampus.lecture.models import LectureMessage
 from stucampus.lecture.forms import LectureForm, LectureFormset
 from stucampus.custom.forms_utils import FormsetPaginator
+from stucampus.spider.models import Notification
+from stucampus.lecture.implementation import update_lecture_from_notification
+from stucampus.account.permission import check_perms
 
 
 def index(request):
     table = LectureMessage.generate_messages_table()
     return render_to_response('lecture/home.html', {'table': table})
+
+
+@check_perms('spider.spider_manager')
+def auto_add(request): 
+    ''' add lecture from notification '''
+    noti_list = Notification.objects.all()
+    update_lecture_from_notification(noti_list)
+    return HttpResponseRedirect(reverse('lecture:manage'))
 
 
 class ManageView(generic.View):

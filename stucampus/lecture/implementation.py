@@ -9,7 +9,9 @@ from stucampus.lecture.models import LectureMessage
 
 
 def update_lecture_from_notification(new_notif_list):
-    academic_notif = [ n for n in new_notif_list if n.category == u'学术' ]
+    academic_notif = [ n for n in new_notif_list \
+            if n.category == u'学术' \
+            and not LectureMessage.objects.filter(url_id=n.url_id).exists()]
     lecture_notif = search_lecture_notification(academic_notif)
     lecture_messages = []
     for notif in lecture_notif:
@@ -25,7 +27,7 @@ def search_lecture_notification(academic_notifications):
     lecture_notifications = []
     for a in academic_notifications:
         content = a.get_content()
-        if is_about_lecture(content):
+        if is_about_lecture(a.title) or is_about_lecture(content):
             lecture_notifications.append(a)
     return lecture_notifications
 
@@ -64,7 +66,7 @@ def parse_content(content):
     try:
         date_time = parse_datetime(content)
     except MatchError:
-        date_time = timezone.now()
+        date_time = '2014-1-1 00:00'
 
     try:
         speaker = parse_speaker(content)
@@ -82,7 +84,10 @@ TITLE_PATTERN = (
     (u'讲座题目：' + WHITESPACE, u'\n'),
     (u'报告题目：' + WHITESPACE, u'\n'),
     (u'演讲题目：' + WHITESPACE, u'\n'),
+    (u'题目：' + WHITESPACE, u'\n'),
+    (u'题' + WHITESPACE +u'目：' + WHITESPACE, u'\n'),
     (u'主题：' + WHITESPACE, u'\n'),
+    (u'主' + WHITESPACE + u'题：' + WHITESPACE, u'\n'),
     )
 
 
@@ -95,6 +100,7 @@ PLACE_PATTERN = (
     (u'讲座地点：' + WHITESPACE, u'\n'),
     (u'报告地点：' + WHITESPACE, u'\n'),
     (u'地点：' + WHITESPACE, u'\n'),
+    (u'地' + WHITESPACE + u'点：' + WHITESPACE, u'\n'),
     )
 
 
@@ -107,6 +113,7 @@ SPEAKER_PATTERN = (
     (u'报告人：' + WHITESPACE, u'\n'),
     (u'特邀讲者：' + WHITESPACE, u'\n'),
     (u'主讲：' + WHITESPACE, u'\n'),
+    (u'主' + WHITESPACE + u'讲：' + WHITESPACE, u'\n'),
     (u'主讲人：' + WHITESPACE, u'\n'),
     (u'\n', u'教授简介：'),
     )
@@ -121,6 +128,7 @@ DATETIME_PATTERN = (
     (u'讲座时间：' + WHITESPACE, u'\n'),
     (u'报告时间：' + WHITESPACE, u'\n'),
     (u'时间：' + WHITESPACE, u'\n'),
+    (u'时' + WHITESPACE + u'间：' + WHITESPACE, u'\n'),
     )
 
 
@@ -131,6 +139,7 @@ def parse_datetime(content):
 
 DATE_PATTERN = (
     r'\d{4}'+u'年'+r'\d{1,2}'+u'月'+r'\d{1,2}' + u'日',
+    r'\d{4}'+u'年'+r'\d{1,2}'+u'月'+r'\d{1,2}' + u'号',
     r'\d{4}'+r'\w'+r'\d{1,2}'+r'\w'+r'\d{1,2}',
     r'\d{4}'+r'.'+r'\d{1,2}'+r'.'+r'\d{1,2}',
     )                   
@@ -138,8 +147,14 @@ DATE_PATTERN = (
 
 def parse_date(content):
     date = find_by_iter_single_pattern(DATE_PATTERN, content)
-    return date.replace(u'年', '-').replace(u'月', '-')\
-               .replace(u'日', '').replace('.', '-')
+    reg = r'(?P<year>\d{4}).(?P<month>\d{1,2}).(?P<day>\d{1,2})'
+    match = re.search(reg, date)
+    if match:
+        year = match.group('year')
+        month = match.group('month')
+        day = match.group('day')
+        return year + '-' + month +'-' + day
+    raise MatchError(date, reg)
 
 
 TIME_PATTERN = (
@@ -185,17 +200,19 @@ def find_by_iter_single_pattern(patterns, content):
 
 def add_new_lecture_from_notification(new_notif):
     for lect in new_notif:
-        if LectureMessage.objects.filter(url_id=lect['url_id']).exists():
-            lecture = LectureMessage.objects.get(url_id=lect['url_id'])
-        else:
+        if not LectureMessage.objects.filter(url_id=lect['url_id']).exists():
             lecture = LectureMessage()
 
         lecture.url_id = lect['url_id']
         lecture.title = lect['title']
-        lecture.date_time = lect['date_time']
+        date_time = datetime.datetime.strptime(lect['date_time'], '%Y-%m-%d %H:%M')
+        lecture.date = date_time.date()
+        if date_time.time().hour < 12:
+            lecture.time = u'上午'
+        else:
+            lecture.time = u'下午'
         lecture.place = lect['place']
         lecture.speaker = lect['speaker']
-        lecture.download_date = timezone.now().isoformat()
-        lecture.url_id_backup = lecture.url_id
 
         lecture.save()
+

@@ -20,6 +20,11 @@ CATEGORY_CHOICES = (
 
 class Notification(django.db.models.Model):
 
+    class Meta:
+        permissions = (
+            ('spider_manager', u'爬虫管理员'),
+        )
+
     url_id = models.CharField(max_length=20, unique=True)
     title = models.CharField(max_length=40)
     published_date = models.DateField()
