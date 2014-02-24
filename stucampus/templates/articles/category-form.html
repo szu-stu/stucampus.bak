@@ -2,47 +2,52 @@
 
 {% block htmlhead %}
     {% load html_tools %}
+    {{ 'manage/category_articles.css' | as_css }}
     {{ form.media }}
 {% endblock %}
 
 {% block content %}
+<div class="category">
         {% for name, count in category_list.items %}
-            <a href="{% url 'articles:manage' %}?category={{ name }}">{{ name }}</a>
-            {{ count }}
+            <a href="{% url 'articles:manage' %}?category={{ name }}">{{ name }}&nbsp;{{ count }}</a>
         {% endfor %}
-        <form method="post" enctype="multipart/form-data"
-            action="{% url 'articles:category' %}">
-            {% csrf_token %}
-            {{ formset.management_form }}
-            {% for form in formset %}
-
-                {{ form.id }}
-
-                <div>
-                    分类名
-                {{ form.name }}
+</div>
+<form method="post" enctype="multipart/form-data"action="{% url 'articles:category' %}">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    {% for form in formset %}
+    {{ form.id }}
+    <div class="category_add">
+        <li>
+            <label>分类名</label>
+            {{ form.name }}
+            <span class="error">
                 {% for error in form.name.errors %}
-                    {{ error }}
+                    {{ error }}&nbsp;
                 {% endfor %}
-                </div>
-
-                <div>
-                    优先级
-                {{ form.priority }}
+            </span>  
+        </li>
+        <div class="line"></div>
+        <li>
+            <label>优先级</label>
+            {{ form.priority }}
+            <span class="error">
                 {% for error in form.priority.errors %}
-                    {{ error }}
+                    {{ error }}&nbsp;
                 {% endfor %}
-                </div>
-
-                <div>
-                    删除
-                {{ form.DELETE }}
+            </span>
+        </li>
+        <div class="checkbox">
+            <span>删除</span>
+            {{ form.DELETE }}
+            <span class="error">
                 {% for error in form.DELETE.errors %}
-                    {{ error }}
+                    {{ error }}&nbsp;
                 {% endfor %}
-                </div>
-
-            {% endfor %}
-            <input type="submit" value="submit">
-        </form>
+            </span>  
+        </div>
+    </div>
+    {% endfor %}
+    <input type="submit" value="提交" class="add">
+</form>
 {% endblock %}
