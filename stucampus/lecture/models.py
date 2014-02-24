@@ -18,11 +18,11 @@ class LectureMessage(models.Model):
         (AFTERNOON, AFTERNOON),
         )
 
-    title = models.CharField(max_length=100)
-    date = models.DateField()
-    time = models.CharField(max_length=10, choices=TIME)
-    place = models.CharField(max_length=40)
-    speaker = models.CharField(max_length=40)
+    title = models.CharField(null=True, max_length=100)
+    date = models.DateField(null=True)
+    time = models.CharField(null=True, max_length=10, choices=TIME)
+    place = models.CharField(null=True, max_length=40)
+    speaker = models.CharField(null=True, max_length=40)
     url_id = models.CharField(max_length=20, unique=True)
 
     download_date = models.DateTimeField(editable=False, auto_now_add=True)

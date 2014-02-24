@@ -54,26 +54,36 @@ def parse_content(content):
         pack attributes into a dictionary
     '''
     try:
-        title = parse_title(content)
+        title = find_by_iter_wrap_pattern(TITLE_PATTERN, content)
     except MatchError:
-        title = 'not found'
+        title = ''
 
     try:
-        place = parse_place(content)
+        place = find_by_iter_wrap_pattern(PLACE_PATTERN, content)
     except MatchError:
-        place = 'not found'
+        place = ''
 
     try:
-        date_time = parse_datetime(content)
+        date_time_txt= find_by_iter_wrap_pattern(DATETIME_PATTERN, content)
     except MatchError:
-        date_time = '2014-1-1 00:00'
+        date = None
+        time = None
+    else:
+        try:
+            date = parse_date(date_time_txt)
+        except MatchError:
+            date = None
+        try:
+            time = parse_time(date_time_txt)
+        except MatchError:
+            time = None
 
     try:
-        speaker = parse_speaker(content)
+        speaker = find_by_iter_wrap_pattern(SPEAKER_PATTERN, content)
     except MatchError:
-        speaker = 'not found'
+        speaker = ''
 
-    return dict(title=title, place=place, date_time=date_time,
+    return dict(title=title, place=place, date=date, time=time,
                 speaker=speaker)
 
 
@@ -91,22 +101,12 @@ TITLE_PATTERN = (
     )
 
 
-def parse_title(content):
-    title = find_by_iter_wrap_pattern(TITLE_PATTERN, content)
-    return title
-
-
 PLACE_PATTERN = (
     (u'讲座地点：' + WHITESPACE, u'\n'),
     (u'报告地点：' + WHITESPACE, u'\n'),
     (u'地点：' + WHITESPACE, u'\n'),
     (u'地' + WHITESPACE + u'点：' + WHITESPACE, u'\n'),
     )
-
-
-def parse_place(content):
-    place = find_by_iter_wrap_pattern(PLACE_PATTERN, content)
-    return place
 
 
 SPEAKER_PATTERN = (
@@ -119,22 +119,12 @@ SPEAKER_PATTERN = (
     )
 
 
-def parse_speaker(content):
-    speaker = find_by_iter_wrap_pattern(SPEAKER_PATTERN, content)
-    return speaker
-
-
 DATETIME_PATTERN = (
     (u'讲座时间：' + WHITESPACE, u'\n'),
     (u'报告时间：' + WHITESPACE, u'\n'),
     (u'时间：' + WHITESPACE, u'\n'),
     (u'时' + WHITESPACE + u'间：' + WHITESPACE, u'\n'),
     )
-
-
-def parse_datetime(content):
-    date_infor = find_by_iter_wrap_pattern(DATETIME_PATTERN, content)
-    return parse_date(date_infor) + ' ' + parse_time(date_infor)
 
 
 DATE_PATTERN = (
@@ -150,10 +140,10 @@ def parse_date(content):
     reg = r'(?P<year>\d{4}).(?P<month>\d{1,2}).(?P<day>\d{1,2})'
     match = re.search(reg, date)
     if match:
-        year = match.group('year')
-        month = match.group('month')
-        day = match.group('day')
-        return year + '-' + month +'-' + day
+        year = int(match.group('year'))
+        month = int(match.group('month'))
+        day = int(match.group('day'))
+        return datetime.date(year, month, day)
     raise MatchError(date, reg)
 
 
@@ -169,7 +159,10 @@ def parse_time(content):
     time_range = find_by_iter_single_pattern(TIME_PATTERN, content)
     time_range = time_range.replace(u'：', ':').replace(u'—', '-')
     start_time = time_range.split('-')[0]
-    return start_time
+    if datetime.datetime.strptime(start_time, '%H:%M').hour < 12:
+        return u'上午'
+    else:
+        return  u'下午'
 
 
 def find_by_iter_wrap_pattern(patterns, content, to_search=r'.*?'):
@@ -205,12 +198,8 @@ def add_new_lecture_from_notification(new_notif):
 
         lecture.url_id = lect['url_id']
         lecture.title = lect['title']
-        date_time = datetime.datetime.strptime(lect['date_time'], '%Y-%m-%d %H:%M')
-        lecture.date = date_time.date()
-        if date_time.time().hour < 12:
-            lecture.time = u'上午'
-        else:
-            lecture.time = u'下午'
+        lecture.date = lect['date']
+        lecture.time = lect['time']
         lecture.place = lect['place']
         lecture.speaker = lect['speaker']
 
