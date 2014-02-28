@@ -6,7 +6,7 @@ from stucampus.magazine.views import ModifyView, AddView
 
 urlpatterns = patterns(
     '',
-    url(r'^list/(?P<name>.*)/$', magazine_list, name='list'),
+    url(r'^(?P<name>\D*)/$', magazine_list, name='list'),
     url(r'^display/(?P<id>\d)/$', display, name='display'),
 
     url(r'^add/$', AddView.as_view(), name='add'),

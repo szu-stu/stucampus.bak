@@ -21,6 +21,6 @@ urlpatterns = patterns(
     url(r'^category/$',
             CategoryView.as_view(), name='category'),
 
-    url(r'^list/(?P<category>.*)/$', article_list, name='list'),
-    url(r'^display/(?P<id>\d)/$', article_display, name='display'),
+    url(r'^(?P<category>\D*)/$', article_list, name='list'),
+    url(r'^(?P<id>\d*)/$', article_display, name='display'),
 )
