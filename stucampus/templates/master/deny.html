@@ -2,12 +2,9 @@
 
 {% block htmlhead %}
     {% load html_tools %}
+    {{ 'deny/deny.css' | as_css }}
 {% endblock %}
 
 {% block content %}
-
-<div>
-    {{ message }}
-</div>
-    
+<p class="deny">{{ message }}</p>
 {% endblock %}

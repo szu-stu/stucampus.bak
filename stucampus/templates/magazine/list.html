@@ -2,10 +2,18 @@
 
 {% block htmlhead %}
     {% load html_tools %}
+    {{ 'magazine/list.css' | as_css }}
 {% endblock %}
 
 {% block content %}
-        {% for magazine in list %}
-			<a href="{% url 'magazine:display' magazine.id %}">{{ magazine.title }}</a><br>
-		{% endfor %}
+<div class="main_container">
+    <h2>文章列表</h2>
+    <div class="line_title"></div>
+    {% for magazine in list %}
+    <li>
+        <a href="{% url 'magazine:display' magazine.id %}">{{ magazine.title }}</a>
+    </li>
+    <div class="line"></div>
+    {% endfor %}
+</div>
 {% endblock %}

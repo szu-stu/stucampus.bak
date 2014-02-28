@@ -13,14 +13,6 @@
 
     {% for form in formset %}
         <div class="act_lec_add">
-            <li>
-                <label>状态</label>
-                {% if form.deleted.value %}
-                    <span class="condition is_delete"></span>
-                {% else %}
-                    <span class="condition not_delete"></span>
-                {% endif %}
-            </li>
             <div class="line"></div>
             <li>
                 <label>标题</label>

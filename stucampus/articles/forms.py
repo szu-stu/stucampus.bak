@@ -12,7 +12,7 @@ class ArticleForm(forms.ModelForm):
         model = Article
         exclude = ['editor', 'create_ip', 'click_count',
                    'deleted', 'important', 'publish']
-        widget = {
+        widgets = {
             'summary' : forms.Textarea(),
         }
 

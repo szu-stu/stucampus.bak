@@ -28,6 +28,17 @@
     font-family: "Microsoft Yahei";
     color: #7e7e7e;
 }
+.content textarea{
+    width: 400px;
+    height: 60px;
+    font-size: 14px;
+    font-family: "Microsoft Yahei";
+    color: #7e7e7e;
+    vertical-align: middle;
+    margin: 10px 0px;
+    border: 0px;
+    resize: none;
+}
 .content_title{
     width: 13%;
     text-indent: 5%;

@@ -56,7 +56,7 @@ class ActivityMessage(models.Model):
         messages_this_week = ActivityMessage.get_messages_this_week()
         to_be_published = messages_this_week.filter(checked=True)
         for msg in to_be_published:
-            if msg.date == MORNING:
+            if msg.time == MORNING:
                 message_table['morning'][msg.date.weekday()].append(msg)
             else:
                 message_table['afternoon'][msg.date.weekday()].append(msg)
@@ -68,7 +68,6 @@ class ActivityMessage(models.Model):
         date_of_this_Monday = now - timedelta(days=now.weekday())
         date_of_next_Monday = date_of_this_Monday + timedelta(days=7)
         lecture_held_this_week = cls.objects.filter(
-
             date__gte=date_of_this_Monday,
             date__lt=date_of_next_Monday)
         return lecture_held_this_week
