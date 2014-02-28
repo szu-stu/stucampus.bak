@@ -1,0 +1,49 @@
+/* 1080 */
+@media screen and (min-width: 1080px) {
+	body{
+		min-width: 1024px;
+	}
+	.central{
+		width: 980px;
+	}
+}
+
+@media screen and (max-width: 1080px) {
+    body{
+    	padding: 0;
+    	min-width: 480px;
+    }
+    .inner_body{
+    	box-shadow: none;
+    	border-radius: 0;
+    }
+	.central{
+		width: 97%;
+	}
+	.content,.sidebar{
+		width: 100%;
+		clear: both;
+	}
+	.content .articles_list{
+		margin-right: 10px !important;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.header{
+		background: #5bc4be;
+		height: 100%;
+	}
+	.header .coverphoto_author,.header .home_nav,.article .article_body .article_share{
+		display: none;
+	}
+	.header .home_title{
+		margin: 8px 0 0;
+	}
+	.header .home_description{
+		margin: 8px 0 18px;
+	}
+	.article .article_body,.article .article_footer{
+		padding: 0 3% !important;
+	}
+}

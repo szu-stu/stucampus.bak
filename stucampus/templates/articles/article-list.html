@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 
+{% block htmltitle %}
+<title>{{ category.name }} - 深圳大学学子天地</title>
+{% endblock %}
+
 {% block htmlhead %}
     {% load html_tools %}
+    {{ 'categories.css' | as_css }}
 {% endblock %}
 
 {% block content %}
@@ -10,13 +15,13 @@
 	<div class="content">
 
 		<div class="categories_list">
-			<h2>文章分类1</h2>
+			<h2>{{ category.name }}</h2>
 			{% for article in page %}
 			<a href="{% url 'articles:display' %}?id={{ article.pk }}">
 				<div class="categories_list_entry">
 					<div class="entry_pic"><img src="{{ article.cover }}" width=135 height=90 ></div>
 					<h3>{{ article.title }}<span>{{ article.create_date | date:"Y年n月d日"}}</span></h3>
-					<p>这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，字数多少慢慢斟酌，高度已固定，记得加省略号……</p>
+					<p>{{ article.summary }}</p>
 				</div>
 			</a>
 			{% endfor %}
@@ -42,7 +47,7 @@
 		<div class="widget">
 			<h2>热门排行</h2><a class="widget_more" href="">更多…</a>
 			<div class="widget_content">
-				<ul>
+				<ul class="widget_content_list">
 					{% for article in hot_articles_list %}
 					<li>
 						<a href="{% url 'articles:display' %}?id={{ article.pk }}">{{ article.title }}</a>
@@ -55,7 +60,7 @@
 		<div class="widget">
 			<h2>最近更新</h2><a class="widget_more" href="">更多…</a>
 			<div class="widget_content">
-				<ul>
+				<ul class="widget_content_list">
 					{% for article in newest_articles_list %}
 					<li>
 						<a href="{% url 'articles:display' %}?id={{ article.pk }}">{{ article.title }}</a>

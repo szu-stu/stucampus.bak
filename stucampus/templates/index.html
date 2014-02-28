@@ -1,9 +1,17 @@
 {% extends 'base.html' %}
 
+{% block keywords %}
+<meta name="keywords" content="深圳大学,深大,荔园,学子天地" />
+{% endblock %}
+
+{% block description %}
+<meta name="description" content="深圳大学学子天地是深大最大的校园传媒网站，致力于为荔园学子提供有价值的资讯和服务。" />
+{% endblock %}
+
 {% block htmlhead %}
     {% load html_tools %}
     {{ 'plugins/basic-jquery-slider.js' | as_js }}
-    {{ 'index.css' | as_css }}
+    {{ 'homepage.css' | as_css }}
     {{ 'basic-jquery-slider.css' | as_css }}
 {% endblock %}
 
@@ -20,7 +28,7 @@
 				<div class="cont_headline_entry">
 					<div class="headline_pic"><img src="{{ article.cover }}" width=180 height=120 ></div>
 					<h3>{{ article.title | truncatechars:19  }}</h3>
-					<p>这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，这里放摘要，字数多少慢慢斟酌，高度已固定，记得加省略号……</p>
+					<p>{{ article.summary }}</p>
 				</div>
 			</a>
 			{% endfor %}
@@ -82,14 +90,14 @@
 			<h2>信息中心</h2><a class="widget_more" href="">更多…</a>
 			<div class="widget_content">
 				<ul>
-					<li><a href="">硬盘足够快就可以取消内存吗？</a></li>
+					<li><a href="">title</a></li>
 				</ul>
 			</div>
 		</div> -->
 		<div class="widget">
 			<h2>讲座预告</h2><a class="widget_more" href="{% url 'lecture:index' %}">更多…</a>
 			<div class="widget_content">
-				<ul>
+				<ul class="widget_content_list">
 					{% for lecture in lecture_list %}
 					<li>
 						<a href="http://www.szu.edu.cn/board/view.asp?id={{ lecture.url_id }}">
@@ -100,7 +108,7 @@
 				</ul>
 			</div>
 		</div>
-		<div class="widget">
+<!--		<div class="widget">
 			<h2>活动预告</h2><a class="widget_more" href="{% url 'activity:index' %}">更多…</a>
 			<div class="widget_content">
 				<ul>
@@ -112,6 +120,20 @@
 					</li>
 					{% endfor %}
 				</ul>
+			</div>
+		</div>-->
+
+		<div class="widget">
+			<h2>最新评论</h2>
+			<div class="widget_content">
+				<ul class="ds-recent-comments"></ul>
+			</div>
+		</div>
+
+		<div class="widget">
+			<h2>最近访客</h2>
+			<div class="widget_content">
+				<ul class="ds-recent-visitors"></ul>
 			</div>
 		</div>
 
@@ -126,7 +148,10 @@
 		</div>
 
 		<div class="widget">
-			<a href="" target="_blank"><img src="/static/images/banner/train.png" width="310px" /></a>
+			<ul class="widget_banner">
+				<li><a href="http://192.168.2.113/" target="_blank" title="点击进入深圳大学铁路订票系统"><img src="/static/images/banner/train.gif" width="290px" height="155px" /></a></li>
+				<li><a href="http://192.168.2.113/" target="_blank" title="点击进入场地申请系统"><img src="/static/images/banner/cdsq.gif" width="290px" height="155px" /></a></li>
+			</ul>
 		</div>
 
 		<!--<div class="widget">
@@ -141,4 +166,18 @@
 
 	</div><!--end of sidebar-->
 </div><!--end of central-->
+
+<!-- Duoshuo BEGIN -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"szustu"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+<!-- Duoshuo END -->
 {% endblock %}
