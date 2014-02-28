@@ -17,7 +17,7 @@
 		<div class="categories_list">
 			<h2>{{ category.name }}</h2>
 			{% for article in page %}
-			<a href="{% url 'articles:display' %}?id={{ article.pk }}">
+			<a href="{% url 'articles:display' article.pk %}">
 				<div class="categories_list_entry">
 					<div class="entry_pic"><img src="{{ article.cover }}" width=135 height=90 ></div>
 					<h3>{{ article.title }}<span>{{ article.create_date | date:"Y年n月d日"}}</span></h3>
@@ -50,7 +50,7 @@
 				<ul class="widget_content_list">
 					{% for article in hot_articles_list %}
 					<li>
-						<a href="{% url 'articles:display' %}?id={{ article.pk }}">{{ article.title }}</a>
+						<a href="{% url 'articles:display' article.pk %}">{{ article.title }}</a>
 					</li>
 					{% endfor %}
 				</ul>
@@ -63,7 +63,7 @@
 				<ul class="widget_content_list">
 					{% for article in newest_articles_list %}
 					<li>
-						<a href="{% url 'articles:display' %}?id={{ article.pk }}">{{ article.title }}</a>
+						<a href="{% url 'articles:display' article.pk %}">{{ article.title }}</a>
 					</li>
 					{% endfor %}
 				</ul>

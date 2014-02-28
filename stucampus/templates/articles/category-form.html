@@ -29,6 +29,16 @@
         </li>
         <div class="line"></div>
         <li>
+            <label>英文名</label>
+            {{ form.english_name }}
+            <span class="error">
+                {% for error in form.english_name.errors %}
+                    {{ error }}&nbsp;
+                {% endfor %}
+            </span>  
+        </li>
+        <div class="line"></div>
+        <li>
             <label>优先级</label>
             {{ form.priority }}
             <span class="error">

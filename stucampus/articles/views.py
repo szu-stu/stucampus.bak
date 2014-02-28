@@ -6,7 +6,7 @@ from django.views.generic import View
 from django.core.paginator import InvalidPage, Paginator
 from django.utils.decorators import method_decorator
 
-from stucampus.articles.forms import ArticleForm, CategoryForm
+from stucampus.articles.forms import ArticleForm
 from stucampus.articles.forms import CategoryFormset
 from stucampus.articles.models import Article, Category
 from stucampus.utils import get_client_ip 
@@ -136,12 +136,11 @@ class CategoryView(View):
         return HttpResponseRedirect(reverse('articles:category'))
 
 
-def article_list(request):
-    category = request.GET.get('category')
-    category = get_object_or_404(Category, name=category)
+def article_list(request, category=None):
+    category = get_object_or_404(Category, english_name=category)
     article_list = Article.objects.filter(category=category,
                                           publish=True,
-                                          deleted=False)
+                                          deleted=False).order_by('-pk')
     paginator = Paginator(article_list, 4)
     try:
         page = paginator.page(request.GET.get('page'))
@@ -162,9 +161,8 @@ def article_list(request):
              'newest_articles_list': newest_articles_list})
 
 
-def article_display(request):
-    article_id = request.GET.get('id')
-    article = get_object_or_404(Article, pk=article_id, publish=True)
+def article_display(request, id=None):
+    article = get_object_or_404(Article, pk=id, publish=True)
     article.click_count += 1
     article.save()
     return render(request, 'articles/article-display.html',

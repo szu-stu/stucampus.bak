@@ -11,8 +11,15 @@ from stucampus.magazine.models import Magazine
 from stucampus.magazine.forms import MagazineForm 
 
 
+MAGAZINE_NAME = {
+        'szuyouth': u'深大青年',
+        'langtaosha': u'浪淘沙',
+        }
+
+
 def magazine_list(request, name):
-    maga_list = Magazine.objects.filter(name=name)
+    maga_list = Magazine.objects. \
+            filter(name=MAGAZINE_NAME[name]).order_by('-pk')
     if not magazine_list:
         raise Http404
     return render(request, 'magazine/list.html', {'list': maga_list})
@@ -26,7 +33,7 @@ def display(request, id):
 
 
 def manage(request):
-    maga_list = Magazine.objects.all()
+    maga_list = Magazine.objects.all().order_by('-pk')
     return render(request, 'magazine/manage.html', {'list': maga_list})
 
 

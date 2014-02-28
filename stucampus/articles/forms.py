@@ -12,12 +12,10 @@ class ArticleForm(forms.ModelForm):
         model = Article
         exclude = ['editor', 'create_ip', 'click_count',
                    'deleted', 'important', 'publish']
+        widget = {
+            'summary' : forms.Textarea(),
+        }
 
-
-class CategoryForm(forms.ModelForm):
-    class Meta:
-        model = Category
-        exclude = ['priority']
 
 CategoryFormset = modelformset_factory(Category, extra=1, can_delete=True)
         

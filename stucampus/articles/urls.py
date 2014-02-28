@@ -18,8 +18,9 @@ urlpatterns = patterns(
     url(r'^set_important/$', set_important, name='set_important'),
     url(r'^publish/$', publish, name='publish'),
 
-    url(r'^category/$', CategoryView.as_view(), name='category'),
+    url(r'^category/$',
+            CategoryView.as_view(), name='category'),
 
-    url(r'^list/$', article_list, name='list'),
-    url(r'^display/$', article_display, name='display'),
+    url(r'^list/(?P<category>.*)/$', article_list, name='list'),
+    url(r'^display/(?P<id>\d)/$', article_display, name='display'),
 )

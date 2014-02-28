@@ -10,6 +10,7 @@ from stucampus.custom.models_utils import file_save_path
 class Category(models.Model):
     name = models.CharField(verbose_name=u'分类名',
                             max_length=30, unique=True)
+    english_name = models.CharField(max_length=20, unique=True)
     # priority 越小，越先放在前面
     priority = models.PositiveIntegerField(verbose_name=u'优先级',
                                            unique=True)
