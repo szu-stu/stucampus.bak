@@ -8,6 +8,7 @@ from stucampus.custom.permission import org_manage_group_check
 from stucampus.organization.models import Organization
 from stucampus.organization.forms import OrganizationManageEditForm
 from stucampus.utils import spec_json
+from stucampus.account.permission import check_perms
 
 
 def organization(request):
@@ -16,6 +17,7 @@ def organization(request):
                   {'organizations': organizations})
 
 
+@check_perms('organization.organization_manager')
 def organization_manage(request):
     return render(request, 'organization/list.html',
                   {'organizations': Organization.objects.all()})

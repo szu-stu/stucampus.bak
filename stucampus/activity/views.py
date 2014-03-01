@@ -4,11 +4,13 @@ from django.shortcuts import render, render_to_response
 from django.core.urlresolvers import reverse
 from django.views import generic
 from django.core.paginator import InvalidPage
+from django.utils.decorators import method_decorator
 
 from stucampus.activity.models import ActivityMessage
 from stucampus.activity.forms import ActivityMessageForm
 from stucampus.activity.forms import ActivityMessageFormSet
 from stucampus.custom.forms_utils import FormsetPaginator
+from stucampus.account.permission import check_perms
 
 
 def index(request):
@@ -29,10 +31,12 @@ class ManageView(generic.View):
             page = paginator.page(1)
         return page
    
+    @method_decorator(check_perms('account.website_admin'))
     def get(self, request):
         return render(request, 'activity/manage.html',
                       {'page': ManageView.__create_page(request)})
     
+    @method_decorator(check_perms('account.website_admin'))
     def post(self, request):
         formset = ActivityMessageFormSet(request.POST)
         if not formset.is_valid():

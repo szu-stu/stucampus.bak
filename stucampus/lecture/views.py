@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.views import generic
 from django.template import RequestContext
 from django.core.paginator import InvalidPage
+from django.utils.decorators import method_decorator
 
 from stucampus.lecture.models import LectureMessage
 from stucampus.lecture.forms import LectureForm, LectureFormset
@@ -40,10 +41,12 @@ class ManageView(generic.View):
             page = paginator.page(1)
         return page
    
+    @method_decorator(check_perms('account.website_admin'))
     def get(self, request):
         return render(request, 'lecture/manage.html',
                       {'page': ManageView.__create_page(request)})
     
+    @method_decorator(check_perms('account.website_admin'))
     def post(self, request):
         formset = LectureFormset(request.POST)
         if not formset.is_valid():

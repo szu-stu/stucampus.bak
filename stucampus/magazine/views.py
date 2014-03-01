@@ -6,6 +6,8 @@ from django.http import HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.views.generic import View
 from django.core.paginator import InvalidPage, Paginator
+from stucampus.account.permission import check_perms
+from django.utils.decorators import method_decorator
 
 from stucampus.magazine.models import Magazine
 from stucampus.magazine.forms import MagazineForm 
@@ -32,17 +34,20 @@ def display(request, id):
     return HttpResponseRedirect(pdfjs_url + '?file=' + pdf_path)
 
 
+@check_perms('magazine.magazine_add')
 def manage(request):
     maga_list = Magazine.objects.all().order_by('-pk')
     return render(request, 'magazine/manage.html', {'list': maga_list})
 
 
 class AddView(View):
+    @method_decorator(check_perms('magazine.magazine_add'))
     def get(self, request):
         form = MagazineForm()
         return render(request, 'magazine/magazine-form.html',
                 {'form': form, 'post_url': reverse('magazine:add')})
 
+    @method_decorator(check_perms('magazine.magazine_add'))
     def post(self, request):
         form = MagazineForm(request.POST, request.FILES)
         if not form.is_valid():
@@ -53,6 +58,7 @@ class AddView(View):
 
 
 class ModifyView(View):
+    @method_decorator(check_perms('magazine.magazine_modify'))
     def get(self, request):
         maga_id = request.GET.get('id')
         magazine = get_object_or_404(Magazine, id=maga_id)
@@ -61,6 +67,7 @@ class ModifyView(View):
                 {'form': form,
                  'post_url': reverse('magazine:modify') + '?id=' + maga_id})
 
+    @method_decorator(check_perms('magazine.magazine_modify'))
     def post(self, request):
         maga_id = request.GET.get('id')
         magazine = get_object_or_404(Magazine, id=maga_id)
