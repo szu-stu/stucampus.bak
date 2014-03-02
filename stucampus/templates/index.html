@@ -47,7 +47,7 @@
 							<p>{{ article.summary | truncatechars:45 }}</p>
 						</a>
 						{% else %}
-						<a href="{% url 'articles:display' %}?id={{ article.pk }}">
+						<a href="{% url 'articles:display' article.pk %}">
 							{{ article.title | truncatechars:20  }}
 						</a>
 						{% endif %}

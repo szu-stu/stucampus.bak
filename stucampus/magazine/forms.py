@@ -18,8 +18,10 @@ class MagazineForm(forms.ModelForm):
         if 'issue' not in self.cleaned_data or \
            'name' not in self.cleaned_data:
             return super(MagazineForm, self).clean()
-        if Magazine.objects.filter(name=self.cleaned_data['name'],
-                issue=self.cleaned_data['issue']).exists():
+        if Magazine.objects.filter(
+                name=self.cleaned_data['name'],
+                issue=self.cleaned_data['issue']
+                ).exclude( pdf_file=self.cleaned_data['pdf_file']).exists():
             msg = u'该期数已存在'
             self._errors['issue'] = self.error_class([msg])
             del self.cleaned_data['issue']

@@ -13,7 +13,6 @@ def redirect(request):
     return HttpResponseRedirect('/manage/status')
 
 
-@check_perms('account.website_admin')
 def status(request):
     python_version = platform.python_version()
     domain = request.get_host()
