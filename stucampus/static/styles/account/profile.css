@@ -157,10 +157,10 @@ li#last {
 }
 
 input#confirm_botton {
-	position: relative;
-	overflow: hidden;
-	background: #80a800;
-	color: #fff;
+    position: relative;
+    overflow: hidden;
+    background: #acd340;
+    color: #fff;
     border-radius: 2px;
     border-width: 0;
     cursor: pointer;
@@ -169,6 +169,14 @@ input#confirm_botton {
     height: 40px;   
     font-family: "Microsoft Yahei";
     font-size: 25px;
+}
+
+input#confirm_botton:hover {
+    background: #9bc513;
+}
+
+input#confirm_botton:active {
+    background: #819e30;
 }
 
 /*组织发布信息*/

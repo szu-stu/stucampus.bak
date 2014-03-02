@@ -24,21 +24,23 @@ form.large-element input.textbox {
 	margin: 0 1em;
 	border: 1px solid #ccc;
 }
+
+
 form.large-element input.button {
 	display: inline-block;
 	height: 52px;
 	padding: 5px 28px;
 	border-width: 0;
 	border-radius: 2px;
-	background: #80a800;
+	background: #ff696a;
 	color: #fff;
 	cursor: pointer;
 }
 form.large-element input.button:hover {
-	background: #a1c400;
+	background: #ff5552;
 }
-form.large-element input.button:hover {
-	background-position: 0 -3px;
+form.large-element input.button:active {
+	background: #bf4f4f;
 }
 form.large-element input.button:active {
 	background-image: none;

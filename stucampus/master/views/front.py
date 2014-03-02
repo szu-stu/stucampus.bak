@@ -15,12 +15,12 @@ def index(request):
                     important=True).order_by('-pk')[:3]
     # 不同类别的文章
     article_dict = \
-            {category: \
+            ((category, \
              Article.objects.filter(
                  publish=True,
                  deleted=False,
-                 category=category).order_by('-pk')[:5] \
-             for category in Category.objects.all()}
+                 category=category).order_by('-pk')[:5]) \
+             for category in Category.objects.all().order_by('priority'))
     lecture_list = \
             LectureMessage.objects.filter(checked=True).order_by('pk')[:7]
     activity_list = \

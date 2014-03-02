@@ -35,7 +35,7 @@
 		</div><!--end of cont_headline-->
 
 		<div class="cont_articles">
-			{% for category, article_list in article_dict.items %}
+			{% for category, article_list in article_dict %}
 			<div class="articles_list {% cycle 'mgright' '' %}">
 				<h2>{{ category }}</h2>
 				<a class="articles_list_more" href="{% url 'articles:list' category.english_name %}">更多…</a>
