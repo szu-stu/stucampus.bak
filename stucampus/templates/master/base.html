@@ -49,6 +49,8 @@
                 {% endif %}
                 {% if perms.articles.article_add %}
                     <a href="{% url 'articles:add' %}">添加文章</a>
+                {% endif %}
+                {% if perms.articles.article_manage %}
                     <a href="{% url 'articles:manage' %}">文章编审</a>
                     <a href="{% url 'articles:category' %}">文章分类</a>
                 {% endif %}

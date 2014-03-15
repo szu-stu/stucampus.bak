@@ -5,6 +5,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 from stucampus.custom.models_utils import file_save_path
+from stucampus.custom.validator import validate_file_extension
 
 
 def save_path(instance, filename):
@@ -23,7 +24,8 @@ class Magazine(models.Model):
     title = models.CharField(max_length=40)
     issue = models.IntegerField()
     summary = models.CharField(max_length=300, null=True, blank=True)
-    pdf_file = models.FileField(upload_to=save_path)
+    pdf_file = models.FileField(upload_to=save_path,
+                                validators=[validate_file_extension('pdf')])
 
     create_date = models.DateField(auto_now_add=True)
     modify_date = models.DateField(auto_now=True)

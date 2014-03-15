@@ -72,6 +72,8 @@ class ModifyView(View):
         maga_id = request.GET.get('id')
         magazine = get_object_or_404(Magazine, id=maga_id)
         form = MagazineForm(request.POST, request.FILES, instance=magazine)
+        # 用于检查期数是否有重复,但要排除自身与自身重复
+        form.model_id = maga_id
         if not form.is_valid():
             return render(request, 'magazine/magazine-form.html',
                     {'form': form,
