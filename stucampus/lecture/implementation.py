@@ -64,7 +64,7 @@ def parse_content(content):
         place = ''
 
     try:
-        date_time_txt= find_by_iter_wrap_pattern(DATETIME_PATTERN, content)
+        date_time_txt = find_by_iter_wrap_pattern(DATETIME_PATTERN, content)
     except MatchError:
         date = None
         time = None
@@ -87,43 +87,45 @@ def parse_content(content):
                 speaker=speaker)
 
 
-WHITESPACE = u'[　 ]*'
+WHITESPACE = u'[　 ]*?'
+COLON = u'[：:]*'
 
 
 TITLE_PATTERN = (
-    (u'讲座题目：' + WHITESPACE, u'\n'),
-    (u'报告题目：' + WHITESPACE, u'\n'),
-    (u'演讲题目：' + WHITESPACE, u'\n'),
-    (u'题目：' + WHITESPACE, u'\n'),
-    (u'题' + WHITESPACE +u'目：' + WHITESPACE, u'\n'),
-    (u'主题：' + WHITESPACE, u'\n'),
-    (u'主' + WHITESPACE + u'题：' + WHITESPACE, u'\n'),
+    (u'讲.*?座.*?题.*?目' + COLON + WHITESPACE, u'\n'),
+    (u'报.*?告.*?题.*?目' + COLON + WHITESPACE, u'\n'),
+    (u'演.*?讲.*?题.*?目' + COLON + WHITESPACE, u'\n'),
+    (u'题.*?目' + COLON + WHITESPACE, u'\n'),
+    (u'题' + COLON + WHITESPACE +u'目：' + WHITESPACE, u'\n'),
+    (u'主.*?题' + COLON + WHITESPACE, u'\n'),
+    (u'主' + COLON + WHITESPACE + u'题：' + WHITESPACE, u'\n'),
     )
 
 
 PLACE_PATTERN = (
-    (u'讲座地点：' + WHITESPACE, u'\n'),
-    (u'报告地点：' + WHITESPACE, u'\n'),
-    (u'地点：' + WHITESPACE, u'\n'),
-    (u'地' + WHITESPACE + u'点：' + WHITESPACE, u'\n'),
+    (u'讲.*?座.*?地.*?点' + COLON + WHITESPACE, u'\n'),
+    (u'报.*?告.*?地.*?点' + COLON + WHITESPACE, u'\n'),
+    (u'地.*?点' + COLON + WHITESPACE, u'\n'),
+    (u'地' + COLON + WHITESPACE + u'点' + WHITESPACE, u'\n'),
     )
 
 
 SPEAKER_PATTERN = (
-    (u'报告人：' + WHITESPACE, u'\n'),
-    (u'特邀讲者：' + WHITESPACE, u'\n'),
-    (u'主讲：' + WHITESPACE, u'\n'),
-    (u'主' + WHITESPACE + u'讲：' + WHITESPACE, u'\n'),
-    (u'主讲人：' + WHITESPACE, u'\n'),
-    (u'\n', u'教授简介：'),
+    (u'报.*?告.*?人' + COLON + WHITESPACE, u'\n'),
+    (u'演.*?讲.*?人' + COLON + WHITESPACE, u'\n'),
+    (u'特.*?邀.*?讲.*?者' + COLON + WHITESPACE, u'\n'),
+    (u'主.*?讲.*?人' + COLON + WHITESPACE, u'\n'),
+    (u'主.*?讲：' + COLON + WHITESPACE, u'\n'),
+    (u'主' + COLON + WHITESPACE + u'讲' + WHITESPACE, u'\n'),
+    (u'\n', u'教.*?授.*?简.*?介'),
     )
 
 
 DATETIME_PATTERN = (
-    (u'讲座时间：' + WHITESPACE, u'\n'),
-    (u'报告时间：' + WHITESPACE, u'\n'),
-    (u'时间：' + WHITESPACE, u'\n'),
-    (u'时' + WHITESPACE + u'间：' + WHITESPACE, u'\n'),
+    (u'讲.*?座.*?时.*?间' + COLON + WHITESPACE, u'\n'),
+    (u'报.*?告.*?时.*?间' + COLON + WHITESPACE, u'\n'),
+    (u'时.*?间' + COLON + WHITESPACE, u'\n'),
+    (u'时' + COLON + WHITESPACE + u'间：' + WHITESPACE, u'\n'),
     )
 
 
@@ -193,8 +195,14 @@ def find_by_iter_single_pattern(patterns, content):
 
 def add_new_lecture_from_notification(new_notif):
     for lect in new_notif:
-        if not LectureMessage.objects.filter(url_id=lect['url_id']).exists():
+        if not LectureMessage.objects.filter(
+                url_id=lect['url_id']).exists():
             lecture = LectureMessage()
+
+        for attr in lect:
+            if isinstance(lect[attr], (unicode, str)) \
+                    and len(lect[attr]):
+                lect[attr] = lect[attr][:100]
 
         lecture.url_id = lect['url_id']
         lecture.title = lect['title']
