@@ -26,7 +26,8 @@ def manage(request):
         else:
             category = get_object_or_404(Category, name=category)
             article_list = Article.objects.filter(category=category)
-    paginator = Paginator(article_list.order_by('-pk'), 4)
+    paginator = Paginator(
+            article_list.filter(deleted=False).order_by('-pk'), 4)
     try:
         page = paginator.page(request.GET.get('page'))
     except InvalidPage:
@@ -112,10 +113,10 @@ class CategoryView(View):
     def create_category_list():
         category_list = Category.objects.all()
         category_list = {category.name: \
-                len(Article.objects.filter(category=category)) \
+                len(Article.objects.filter(category=category, deleted=False)) \
                 for category in Category.objects.all()}
         category_list[NO_CATEGORY] = \
-                len(Article.objects.filter(category=None))
+                len(Article.objects.filter(category=None, deleted=False))
         return category_list
 
     @method_decorator(check_perms('articles.article_manage'))
@@ -162,7 +163,7 @@ def article_list(request, category=None):
 
 
 def article_display(request, id=None):
-    article = get_object_or_404(Article, pk=id, publish=True)
+    article = get_object_or_404(Article, pk=id, publish=True, deleted=False)
     article.click_count += 1
     article.save()
     return render(request, 'articles/article-display.html',
