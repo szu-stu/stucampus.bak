@@ -201,7 +201,7 @@ def add_new_lecture_from_notification(new_notif):
 
         for attr in lect:
             if isinstance(lect[attr], (unicode, str)) \
-                    and len(lect[attr]):
+                    and len(lect[attr]) > 100:
                 lect[attr] = lect[attr][:100]
 
         lecture.url_id = lect['url_id']

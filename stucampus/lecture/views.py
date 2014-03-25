@@ -57,6 +57,5 @@ class ManageView(generic.View):
         # 当extra>0的时候，不能循环form来save()
         formset.save()
         page = request.GET.get('page')
-        return HttpResponseRedirect(
-                reverse('lecture:manage')+('?page='+page if page else ''))
+        return HttpResponseRedirect(reverse('lecture:index'))
 
