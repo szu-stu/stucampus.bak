@@ -100,9 +100,15 @@
 				<ul class="widget_content_list">
 					{% for lecture in lecture_list %}
 					<li>
+						{% if lecture.url_id %}
 						<a href="http://www.szu.edu.cn/board/view.asp?id={{ lecture.url_id }}">
 							{{ lecture.title | truncatechars:18 }}
 						</a>
+						{% else %}
+						<a href="{% url 'lecture:index' %}">
+							{{ lecture.title | truncatechars:18 }}
+						</a>
+						{% endif %}
 					</li>
 					{% endfor %}
 				</ul>

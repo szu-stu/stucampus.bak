@@ -26,7 +26,11 @@
                     {% for msg_list in table.morning %}
                         <td class="{% cycle 'day1' 'day2' 'day3' 'day4' 'day5' 'day6' 'day7' as day %}">
                         {% for msg in msg_list %}
-                            <a href="http://www.szu.edu.cn/board/view.asp?id={{ msg.url_id }}">
+                            {% if msg.url_id %}
+                            <a href="http://www.szu.edu.cn/board/view.asp?id={{ msg.url_id }}" target="_blank">
+                            {% else %}
+                            <a>
+                            {% endif %}
                                 <p><strong>{{ msg.title }}</strong></p>
                                 <div class="line"></div>
                                 <li class="one_row">
@@ -47,7 +51,11 @@
                     {% for msg_list in table.afternoon %}
                         <td class="{% cycle 'day1' 'day2' 'day3' 'day4' 'day5' 'day6' 'day7' as day %}">
                         {% for msg in msg_list %}
-                            <a href="http://www.szu.edu.cn/board/view.asp?id={{ msg.url_id }}">
+                            {% if msg.url_id %}
+                            <a href="http://www.szu.edu.cn/board/view.asp?id={{ msg.url_id }}" target="_blank">
+                            {% else %}
+                            <a>
+                            {% endif %}
                                 <p><strong>{{ msg.title }}</strong></p>
                                 <div class="line"></div>
                                 <li class="one_row">

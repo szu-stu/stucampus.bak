@@ -22,7 +22,7 @@ def index(request):
 
 @check_perms('spider.spider_manager')
 def update(request):
-    num_of_update = update_notification(30)
+    num_of_update = update_notification(7)
     return HttpResponse(str(num_of_update))
 
 

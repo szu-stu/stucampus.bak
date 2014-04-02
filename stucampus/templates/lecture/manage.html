@@ -67,7 +67,9 @@
             <li>
                 <label>网址</label>
                 {{ form.url_id }}
-                <a href="http://www.szu.edu.cn/board/view.asp?id={{ form.url_id.value }}" class="szu_url">查看校内网</a>
+                {% if form.url_id.value %}
+                <a href="http://www.szu.edu.cn/board/view.asp?id={{ form.url_id.value }}" class="szu_url" target="_blank">查看校内网</a>
+                {% endif %}
                 <span class="error">
                     {% for error in form.url_id.errors %}
                         {{ error }}&nbsp;

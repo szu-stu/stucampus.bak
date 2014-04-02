@@ -85,7 +85,7 @@ class ModifyView(View):
 @check_perms('magazine.magazine_modify')
 def delete(request):
     maga_id = request.GET.get('id')
-    maga = Magazine.objects.get(pk=maga_id)
+    maga = get_object_or_404(Magazine, id=maga_id)
     maga.delete()
     return HttpResponseRedirect(reverse('magazine:manage'))
 
