@@ -27,7 +27,7 @@ def manage(request):
             category = get_object_or_404(Category, name=category)
             article_list = Article.objects.filter(category=category)
     paginator = Paginator(
-            article_list.filter(deleted=False).order_by('-pk'), 4)
+            article_list.filter(deleted=False).order_by('-pk'), 10)
     try:
         page = paginator.page(request.GET.get('page'))
     except InvalidPage:

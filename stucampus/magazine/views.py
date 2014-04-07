@@ -21,7 +21,7 @@ MAGAZINE_NAME = {
 
 def magazine_list(request, name):
     maga_list = Magazine.objects. \
-            filter(name=MAGAZINE_NAME[name]).order_by('-pk')
+            filter(name=MAGAZINE_NAME[name]).order_by('-issue')
     if not magazine_list:
         raise Http404
     return render(request, 'magazine/list.html', {'list': maga_list})

@@ -242,3 +242,23 @@ a,button,input,h1,h2,h3{
 	font-size: 14px;
 	color: #999;
 }
+
+/**duoshuo-visitors**/
+.ds-recent-visitors .ds-avatar{
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.ds-recent-visitors .ds-avatar a{
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+	padding: 3px;
+}
+
+.ds-recent-visitors .ds-avatar img{
+	position: relative;
+	overflow: hidden;
+	border: 5px solid #eee;
+}

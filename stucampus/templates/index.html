@@ -101,11 +101,11 @@
 					{% for lecture in lecture_list %}
 					<li>
 						{% if lecture.url_id %}
-						<a href="http://www.szu.edu.cn/board/view.asp?id={{ lecture.url_id }}">
+						<a href="http://www.szu.edu.cn/board/view.asp?id={{ lecture.url_id }}" target="_blank">
 							{{ lecture.title | truncatechars:18 }}
 						</a>
 						{% else %}
-						<a href="{% url 'lecture:index' %}">
+						<a href="{% url 'lecture:index' %}" target="_blank">
 							{{ lecture.title | truncatechars:18 }}
 						</a>
 						{% endif %}
