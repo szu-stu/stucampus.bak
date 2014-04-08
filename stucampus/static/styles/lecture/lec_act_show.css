@@ -17,6 +17,7 @@
     -webkit-border-radius: 5px;
     color: #7e7e7e;
     text-decoration: none;
+    min-width: 150px;
 }
 
 .message{
@@ -29,16 +30,11 @@
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     color: #7e7e7e;
+    min-width: 150px;
 }
 
 #main-container li{
     list-style: none;
-}
-
-.one_row{
-	display: block;
-	height: 30px;
-	overflow: hidden;
 }
 
 .line{
@@ -55,6 +51,7 @@ table{
 	width:100%;
 	background-color: #ffffff;
 	margin-bottom: 25px;
+
 }
 
 caption{
@@ -67,12 +64,11 @@ caption{
 td{
 	font-family: "Microsoft Yahei";
 	font-size: 14px;
-	vertical-align: middle;
 	line-height: 200%;
 	border: 0px #f7f7f7 solid;
 	min-width: 72px;
-	color: #000000;
-	text-align: left;	
+	text-align: left;
+	vertical-align: top;	
 }
 
 .time{
@@ -80,6 +76,7 @@ td{
 	background: #f7f7f7;
 	color: #7e7e7e;
 	text-align: center;
+	vertical-align: middle;
 }
 
 .day1,.day2,.day3,.day4,.day5,.day6,.day7{

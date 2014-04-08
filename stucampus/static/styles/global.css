@@ -43,7 +43,7 @@ a,button,input,h1,h2,h3{
 	position: relative;
 	overflow: hidden;
 	height: 380px;
-	background: #5bc4be center url(../images/coverphoto/current.jpg) no-repeat;
+	background: #5bc4be;
 }
 /** center url(static/images/coverphoto/current.jpg) no-repeat **/
 
