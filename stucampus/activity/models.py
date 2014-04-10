@@ -42,7 +42,7 @@ class ActivityMessage(models.Model):
         message_table['date'] = []
         message_table['morning'] = []
         message_table['afternoon'] = []
-        now = timezone.now()
+        now = datetime.now()
         date_of_this_Monday = now - timedelta(days=now.weekday())
         for i in range(0, 7):
             date = date_of_this_Monday + timedelta(days=i)
@@ -64,7 +64,7 @@ class ActivityMessage(models.Model):
 
     @classmethod
     def get_messages_this_week(cls):
-        now = timezone.now()
+        now = datetime.now()
         date_of_this_Monday = now - timedelta(days=now.weekday())
         date_of_next_Monday = date_of_this_Monday + timedelta(days=7)
         lecture_held_this_week = cls.objects.filter(
