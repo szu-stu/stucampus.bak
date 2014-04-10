@@ -95,12 +95,25 @@ INSTALLED_APPS = (
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '''[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s]
+                         %(message)s''',
+            'datefmt': "%d/%b/%Y %H:%M:%S"
+         }
+    },
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
         }
     },
     'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': 'stucampus_error.log',
+            'formatter': 'verbose',
+        },
         'mail_admins': {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
@@ -108,6 +121,10 @@ LOGGING = {
         }
     },
     'loggers': {
+        'stucampus': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+        },
         'django.request': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
