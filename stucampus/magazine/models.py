@@ -18,7 +18,7 @@ class Magazine(models.Model):
         permissions = (
             ('magazine_add', u'添加杂志'),
             ('magazine_modify', u'编辑杂志'),
-            )
+        )
 
     name = models.CharField(max_length=30)
     title = models.CharField(max_length=40)

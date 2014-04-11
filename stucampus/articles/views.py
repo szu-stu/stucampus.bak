@@ -142,7 +142,7 @@ def article_list(request, category=None):
     article_list = Article.objects.filter(category=category,
                                           publish=True,
                                           deleted=False).order_by('-pk')
-    paginator = Paginator(article_list, 4)
+    paginator = Paginator(article_list, 10)
     try:
         page = paginator.page(request.GET.get('page'))
     except InvalidPage:

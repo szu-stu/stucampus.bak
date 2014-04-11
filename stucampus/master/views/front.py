@@ -22,9 +22,9 @@ def index(request):
                  category=category).order_by('-pk')[:5]) \
              for category in Category.objects.all().order_by('priority'))
     lecture_list = \
-            LectureMessage.objects.filter(checked=True).order_by('pk')[:7]
+            LectureMessage.objects.filter(checked=True).order_by('-pk')[:7]
     activity_list = \
-            ActivityMessage.objects.filter(checked=True).order_by('pk')[:7]
+            ActivityMessage.objects.filter(checked=True).order_by('-pk')[:7]
     return render(request, "index.html",
                   {'important_articles': important_articles,
                    'article_dict': article_dict,

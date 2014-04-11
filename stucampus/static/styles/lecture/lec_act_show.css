@@ -2,13 +2,13 @@
 	width: 90%;
 	position: relative;
 	margin: 0 auto;
-	overflow: hidden;
+	overflow: auto;
 }
 
 #main-container a{
 	display: block;
 	position: relative;
-	margin: 10px;
+	margin: 5px;
 	padding: 10px;
 	overflow: hidden;
 	background: #ffffff;
@@ -17,12 +17,12 @@
     -webkit-border-radius: 5px;
     color: #7e7e7e;
     text-decoration: none;
-    min-width: 150px;
+    min-width: 125px;
 }
 
 .message{
 	position: relative;
-	margin: 10px;
+	margin: 5px;
 	padding: 10px;
 	overflow: hidden;
 	background: #ffffff;
@@ -30,7 +30,7 @@
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     color: #7e7e7e;
-    min-width: 150px;
+    min-width: 125px;
 }
 
 #main-container li{
@@ -49,6 +49,7 @@
 
 table{
 	width:100%;
+	min-width: 1000px;
 	background-color: #ffffff;
 	margin-bottom: 25px;
 
@@ -72,7 +73,7 @@ td{
 }
 
 .time{
-	width: 6%;
+	width: 55px;
 	background: #f7f7f7;
 	color: #7e7e7e;
 	text-align: center;

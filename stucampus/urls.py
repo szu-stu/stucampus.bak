@@ -26,6 +26,8 @@ urlpatterns = patterns(
                               namespace='lecture')),
     url(r'^activity/', include('stucampus.activity.urls',
                                namespace='activity')),
+    url(r'^szuspeech/', include('stucampus.szuspeech.urls',
+                               namespace='szuspeech')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^spider/', include('stucampus.spider.urls', namespace='spider')),
 )
