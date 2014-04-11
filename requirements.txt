@@ -1,7 +1,7 @@
 Django==1.5.1
+DjangoUeditor==1.4.125
 PyYAML==3.10
-lxml==3.2.3
-requests==2.0.0
+html2text==3.200.3
+lxml==3.3.4
+requests==2.2.1
 wsgiref==0.1.2
-pyyaml==3.10
-DjangoUeditor
