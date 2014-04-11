@@ -6,7 +6,7 @@ from stucampus.magazine.views import ModifyView, AddView, delete
 
 urlpatterns = patterns(
     '',
-    url(r'^add/$', AddView.as_view(), name='add'),
+    url(r'^upload/$', AddView.as_view(), name='add'),
     url(r'^manage/$', manage, name='manage'),
     url(r'^modify/$', ModifyView.as_view(), name='modify'),
     url(r'^delete/$', delete, name='delete'),
