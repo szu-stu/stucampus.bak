@@ -6,11 +6,11 @@ from django.http import HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.views.generic import View
 from django.core.paginator import InvalidPage, Paginator
-from stucampus.account.permission import check_perms
 from django.utils.decorators import method_decorator
 
 from stucampus.magazine.models import Magazine
 from stucampus.magazine.forms import MagazineForm 
+from stucampus.account.permission import check_perms
 
 
 MAGAZINE_NAME = {
