@@ -35,8 +35,10 @@
         <div class="main" id="layout_main">
             <div class="menu_container" id="menu_box">
                 <div class="left_menu" id="layout_left">
-                {% load permission_check %}    
-                    <a href="/manage/status">运行状态</a>
+                {% load permission_check %}
+                {% if user %}
+                    <a href="/manage/index">后台管理</a>
+                {% endif %}
                 {% if perms.account.student_manager %}
                     <a href="/manage/account/list">用户管理</a>
                 {% endif %}

@@ -7,11 +7,8 @@
 
 {% block content %}
 <div class="message_view">
-    <li style="font-size:18px"><strong>运行状态</strong></li>
+    <li style="font-size:18px"><strong>后台管理</strong></li>
     <div class="line_view"></div>
-    <li>Python 版本号：{{ python_version }}</li>
-    <li>服务环境：</li>
-    <li>IP 地址：{{ ipaddress }}</li>
-    <li>域名：{{ domain }}</li>
+    <li>{{ user.student.screen_name }} 你好。</li>
 </div>
 {% endblock %}

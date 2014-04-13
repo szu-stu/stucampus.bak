@@ -11,11 +11,11 @@ from stucampus.organization.views import EditOrganization
 
 urlpatterns = patterns(
     '',
-    url(r'^$', 'stucampus.master.views.manage.status.redirect',
-        name='admin_index'),
+    url(r'^$', 'stucampus.master.views.manage.index.redirect',
+        name='admin_index_redirect'),
 
-    url(r'^status$',
-        'stucampus.master.views.manage.status.status', name='admin_status'),
+    url(r'^index$',
+        'stucampus.master.views.manage.index.index', name='admin_index'),
 
     url(r'^organization/list$', ListOrganization.as_view(),
         name='manage_organization_list'),

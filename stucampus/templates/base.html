@@ -63,7 +63,12 @@
 	<div class="central">
 		<!-- <a href="">加入我们</a> -->
 		<!-- <a href="">开发团队</a> -->
-		<a href="http://weibo.com/stucampus">新浪微博</a><a href="{% url 'master:admin_status' %}">组织管理</a>
+		<a href="http://weibo.com/stucampus">新浪微博</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'master:admin_index' %}">组织管理</a>
+        {% else %}
+        <a href="{% url 'account:sign_in' %}">用户登录</a>
+        {% endif %}
 	</div>
 </div>
 
