@@ -10,7 +10,6 @@ class ResourceForm(forms.ModelForm):
     resource_intro = forms.CharField(widget=forms.Textarea({'maxlength':200}))
 
     maxwidth = 1024.0
-    maxheight = 768.0
 
     class Meta:
         model = Resource
@@ -23,8 +22,7 @@ class ResourceForm(forms.ModelForm):
         img = Image.open(img_stream)
         width, height = img.size
         min_width = min(self.maxwidth, width)
-        min_height = min(self.maxheight, height)
-        rate = max(min_width / width, min_height / height)
+        rate = min_width / width
         width = int(width * rate)
         height = int(height * rate)
         resized_img = img.resize((width, height), Image.ANTIALIAS)
