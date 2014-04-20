@@ -31,6 +31,7 @@ class Resource(models.Model):
     published_date = models.DateTimeField(auto_now=True)
     is_top = models.BooleanField(default=False)
 
+
 @receiver(post_delete, sender=Resource)
 def Resource_delete(sender, instance, **kwargs):
     delete_files = [instance.uploaded_file,instance.preview1,instance.preview2,instance.preview3]

@@ -32,6 +32,7 @@ class Magazine(models.Model):
     create_date = models.DateField(auto_now_add=True)
     modify_date = models.DateField(auto_now=True)
 
+
 @receiver(post_delete, sender=Magazine)
 def Magazine_delete(sender, instance, **kwargs):
     if instance.pdf_file:
