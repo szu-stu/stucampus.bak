@@ -3,6 +3,8 @@ import os
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 
 from stucampus.custom.models_utils import file_save_path
 from stucampus.custom.validator import validate_file_extension
@@ -30,3 +32,7 @@ class Magazine(models.Model):
     create_date = models.DateField(auto_now_add=True)
     modify_date = models.DateField(auto_now=True)
 
+@receiver(post_delete, sender=Magazine)
+def Magazine_delete(sender, instance, **kwargs):
+    if instance.pdf_file:
+        instance.pdf_file.delete(False)

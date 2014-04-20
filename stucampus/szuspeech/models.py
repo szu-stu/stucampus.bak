@@ -2,6 +2,8 @@
 import os
 
 from django.db import models
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 
 
 def save_path(instance, filename):
@@ -29,3 +31,9 @@ class Resource(models.Model):
     published_date = models.DateTimeField(auto_now=True)
     is_top = models.BooleanField(default=False)
 
+@receiver(post_delete, sender=Resource)
+def Resource_delete(sender, instance, **kwargs):
+    delete_files = [instance.uploaded_file,instance.preview1,instance.preview2,instance.preview3]
+    for delete_file in delete_files:
+        if delete_file:
+            delete_file.delete(False)
