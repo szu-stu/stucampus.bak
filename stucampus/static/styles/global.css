@@ -91,19 +91,16 @@ a,button,input,h1,h2,h3{
 	position: relative;
 	overflow: visible;
 	text-decoration: none;
-	border-top: 1px solid #bbb;
-	border-top: 1px solid rgba(255,255,255,0);
+	border-top: 1px solid rgb(193,232,230);
 	margin-top: -1px;
 	padding: 18px;
 	letter-spacing:1pt;
-	color: #999;
-	color: rgba(255,255,255,0.65);
+	color: rgb(193,232,230);
 }
 
 .header .home_nav a.nav_current{
-	border-color: rgb(255,255,255);
-	color: rgb(255,255,255);
-	
+	border-top: 1px solid #fff;
+	color: #fff;
 }
 
 .header .home_nav a:hover{

@@ -8,7 +8,17 @@
 	}
 }
 
-@media screen and (max-width: 1080px) {
+@media screen and (max-width: 1080px){
+	body{
+		padding: 0;
+		min-width: 980px;
+	}
+	.central{
+		width: 980px;
+	}
+}
+
+@media screen and (max-width: 1000px) {
     body{
     	padding: 0;
     	min-width: 480px;
@@ -34,8 +44,11 @@
 		background: #5bc4be;
 		height: 100%;
 	}
-	.header .coverphoto_author,.header .home_nav,.article .article_body .article_share{
+	.header .coverphoto_author,.article .article_body .article_share{
 		display: none;
+	}
+	.header .home_nav{
+		margin: 30px 0 0;
 	}
 	.header .home_title{
 		margin: 8px 0 0;
