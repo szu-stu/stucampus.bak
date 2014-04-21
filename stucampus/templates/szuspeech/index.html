@@ -68,6 +68,7 @@
 				</h3>
 				<p>{{ resource.resource_intro }}</p>
 				<p class="szuspeech_list_button">
+					{% nospaces %}
 					{% if resource.is_preview %}
 
 					{% if resource.preview1 %}
@@ -79,9 +80,10 @@
 					{% if resource.preview3 %}
 					<a class="imgGroup{{forloop.counter}}" href="{{ resource.preview3.url }}" style="display:none;">预览</a>
 					{% endif %}
-					
+
 					{% endif %}
 					<a href="{{ resource.uploaded_file.url }}">下载</a>
+					{% endnospaces %}
 				</p>
 			</div>
 			{% endfor %}
