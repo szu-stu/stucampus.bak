@@ -25,7 +25,7 @@ class SignUpForm(forms.ModelForm):
     )
 
     def clean_confirm(self):
-        team_psw =  self.objects.get('team_psw')
+        team_psw = self.cleaned_data.get('team_psw')
         confirm = self.cleaned_data.get('confirm')
         if not team_psw == confirm:
             raise forms.ValidationError(_(u'前后输入密码不一致'))
