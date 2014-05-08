@@ -9,9 +9,9 @@ def save_path(instance, filename):
 class Resource(models.Model):
     
     team_captain = models.CharField(max_length=12)
-    Team_captain_phone = models.CharField(max_length=11)
-    Team_captain_stuno = models.CharField(max_length=10)
-    Team_captain_college = models.CharField(max_length=12)    
+    team_captain_phone = models.CharField(max_length=11)
+    team_captain_stuno = models.CharField(max_length=10)
+    team_captain_college = models.CharField(max_length=12)    
     team_members1_name = models.CharField(max_length=12, blank=True)
     team_members1_id = models.CharField(max_length=10, blank=True)
     team_members2_name = models.CharField(max_length=12, blank=True)
