@@ -28,6 +28,8 @@ urlpatterns = patterns(
                                namespace='activity')),
     url(r'^szuspeech/', include('stucampus.szuspeech.urls',
                                namespace='szuspeech')),
+    url(r'^minivideo/', include('stucampus.minivideo.urls',
+                               namespace='minivideo')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^spider/', include('stucampus.spider.urls', namespace='spider')),
 )
