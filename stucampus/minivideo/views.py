@@ -1,5 +1,6 @@
 from django.views.generic import View
 from django.shortcuts import render, get_object_or_404
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from stucampus.minivideo.models import Resource
 from stucampus.minivideo.forms import SignUpForm, CommitForm
@@ -28,3 +29,16 @@ class SignUpView(View):
         	return render(request, 'minivideo/signup.html', {'form':form})
         form.save()
         return render(request, 'minivideo/list.html')
+
+def resource_list(request):
+    resources = Resource.objects.all().order_by('has_verified','id')
+    page = request.GET.get('page')
+    paginator = Paginator(resources,15)
+    try:
+        page_list = paginator.page(page)
+    except PageNotAnInteger:
+        page_list = paginator.page(1)
+    except EmptyPage:
+        page_list = paginator.page(paginator.num_pages)
+
+    return render(request,'minivideo/list.html',{ 'page_list':page_list})

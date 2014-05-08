@@ -1,0 +1,97 @@
+﻿.minivideo_list{
+	position: relative;
+	overflow: hidden;
+	padding: 28px 0;
+}
+
+.minivideo_list h2{
+	font-weight: normal;
+	font-size: 28px;
+	margin-bottom: 8px;
+	padding-bottom: 3px;
+	color: #000;
+	border-bottom: 2px solid #5bc4be;
+}
+
+.minivideo_list .minivideo_list_grid{
+	position: relative;
+	overflow: hidden;
+	margin: 1px;
+	margin-top: 28px;
+	border-top: 2px solid #5bc4be;
+	border-left: 2px solid #5bc4be;
+}
+
+.minivideo_list .minivideo_list_grid a{
+	color: black;
+}
+
+.minivideo_list .minivideo_list_grid ul{
+	position: relative;
+	overflow: hidden;
+}
+
+.minivideo_list .minivideo_list_grid ul.minivideo_list_grid_head{
+	background-color: #5bc4be;
+	color: #fff;
+}
+
+.minivideo_list .minivideo_list_grid a:hover ul li{
+	background-color: rgb(232,242,211);
+}
+
+.minivideo_list .minivideo_list_grid ul li span{
+	background: #f0f0f0;
+	color: black;
+	padding: 1px 15px 2px;
+	border-radius: 15px;
+}
+
+.minivideo_list .minivideo_list_grid a:hover ul li span{
+	background-color: #5bc4be;
+	color: #fff;
+}
+
+.minivideo_list .minivideo_list_grid ul li{
+	position: relative;
+	overflow: hidden;
+	font-size: 18px;
+	float: left;
+	border-right: 2px solid #5bc4be;
+	border-bottom: 2px solid #5bc4be;
+	width: 232px;
+	padding: 5px;
+	text-align: center;
+}
+
+.central .pagingbar{
+	position: relative;
+	overflow: hidden;
+	text-align: center;
+	margin-bottom: 38px;
+}
+
+.central .pagingbar a{
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+	background: #5bc4be;
+	text-decoration: none;
+	color: #fff;
+	font-size: 14px;
+	padding: 5px 8px 6px;
+	border-radius: 1px;
+}
+
+.central .pagingbar a:hover{
+	background: rgb(9,108,111)
+}
+
+.central .pagingbar span{
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+	font-size: 14px;
+	padding: 5px 8px 6px;
+	color: #666;
+}

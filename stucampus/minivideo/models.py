@@ -8,6 +8,11 @@ def save_path(instance, filename):
 
 class Resource(models.Model):
     
+    class Meta:
+        permissions = (
+            ('manager', u'微视大赛管理员'),
+        )
+
     team_captain = models.CharField(max_length=12)
     team_captain_phone = models.CharField(max_length=11)
     team_captain_stuno = models.CharField(max_length=10)
