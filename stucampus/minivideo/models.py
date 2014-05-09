@@ -31,7 +31,7 @@ class Resource(models.Model):
     video_cover = models.ImageField(upload_to=save_path, blank=True)
     video_name = models.CharField(max_length=50, blank=True)
     video_intro = models.CharField(max_length=200, blank=True)
-    video_link = models.URLField(max_length=100, blank=True)
+    video_link = models.URLField(max_length=150, blank=True)
     votes = models.IntegerField(default=0)
     has_verified = models.BooleanField(default=False)
 
