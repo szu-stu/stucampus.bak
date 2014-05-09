@@ -8,7 +8,7 @@ from stucampus.minivideo.forms import SignUpForm, CommitForm
 class SignUpView(View):
     def get(self, request):
         resource_id = request.GET.get('id')        
-        if  resource_id is  None:
+        if resource_id is None:
             form = SignUpForm()
 	    flag = False
             return render(request, 'minivideo/signup.html', {'form':form,'flag':flag})
@@ -19,7 +19,7 @@ class SignUpView(View):
 
     def post(self, request):
         resource_id = request.GET.get('id')        
-        if  resource_id is  None:
+        if resource_id is None:
             form = SignUpForm(request.POST)
             if not form.is_valid():
                 return render(request, 'minivideo/signup.html', {'form':form})
