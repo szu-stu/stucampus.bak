@@ -98,6 +98,7 @@
 	position: relative;
 	overflow: hidden;
 	padding: 3px 5px;
+	display:block;
 }
 
 .minivideo_form form input{
