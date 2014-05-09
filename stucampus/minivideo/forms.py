@@ -53,8 +53,8 @@ class CommitForm(forms.ModelForm):
     )
 
     def clean_confirm(self):
-        resource_id = request.GET.get('id')
-        resource = Resource.objects.get(pk=resource_id)
+        stuno = self.cleaned_data.get('team_captain_stuno')
+        resource = Resource.objects.get(team_captain_stuno=stuno)
         team_psw = resource.team_psw
         confirm = self.cleaned_data.get('confirm')
         if not team_psw == confirm:
@@ -64,7 +64,7 @@ class CommitForm(forms.ModelForm):
     class Meta:
          model = Resource
          exclude = ('team_captain', 'team_captain_phone', 
-            'team_captain_stuno', 'team_captain_college',
+             'team_captain_college',
             'team_members1_name', 'team_members1_id',
             'team_members2_name', 'team_members2_id',
             'team_members3_name', 'team_members3_id', 

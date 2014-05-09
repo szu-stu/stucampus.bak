@@ -27,8 +27,7 @@ class SignUpView(View):
             form.save()
             return HttpResponseRedirect(reverse('minivideo:resource_list'))
         flag = True
-        resource = get_object_or_404(Resource, pk=resource_id)
-        form = CommitForm(instance=resource)
+        form = CommitForm(request.POST)
         if not form.is_valid():
         	return render(request, 'minivideo/signup.html', {'form':form,'flag':flag})
         form.save()
