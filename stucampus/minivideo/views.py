@@ -10,9 +10,9 @@ class SignUpView(View):
         resource_id = request.GET.get('id')        
         if resource_id is None:
             form = SignUpForm()
-	    flag = False
+            flag = False
             return render(request, 'minivideo/signup.html', {'form':form,'flag':flag})
-	flag = True
+        flag = True
         resource = get_object_or_404(Resource, pk=resource_id)
         form = CommitForm(instance=resource)
         return render(request, 'minivideo/signup.html', {'form':form,'flag':flag})
@@ -21,14 +21,16 @@ class SignUpView(View):
         resource_id = request.GET.get('id')        
         if resource_id is None:
             form = SignUpForm(request.POST)
+            flag = False
             if not form.is_valid():
-                return render(request, 'minivideo/signup.html', {'form':form})
+                return render(request, 'minivideo/signup.html', {'form':form,'flag':flag})
             form.save()
-            return render(request, 'minivideo/list.html')
+            return HttpResponseRedirect(reverse('minivideo:resource_list'))
+        flag = True
         resource = get_object_or_404(Resource, pk=resource_id)
         form = CommitForm(instance=resource)
         if not form.is_valid():
-        	return render(request, 'minivideo/signup.html', {'form':form})
+        	return render(request, 'minivideo/signup.html', {'form':form,'flag':flag})
         form.save()
         return render(request, 'minivideo/list.html')
 

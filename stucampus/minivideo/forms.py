@@ -24,6 +24,12 @@ class SignUpForm(forms.ModelForm):
         }
     )
 
+    def clean_team_captain_stuno(self):
+        stuno = self.cleaned_data.get('team_captain_stuno')
+        if Resource.objects.filter(team_captain_stuno=stuno).exists():
+            raise forms.ValidationError((u'该学号已报名'))
+        return stuno
+
     def clean_confirm(self):
         team_psw = self.cleaned_data.get('team_psw')
         confirm = self.cleaned_data.get('confirm')
@@ -47,7 +53,9 @@ class CommitForm(forms.ModelForm):
     )
 
     def clean_confirm(self):
-        team_psw = Resource.objects.get('team_psw')
+        resource_id = request.GET.get('id')
+        resource = Resource.objects.get(pk=resource_id)
+        team_psw = resource.team_psw
         confirm = self.cleaned_data.get('confirm')
         if not team_psw == confirm:
             raise forms.ValidationError(_(u'密码错误'))
