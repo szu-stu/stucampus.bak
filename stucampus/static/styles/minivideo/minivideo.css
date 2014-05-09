@@ -107,7 +107,17 @@
 	padding: 2px;
 	border-radius: 2px;
 	border: 1px solid #5bc4be;
-	width:95%;
+	width:97%;
+}
+
+.minivideo_form form textarea{
+	font-size: 18px;
+	font-family: Microsoft Yahei;
+	padding: 2px;
+	border-radius: 2px;
+	border: 1px solid #5bc4be;
+	width:97%;
+	resize:none;
 }
 
 .minivideo_form form .form_btn{

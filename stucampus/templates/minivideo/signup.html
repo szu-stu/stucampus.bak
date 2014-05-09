@@ -7,118 +7,177 @@
 
 {% block content %}
     <div class="central">
-	{% if flag %}
-	<div class="stop">
-	    作品提交功能尚未开放
-	</div>
-	{% else %}
-	<div class="minivideo_form">
-		<h2>参赛者报名表</h2>
+    {% if flag %}
+    <div class="minivideo_form">
+        <h2>参赛作品提交表</h2>
+        
+        <p>请将视频上传至优酷后提交网址，如：http://v.youku.com/v_show/id_XNDU2NzE2MA==.html</p>
+        <form method="post" action="" >
+        {% csrf_token %}
+            <p style="display:none">{{ form.team_captain_stuno }}</p>
 
-                <form enctype="multipart/form-data" method="post" action=" " >
-                        {% csrf_token %}
-			<p><span>队长姓名</span><span>{{ form.team_captain }}</span></p>
-                        <span class="error">
-                            {% for error in form.resource_title.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </span>
+            <p><span>视频封面</span><span>{{ form.video_cover }}</span></p>
+            <span class="error">
+            {% for error in form.video_cover.errors %}
+                {{ error }}
+            {% endfor %}
+            </span>
 
-			<p><span>队长学号</span><span>{{ form.team_captain_stuno }}</span></p>
-                        <span class="error">
-                            {% for error in form.resource_title.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </span>
+            <p><span>视频名字</span><span>{{ form.video_name }}</span></p>
+            <span class="error">
+            {% for error in form.video_name.errors %}
+                {{ error }}
+            {% endfor %}
+            </span>
 
-			<p><span>队长学院</span><span>{{ form.team_captain_college }}</span></p>
-                        <span class="error">
-                            {% for error in form.resource_title.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </span>
+            <p><span>视频链接</span><span>{{ form.video_link }}</span></p>
+            <span class="error">
+            {% for error in form.video_link.errors %}
+                {{ error }}
+            {% endfor %}
+            </span>
 
-			<p><span>队长电话</span><span>{{ form.team_captain_phone }}</span></p>
-                        <span class="error">
-                            {% for error in form.resource_title.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </span>
-			<p><span>建议长号短号都留下，用空格隔开</span></p>
+            <p><span>视频简介</span><span>{{ form.video_intro }}</span></p>
+            <span class="error">
+            {% for error in form.video_intro.errors %}
+                {{ error }}
+            {% endfor %}
+            </span>
 
-			<p><span>队员姓名</span><span>{{ form.team_members1_name }}</span></p>
-                        <span class="error">
-                            {% for error in form.resource_title.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </span>
+            <p><span>密码</span><span>{{ form.confirm }}</span></p>
+            <span class="error">
+            {% for error in form.confirm.errors %}
+                {{ error }}
+            {% endfor %}
+            </span>
 
-			<p><span>队员学号</span><span>{{ form.team_members1_id }}</span></p>
-                        <span class="error">
-                            {% for error in form.resource_title.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </span>
-
-			<p><span>队员姓名</span><span>{{ form.team_members2_name }}</span></p>
-                        <span class="error">
-                            {% for error in form.resource_title.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </span>
-
-			<p><span>队员学号</span><span>{{ form.team_members2_id }}</span></p>
-                        <span class="error">
-                            {% for error in form.resource_title.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </span>
-
-			<p><span>队员姓名</span><span>{{ form.team_members3_name }}</span></p>
-                        <span class="error">
-                            {% for error in form.resource_title.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </span>
-
-			<p><span>队员学号</span><span>{{ form.team_members3_id }}</span></p>
-                        <span class="error">
-                            {% for error in form.resource_title.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </span>
-
-			<p><span>队员姓名</span><span>{{ form.team_members4_name }}</span></p>
-                        <span class="error">
-                            {% for error in form.resource_title.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </span>
-
-			<p><span>队员学号</span><span>{{ form.team_members4_id }}</span></p>
-                        <span class="error">
-                            {% for error in form.resource_title.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </span>
-
-			<p><span>队员姓名</span><span>{{ form.team_members5_name }}</span></p>
-                        <span class="error">
-                            {% for error in form.resource_title.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </span>
-
-			<p><span>队员学号</span><span>{{ form.team_members5_id }}</span></p>
-                        <span class="error">
-                            {% for error in form.resource_title.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </span>
-
-			<p style="text-align: center;"><input class="form_btn" type="submit" value="提交" /></p>
-		</form>
-	</div>
-	{% endif %}
+            <p style="text-align: center;"><input class="form_btn" type="submit" value="提交" /></p>
+        </form>
     </div>
+
+    {% else %}
+    <div class="minivideo_form">
+        <h2>参赛者报名表</h2>
+        
+        <p>队员无需填满，根据队伍人数而定；请牢记自己的密码</p>
+        <form method="post" action="" >
+        {% csrf_token %}
+            <p><span>队长姓名</span><span>{{ form.team_captain }}</span></p>
+            <span class="error">
+            {% for error in form.team_captain.errors %}
+                {{ error }}
+            {% endfor %}
+            </span>
+
+            <p><span>队长学号</span><span>{{ form.team_captain_stuno }}</span></p>
+            <span class="error">
+            {% for error in form.team_captain_stuno.errors %}
+                {{ error }}
+            {% endfor %}
+            </span>
+
+            <p><span>队长学院</span><span>{{ form.team_captain_college }}</span></p>
+            <span class="error">
+            {% for error in form.team_captain_college.errors %}
+                {{ error }}
+            {% endfor %}
+            </span>
+                   
+            <p><span>队长电话</span><span>{{ form.team_captain_phone }}</span></p>
+            <p><span>建议长号短号都留下，用空格隔开</span></p>
+            <span class="error">
+            {% for error in form.team_captain_phone.errors %}
+                {{ error }}
+            {% endfor %}
+            </span>
+                                                
+            <p><span>队员姓名</span><span>{{ form.team_members1_name }}</span></p>
+            <span class="error">
+            {% for error in form.team_members1_name.errors %}
+                {{ error }}
+            {% endfor %}
+            </span>
+
+            <p><span>队员学号</span><span>{{ form.team_members1_id }}</span></p>
+            <span class="error">
+            {% for error in form.team_members1_id.errors %}
+                {{ error }}
+            {% endfor %}
+            </span>
+
+            <p><span>队员姓名</span><span>{{ form.team_members2_name }}</span></p>
+            <span class="error">
+            {% for error in form.team_members2_name.errors %}
+                {{ error }}
+            {% endfor %}
+            </span>
+
+            <p><span>队员学号</span><span>{{ form.team_members2_id }}</span></p>
+            <span class="error">
+            {% for error in form.team_members2_id.errors %}
+                {{ error }}
+            {% endfor %}
+            </span>
+
+            <p><span>队员姓名</span><span>{{ form.team_members3_name }}</span></p>
+            <span class="error">
+            {% for error in form.team_members3_name.errors %}
+                {{ error }}
+            {% endfor %}
+            </span>
+
+            <p><span>队员学号</span><span>{{ form.team_members3_id }}</span></p>
+            <span class="error">
+            {% for error in form.team_members3_id.errors %}
+                {{ error }}
+            {% endfor %}
+            </span>
+
+            <p><span>队员姓名</span><span>{{ form.team_members4_name }}</span></p>
+            <span class="error">
+            {% for error in form.team_members4_name.errors %}
+                {{ error }}
+            {% endfor %}
+            </span>
+
+            <p><span>队员学号</span><span>{{ form.team_members4_id }}</span></p>
+            <span class="error">
+            {% for error in form.team_members4_id.errors %}
+                {{ error }}
+            {% endfor %}
+            </span>
+
+            <p><span>队员姓名</span><span>{{ form.team_members5_name }}</span></p>
+            <span class="error">
+            {% for error in form.team_members5_name.errors %}
+                {{ error }}
+            {% endfor %}
+            </span>
+
+            <p><span>队员学号</span><span>{{ form.team_members5_id }}</span></p>
+            <span class="error">
+            {% for error in form.team_members5_id.errors %}
+                {{ error }}
+            {% endfor %}
+            </span>
+                        
+            <p><span>设置队伍密码</span><span>{{ form.team_psw }}</span></p>
+            <span class="error">
+            {% for error in form.team_psw.errors %}
+                {{ error }}
+            {% endfor %}
+            </span>
+                        
+            <p><span>密码确认</span><span>{{ form.confirm }}</span></p>
+            <span class="error">
+            {% for error in form.confirm.errors %}
+                {{ error }}
+            {% endfor %}
+            </span>
+
+            <p style="text-align: center;"><input class="form_btn" type="submit" value="提交" /></p>
+        </form>
+    </div>
+    {% endif %}
+</div>
 {% endblock %}
