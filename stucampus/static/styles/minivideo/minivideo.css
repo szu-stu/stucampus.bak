@@ -155,7 +155,7 @@
 }
 
 .central .pagingbar a:hover{
-	background: rgb(9,108,111)
+	background: rgb(9,108,111);
 }
 
 .central .pagingbar span{
@@ -171,8 +171,24 @@ span.error{
 	color:rgb(255,105,106);
 }
 
+#video_cover-clear_id{width: 20px;display: inline;}
+
 .stop{
 	margin:40px 0;
 	text-align:center;
 	font-size:35px;
+}
+
+.verify{
+	text-align: center;
+	background: #5bc4be;
+	padding: 10px 5px;
+	margin: 20px auto;
+	display: block;
+	width: 130px;
+	color: white;
+	font-size: 20px;
+}
+.verify:hover{
+	background: rgb(9,108,111);
 }

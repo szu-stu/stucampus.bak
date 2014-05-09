@@ -6,13 +6,13 @@
 {% endblock %}
 
 {% block content %}
-    <div class="central">
+<div class="central">
     {% if flag %}
     <div class="minivideo_form">
         <h2>参赛作品提交表</h2>
         
         <p>请将视频上传至优酷后提交网址，如：http://v.youku.com/v_show/id_XNDU2NzE2MA==.html</p>
-        <form method="post" action="" >
+        <form enctype="multipart/form-data" method="post" action="" >
         {% csrf_token %}
             <p style="display:none">{{ form.team_captain_stuno }}</p>
 
@@ -53,6 +53,17 @@
 
             <p style="text-align: center;"><input class="form_btn" type="submit" value="提交" /></p>
         </form>
+        
+        {% load permission_check %}
+        {% if perms.minivideo.manager %}
+        <a class="verify" href="{% url 'minivideo:verify' %}?id={{resource.id}}">
+            {% if resource.has_verified %}
+            设为未审核
+            {% else %}
+            通过审核
+            {% endif %}
+        </a>
+        {% endif %}
     </div>
 
     {% else %}
