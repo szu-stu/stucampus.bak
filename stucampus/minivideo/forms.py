@@ -47,16 +47,6 @@ class CommitForm(forms.ModelForm):
         widget=forms.Textarea({'maxlength':200}),       
     )
 
-    video_cover = forms.ImageField()
-
-    video_name = forms.CharField(
-        max_length=50,
-    )
-    
-    video_link = forms.URLField(
-        max_length=150,
-    )
-
     confirm = forms.CharField(
         label=_(u'密码'), max_length=30,
         widget=forms.PasswordInput(),
@@ -84,7 +74,7 @@ class CommitForm(forms.ModelForm):
             'team_members3_name', 'team_members3_id', 
             'team_members4_name', 'team_members4_id', 
             'team_members5_name', 'team_members5_id',
-            'team_psw', 'votes', 'has_verified')
+            'votes', 'has_verified')
 
 
         
