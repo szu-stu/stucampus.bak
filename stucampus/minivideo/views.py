@@ -8,7 +8,7 @@ from stucampus.account.permission import check_perms
 
 class SignUpView(View):
     def get(self, request):
-        resource_id = request.GET.get('id')        
+        resource_id = request.GET.get('id')
         if resource_id is None:
             form = SignUpForm()
             flag = False
@@ -19,7 +19,7 @@ class SignUpView(View):
         return render(request, 'minivideo/signup.html', {'form':form,'flag':flag,'resource':resource})
 
     def post(self, request):
-        resource_id = request.GET.get('id')        
+        resource_id = request.GET.get('id')
         if resource_id is None:
             form = SignUpForm(request.POST)
             flag = False

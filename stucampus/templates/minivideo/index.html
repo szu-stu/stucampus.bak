@@ -10,10 +10,12 @@
 
 
             {% for resource in resources %}
-            <a href="{% url 'minivideo:details' %}?id={{resource.id}}">XX</a>
+            <a href="{% url 'minivideo:details' %}?id={{resource.id}}">{{resource.team_captain}}</a>
             {% endfor %}
        
     </div>
+     <a href="{% url 'minivideo:signup' %}">signup</a>
+     <a href="{% url 'minivideo:resource_list' %}">resource_list</a>
 
     <div class="pagingbar">
         <a href="?page=1">首页</a>
