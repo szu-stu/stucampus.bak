@@ -56,3 +56,19 @@ def verify(request):
     resource.has_verified = not resource.has_verified
     resource.save()
     return HttpResponseRedirect(reverse('minivideo:resource_list'))
+
+def index(request):
+    resources = Resource.objects.all()
+    return render(request,'minivideo/index.html',{'resources':resources})
+
+def details(request):
+    resource_id = request.GET.get('id')
+    resource = get_object_or_404(Resource,pk=resource_id)
+    return render(request,'minivideo/details.html',{'resource':resource})
+
+def votes(request):
+    resource_id = request.GET.get('id')
+    resource = get_object_or_404(Resource, pk=resource_id)
+    resource.votes +=1
+    resource.save()
+    return HttpResponseRedirect('/minivideo/details/?id=%s' % resource_id)

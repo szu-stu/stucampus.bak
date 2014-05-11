@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block htmlhead %}
+    {% load html_tools %}
+    {{ 'minivideo/minivideo.css' | as_css }}
+{% endblock %}
+
+{% block content %}
+<div class="central">
+    
+        {{ resource.video_link }}
+        <p>队长 ： {{resource.team_captain }}
+        <p>目前票数 ： {{ resource.votes }}</p>
+        <p>参赛作品简介 :</p>
+        {{ resource.video_intro }}
+        
+        <a href="{% url 'minivideo:votes' %}?id={{ resource.id }}">
+             投它一票
+        </a>
+
+</div>
+{% endblock %}
