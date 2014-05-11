@@ -43,6 +43,9 @@ class SignUpForm(forms.ModelForm):
 
 class CommitForm(forms.ModelForm):
 
+    video_intro = forms.CharField(
+        widget=forms.Textarea({'maxlength':200}),
+        )
 
     confirm = forms.CharField(
         label=_(u'密码'), max_length=30,
@@ -65,13 +68,10 @@ class CommitForm(forms.ModelForm):
     class Meta:
          model = Resource
          exclude = ('team_captain', 'team_captain_phone', 
-             'team_captain_college',
+            'team_captain_college',
             'team_members1_name', 'team_members1_id',
             'team_members2_name', 'team_members2_id',
             'team_members3_name', 'team_members3_id', 
             'team_members4_name', 'team_members4_id', 
             'team_members5_name', 'team_members5_id',
             'team_psw', 'votes', 'has_verified')
-
-
-        
