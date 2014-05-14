@@ -82,7 +82,7 @@
 					{% endif %}
 
 					{% endif %}
-					<a href="{{ resource.uploaded_file.url }}">下载</a>
+					<a href="{% url 'szuspeech:download' resource.id %}">下载</a>
 					{% endnospaces %}
 				</p>
 			</div>

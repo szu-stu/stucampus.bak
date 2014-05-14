@@ -98,3 +98,9 @@ class ModifyResorceView(View):
         resource = get_object_or_404(Resource, id=resouce_id)
         form = ResourceForm(instance=resource)
         return render(request, 'szuspeech/manage-form.html', {'form':form})
+
+    
+def download(request, resource_id):
+    resource = get_object_or_404(Resource, pk=resource_id)
+    return HttpResponseRedirect(resource.uploaded_file.url)
+
