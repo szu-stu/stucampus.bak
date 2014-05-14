@@ -7,16 +7,13 @@
 
 {% block content %}
 <div class="central">
-    
-        {{ resource.video_link }}
+
+      <p><embed src="http://player.youku.com/player.php/sid/{{ number }}/v.swf" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed></p> 
         <p>队长 ： {{resource.team_captain }}
-        <p>目前票数 ： {{ resource.votes }}</p>
+ 
         <p>参赛作品简介 :</p>
         {{ resource.video_intro }}
-        
-        <a href="{% url 'minivideo:votes' %}?id={{ resource.id }}">
-             投它一票
-        </a>
+                 
 
 </div>
 {% endblock %}
