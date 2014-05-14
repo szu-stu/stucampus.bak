@@ -73,5 +73,5 @@ def details(request):
     resource = get_object_or_404(Resource,pk=resource_id)
     url = 'http://v.youku.com/v_show/id_(.*?).html'
     req = re.compile(url)
-    number = re.search(req, resource.video_link)
+    number = re.search(req, resource.video_link).group(1)
     return render(request,'minivideo/details.html',{'resource':resource, 'number' : number})

@@ -2,7 +2,8 @@
 import os
 
 from django.db import models
-
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 
 def save_path(instance, filename):
     return os.path.join('minivideo', 'cover', filename)
@@ -37,3 +38,8 @@ class Resource(models.Model):
     votes = models.IntegerField(default=0)
     has_verified = models.BooleanField(default=False)
 
+
+@receiver(pre_save, sender=Resource)
+def image_delete(sender, instance, **kwargs):
+    if instance.video_cover:
+        Resource.objects.get(pk=instance.id).video_cover.delete(False)
