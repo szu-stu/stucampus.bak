@@ -41,5 +41,8 @@ class Resource(models.Model):
 
 @receiver(pre_save, sender=Resource)
 def image_delete(sender, instance, **kwargs):
-    if instance.video_cover:
-        Resource.objects.get(pk=instance.id).video_cover.delete(False)
+    if instance.id:
+        cover = Resource.objects.get(pk=instance.id).video_cover
+        if instance.video_cover != cover:
+            if cover:
+                cover.delete(False)

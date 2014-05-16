@@ -7,14 +7,64 @@
 
 {% block content %}
 <div class="central">
-    {% if flag %}
-    <div class="stop">
-        作品提交功能尚未开放
-    </div>
-    <!-- <div class="minivideo_form">
+{% if flag %}
+
+    {% load permission_check %}
+    {% if perms.minivideo.manager %}
+    <!-- 审核start -->
+    <div class="resource_info">
+        <p>队长姓名: {{ resource.team_captain }}</p>
+        <p>队长学号: {{ resource.team_captain_stuno }}</p>
+        <p>队长学院: {{ resource.team_captain_college }}</p>
+        <p>队长电话: {{ resource.team_captain_phone }}</p>
+        <p><span>队员1: {{ resource.team_members1_name }}</span><span>学号: {{ resource.team_members1_id }}</span></p>
+        <p><span>队员2: {{ resource.team_members2_name }}</span><span>学号: {{ resource.team_members2_id }}</span></p>
+        <p><span>队员3: {{ resource.team_members3_name }}</span><span>学号: {{ resource.team_members3_id }}</span></p>
+        <p><span>队员4: {{ resource.team_members4_name }}</span><span>学号: {{ resource.team_members4_id }}</span></p>
+        <p><span>队员5: {{ resource.team_members5_name }}</span><span>学号: {{ resource.team_members5_id }}</span></p>
+
+        {% if resource.video_cover %}
+        <p>视频封面: <a href="{{ resource.video_cover.url }}" target="_blank">点击查看</a></p>
+        {% else %}
+        <p>视频封面: </p>
+        {% endif %}
+
+        <p>视频名字: {{ resource.video_name }}</p>
+        <p>视频简介: {{ resource.video_intro }}</p>
+
+        {% if resource.video_link %}
+        <p>视频链接: <a href="{{ resource.video_link }}" target="_blank">点击观看</a></p>
+        {% else %}
+        <p>视频链接: </p>
+        {% endif %}
+
+        <p>投票数: {{ resource.votes }}</p>
+        {% if resource.has_verified %}
+        <p>审核状态: 已审核</p>
+        {% else %}
+        <p>审核状态: 未审核</p>
+        {% endif %}
+    </div>   
+
+    <a class="verify" href="{% url 'minivideo:verify' %}?id={{resource.id}}">
+        {% if resource.has_verified %}
+        设为未审核
+        {% else %}
+        通过审核
+        {% endif %}
+    </a>
+    <!-- 审核end -->
+    {% else %}
+    <!-- 提交表单start -->
+    <div class="minivideo_form">
         <h2>参赛作品提交表</h2>
-        
-        <p>请将视频上传至优酷后提交网址，如：http://v.youku.com/v_show/id_XNDU2NzE2MA==.html</p>
+        <div class="hint_con">
+            <p class="hint" >温馨提示:</p>
+            <p class="hint">1.请在参赛视频的前面加上本次大赛片头 <a href="">片头下载</a></p>
+            <p class="hint">2.请将视频上传至优酷后提交网址，如：http://v.youku.com/v_show/id_XNDU2NzE2MA==.html</p>
+            <p class="hint">3.提交或者重新提交后都需接受审核，审核通过才会显示在首页</p>
+            <p class="hint">4.为了更好的显示效果，视频封面宽度建议为300-500px</p>
+        </div>
         <form enctype="multipart/form-data" method="post" action="" >
         {% csrf_token %}
             <p style="display:none">{{ form.team_captain_stuno }}</p>
@@ -57,23 +107,19 @@
             <p style="text-align: center;"><input class="form_btn" type="submit" value="提交" /></p>
         </form>
         
-        {% load permission_check %}
-        {% if perms.minivideo.manager %}
-        <a class="verify" href="{% url 'minivideo:verify' %}?id={{resource.id}}">
-            {% if resource.has_verified %}
-            设为未审核
-            {% else %}
-            通过审核
-            {% endif %}
-        </a>
-        {% endif %}
-    </div> -->
+    </div>
+    <!-- 提交表单end -->
+    {% endif %}
 
-    {% else %}
+{% else %}
+
+    <!-- 报名表单start -->
     <div class="minivideo_form">
         <h2>参赛者报名表</h2>
-        
-        <p>队员无需填满，根据队伍人数而定；请牢记自己的密码</p>
+        <div class="hint_con">
+            <p class="hint">温馨提示:</p>
+            <p class="hint">队员无需填满，根据队伍人数而定；请牢记队伍密码</p>
+        </div>
         <form method="post" action="" >
         {% csrf_token %}
             <p><span>队长姓名</span><span>{{ form.team_captain }}</span></p>
@@ -192,6 +238,8 @@
             <p style="text-align: center;"><input class="form_btn" type="submit" value="提交" /></p>
         </form>
     </div>
-    {% endif %}
+    <!-- 报名表单end -->
+
+{% endif %}
 </div>
 {% endblock %}

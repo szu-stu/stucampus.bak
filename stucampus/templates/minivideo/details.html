@@ -7,13 +7,45 @@
 
 {% block content %}
 <div class="central">
+    <div class="minivideo_details">
+        <h2>{{ resource.video_name }}</h2>
+        <div class="minivideo_details_view">
+            <div class="minivideo_details_youku">
+                <embed src="http://player.youku.com/player.php/sid/{{ number }}/v.swf" allowFullScreen="true" quality="high" width="700" height="420" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
 
-      <p><embed src="http://player.youku.com/player.php/sid/{{ number }}/v.swf" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed></p> 
-        <p>队长 ： {{resource.team_captain }}
- 
-        <p>参赛作品简介 :</p>
-        {{ resource.video_intro }}
-                 
-
+            </div>
+            <div class="minivideo_details_vote">
+                <h3>队伍信息</h3>
+                <p>队长：{{ resource.team_captain }}</p>
+                {% if resource.team_members1_name %}
+                <p>队员：{{ resource.team_members1_name }}</p>
+                {% endif %}
+                
+                {% if resource.team_members2_name %}
+                <p class="member_name">{{ resource.team_members2_name }}</p>
+                {% endif %}
+                
+                
+                {% if resource.team_members3_name %}
+                <p class="member_name">{{ resource.team_members3_name }}</p>
+                {% endif %}
+                
+                {% if resource.team_members4_name %}
+                <p class="member_name">{{ resource.team_members4_name }}</p>
+                {% endif %}
+                
+                {% if resource.team_members5_name %}
+                <p class="member_name">{{ resource.team_members5_name }}</p>
+                {% endif %}
+            
+                <!-- <span class="minivideo_details_vote_now">得票数：{{ resource.votes }}</span>
+                <input type="button" value="投票支持" class="minivideo_details_vote_btn" /> -->
+            </div>
+        </div>
+        <div class="minivideo_details_intro">
+            <h2>参赛视频介绍</h2>
+            <p>{{ resource.video_intro }}</p>
+        </div>
+    </div>   
 </div>
 {% endblock %}

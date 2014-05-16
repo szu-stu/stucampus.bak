@@ -27,7 +27,13 @@
                         {% load permission_check %}
                         {% if perms.minivideo.manager %}
                             {% if resource.video_link %}
-                            {{ resource.video_link }}
+
+                            {% if resource.has_verified %}
+                            点击查看
+                            {% else %}
+                            点击审核
+                            {% endif %}
+
                             {% else %}
                             未提交
                             {% endif %}
