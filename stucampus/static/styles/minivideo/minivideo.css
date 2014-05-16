@@ -387,3 +387,15 @@ span.error{
 .hint{
     padding: 3px 0;
 }
+
+
+.details_btn{
+    display: inline-block;
+    color:white;
+    padding: 8px 10px;
+    background: #5bc4be;
+    border-radius: 3px;
+    font-size: 20px;
+    margin:8px auto;
+}
+>>>>>>> redirect to details page when submit resource

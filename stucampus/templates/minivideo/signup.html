@@ -105,6 +105,10 @@
             </span>
 
             <p style="text-align: center;"><input class="form_btn" type="submit" value="提交" /></p>
+
+            {% if resource.video_name %}
+            <p style="text-align:center;"><a class="details_btn" href="{% url 'minivideo:details' %}?id={{ resource.id }}">查看详情</a></p>
+            {% endif %}
         </form>
         
     </div>
