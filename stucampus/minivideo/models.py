@@ -2,7 +2,7 @@
 import os
 
 from django.db import models
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save,post_delete
 from django.dispatch import receiver
 
 def save_path(instance, filename):
@@ -46,3 +46,9 @@ def image_delete(sender, instance, **kwargs):
         if instance.video_cover != cover:
             if cover:
                 cover.delete(False)
+
+
+@receiver(post_delete, sender=Resource)
+def image_delete(sender, instance, **kwargs):
+    if instance.video_cover:
+        instance.video_cover.delete(False)

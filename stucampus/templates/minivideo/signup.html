@@ -13,6 +13,8 @@
     {% if perms.minivideo.manager %}
     <!-- 审核start -->
     <div class="resource_info">
+
+        <h2>队伍信息</h2>
         <p>队长姓名: {{ resource.team_captain }}</p>
         <p>队长学号: {{ resource.team_captain_stuno }}</p>
         <p>队长学院: {{ resource.team_captain_college }}</p>
@@ -23,22 +25,27 @@
         <p><span>队员4: {{ resource.team_members4_name }}</span><span>学号: {{ resource.team_members4_id }}</span></p>
         <p><span>队员5: {{ resource.team_members5_name }}</span><span>学号: {{ resource.team_members5_id }}</span></p>
 
+        <h2>视频信息</h2>
+        <p>视频名字: {{ resource.video_name }}</p>
+
         {% if resource.video_cover %}
-        <p>视频封面: <a href="{{ resource.video_cover.url }}" target="_blank">点击查看</a></p>
+        <p>视频封面: <a href="{{ resource.video_cover.url }}" target="_blank"><img style="width:100%" src="{{ resource.video_cover.url }}" alt=""></a></p>
         {% else %}
         <p>视频封面: </p>
         {% endif %}
 
-        <p>视频名字: {{ resource.video_name }}</p>
+        <div class="youku_container">
+            {% if resource.video_link %}
+            <embed src="http://player.youku.com/player.php/sid/{{ number }}/v.swf" allowFullScreen="true" quality="high" width="700" height="420" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
+            {% else %}
+            <p>视频链接: </p>
+            {% endif %}
+        </div>
+
         <p>视频简介: {{ resource.video_intro }}</p>
-
-        {% if resource.video_link %}
-        <p>视频链接: <a href="{{ resource.video_link }}" target="_blank">点击观看</a></p>
-        {% else %}
-        <p>视频链接: </p>
-        {% endif %}
-
+        
         <p>投票数: {{ resource.votes }}</p>
+
         {% if resource.has_verified %}
         <p>审核状态: 已审核</p>
         {% else %}
@@ -53,6 +60,8 @@
         通过审核
         {% endif %}
     </a>
+
+    <p style="text-align:center;"><a class="delete_btn" href="{% url 'minivideo:delete' %}?id={{ resource.id }}" onclick="return confirm('当前资源将被删除？')" >删除</a></p>
     <!-- 审核end -->
     {% else %}
     <!-- 提交表单start -->
@@ -60,7 +69,7 @@
         <h2>参赛作品提交表</h2>
         <div class="hint_con">
             <p class="hint" >温馨提示:</p>
-            <p class="hint">1.请在参赛视频的前面加上本次大赛片头 <a href="">片头下载</a></p>
+            <p class="hint">1.请在参赛视频的前面加上本次大赛片头 <a href="/media/minivideo/piantou.mpg">片头下载(右键另存为)</a></p>
             <p class="hint">2.请将视频上传至优酷后提交网址，如：http://v.youku.com/v_show/id_XNDU2NzE2MA==.html</p>
             <p class="hint">3.提交或者重新提交后都需接受审核，审核通过才会显示在首页</p>
             <p class="hint">4.为了更好的显示效果，视频封面宽度建议为300-500px</p>

@@ -65,6 +65,12 @@ class CommitForm(forms.ModelForm):
             raise forms.ValidationError(_(u'密码错误'))
         return confirm
 
+    def clean_video_cover(self):
+        cover = self.cleaned_data.get('video_cover')
+        if cover.size>524288:
+            raise forms.ValidationError((u'请上传小于512KB的图片'))
+        return cover
+
     class Meta:
          model = Resource
          exclude = ('team_captain', 'team_captain_phone', 

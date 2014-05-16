@@ -135,13 +135,25 @@
     cursor: pointer;
 }
 
+
 .resource_info{
-    width:400px;
     margin:10px auto;
 }
 
+.resource_info>h2{
+    margin:20px auto 5px auto;
+    width: 500px;
+}
+
 .resource_info>p{
+    width: 500px;
     padding: 5px 0;
+    margin:0 auto;
+}
+
+.resource_info .youku_container{
+    margin: 30px auto;
+    width: 700px;
 }
 
 .resource_info>p>span{
@@ -371,10 +383,12 @@ span.error{
 
 #grid_container .videoName{
    margin-top: 6px;
+   font-size: 18px;
 }
 #grid_container .captainName{
     text-align: right;
-    margin-top: 6px;
+    margin-top: 8px;
+    font-size: 18px;
 }
 
 
@@ -389,7 +403,7 @@ span.error{
 }
 
 
-.details_btn{
+.delete_btn,.details_btn{
     display: inline-block;
     color:white;
     padding: 8px 10px;
