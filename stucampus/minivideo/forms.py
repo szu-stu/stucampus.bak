@@ -67,7 +67,7 @@ class CommitForm(forms.ModelForm):
 
     def clean_video_cover(self):
         cover = self.cleaned_data.get('video_cover')
-        if cover.size>524288:
+        if cover.size > 524288:
             raise forms.ValidationError((u'请上传小于512KB的图片'))
         return cover
 
