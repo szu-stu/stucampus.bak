@@ -49,6 +49,6 @@ def image_delete(sender, instance, **kwargs):
 
 
 @receiver(post_delete, sender=Resource)
-def image_delete(sender, instance, **kwargs):
+def all_delete(sender, instance, **kwargs):
     if instance.video_cover:
         instance.video_cover.delete(False)
