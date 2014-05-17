@@ -81,3 +81,39 @@ class CommitForm(forms.ModelForm):
             'team_members4_name', 'team_members4_id', 
             'team_members5_name', 'team_members5_id',
             'team_psw', 'votes', 'has_verified')
+
+       
+class loginForm(forms.ModelForm):
+
+    confirm = forms.CharField(
+        label=(u'密码'), max_length=30,
+        widget=forms.PasswordInput(),
+        error_messages={
+            'required': (u'这个字段是必填项。'),
+            'max_length': (u'密码长度不得超过30')
+        }
+    )
+
+    def clean_confirm(self):
+        stuno = self.cleaned_data.get('team_captain_stuno')
+        if not Resource.objects.filter(team_captain_stuno=stuno).exists():
+            raise forms.ValidationError((u'该队长学号不存在'))
+        resource = Resource.objects.get(team_captain_stuno=stuno)
+        team_psw = resource.team_psw
+        confirm = self.cleaned_data.get('confirm')
+        if not team_psw == confirm:
+            raise forms.ValidationError((u'密码错误'))
+        return confirm
+
+    class Meta:
+        model = Resource
+        exclude = ('team_captain', 'team_captain_phone', 
+             'team_captain_college',
+            'team_members1_name', 'team_members1_id',
+            'team_members2_name', 'team_members2_id',
+            'team_members3_name', 'team_members3_id', 
+            'team_members4_name', 'team_members4_id', 
+            'team_members5_name', 'team_members5_id',
+            'team_psw', 'votes', 'has_verified',
+            'video_cover', 'video_name', 'video_intro',
+             'video_link', 'votes', 'has_verified')

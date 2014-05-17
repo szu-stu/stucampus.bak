@@ -1,5 +1,6 @@
 import re
 import requests
+
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
@@ -9,7 +10,7 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from stucampus.minivideo.models import Resource
-from stucampus.minivideo.forms import SignUpForm, CommitForm
+from stucampus.minivideo.forms import SignUpForm, CommitForm, loginForm
 from stucampus.account.permission import check_perms
 
 
@@ -20,8 +21,18 @@ class SignUpView(View):
             form = SignUpForm()
             flag = False
             return render(request, 'minivideo/signup.html', {'form':form,'flag':flag})
+
         flag = True
         resource = get_object_or_404(Resource, pk=resource_id)
+
+        perm = True
+        if not request.user.has_perm('minivideo.manager'):
+            if not 'stuno' in request.session:
+                return HttpResponseRedirect( reverse('minivideo:login') )
+            else:
+                if request.session['stuno'] != resource.team_captain_stuno:
+                    perm = False
+
         form = CommitForm(instance=resource)
 
         url = 'http://v.youku.com/v_show/id_(.*?).html'
@@ -30,7 +41,7 @@ class SignUpView(View):
         if number:
             number = number.group(1)
             
-        return render(request, 'minivideo/signup.html', {'form':form,'flag':flag,'resource':resource,'number':number})
+        return render(request, 'minivideo/signup.html', {'form':form,'flag':flag,'resource':resource,'number':number,'personal_perm':perm})
 
     def post(self, request):
         resource_id = request.GET.get('id')
@@ -82,12 +93,20 @@ def index(request):
 def details(request):
     resource_id = request.GET.get('id')
     resource = get_object_or_404(Resource,pk=resource_id)
+    perm = True
+    if not request.user.has_perm('minivideo.manager'):
+        if not 'stuno' in request.session:
+            return HttpResponseRedirect( reverse('minivideo:login') )
+        else:
+            if request.session['stuno'] != resource.team_captain_stuno:
+                perm = False
+
     url = 'http://v.youku.com/v_show/id_(.*?).html'
     req = re.compile(url)
     number = re.search(req, resource.video_link)
     if number:
         number = number.group(1)
-    return render(request,'minivideo/details.html',{'resource':resource, 'number' : number})
+    return render(request,'minivideo/details.html',{'resource':resource, 'number' : number,'personal_perm':perm})
 
 
 @check_perms('minivideo.manager')
@@ -96,3 +115,20 @@ def resource_delete(request):
     resource = get_object_or_404(Resource,pk=resource_id)
     resource.delete()
     return HttpResponseRedirect(reverse('minivideo:resource_list'))
+
+
+class LoginView(View):
+    
+    def get(self, request):
+        if 'stuno' in request.session:
+            return HttpResponseRedirect(reverse('minivideo:resource_list'))
+        form = loginForm()
+        return render(request,'minivideo/login.html',{'form':form})
+
+    def post(self, request):
+        form = loginForm(request.POST)
+        if not form.is_valid():
+            return render(request, 'minivideo/login.html', {'form':form})
+        request.session['stuno'] = request.POST['team_captain_stuno']
+        request.session.set_expiry(0)
+        return HttpResponseRedirect(reverse('minivideo:resource_list'))

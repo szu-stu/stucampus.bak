@@ -7,6 +7,8 @@
 
 {% block content %}
 <div class="central">
+    {% load permission_check %}
+    {% if personal_perm or perms.minivideo.manager %}
     <div class="minivideo_details">
         <h2>{{ resource.video_name }}</h2>
         <div class="minivideo_details_view">
@@ -46,6 +48,9 @@
             <h2>参赛视频介绍</h2>
             <p>{{ resource.video_intro }}</p>
         </div>
-    </div>   
+    </div>
+    {% else %}
+    <p class="stop" >没有查看和操作别人作品的权限</p>
+    {% endif %}
 </div>
 {% endblock %}

@@ -3,18 +3,6 @@
 {% block htmlhead %}
     {% load html_tools %}
     {{ 'minivideo/minivideo.css' | as_css }}
-    {{ 'minivideo/blocksit.min.js' | as_js }}
-
-    <script type="text/javascript">
-        $(window).load(function() {
-            $('#grid_container').BlocksIt({
-               numOfCol: 3,
-               offsetX: 8,
-               offsetY: 12,
-               blockElement: '.grid'
-            });
-        });
-    </script>
 {% endblock %}
 
 {% block content %}
@@ -27,21 +15,7 @@
                 <a href="{% url 'minivideo:resource_list' %}">已报名列表</a>
             </span>
         </h2>
-
-        <div id="grid_container">
-            {% if resources %}
-            {% for resource in resources %}
-            <a class="grid" href="{% url 'minivideo:details' %}?id={{ resource.id }}">
-                <div>
-                    <img src="{{ resource.video_cover.url }}" alt="">
-                </div>
-                <div class="videoName">{{ resource.video_name }}</div>
-                <div class="captainName">队长： {{ resource.team_captain }}</div>
-            </a>
-            {% endfor %}
-            {% else %}
-            <p class="stop">暂无作品</p>
-            {% endif %}
+        <p class="stop">暂无作品</p>
         </div>
     </div>
 

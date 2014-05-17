@@ -325,12 +325,16 @@ span.error{
     padding-bottom: 3px;
     color: #000;
     border-bottom: 2px solid #5bc4be;
+    position: relative;
 }
 
 .video_index>h2>span{
-    position: relative;
+    position: absolute;
     overflow: hidden;
     float: right;
+    right: 0;
+    bottom: -8px;
+
 }
 
 .video_index>h2>span>a{
@@ -340,7 +344,7 @@ span.error{
     text-decoration: none;
     font-size: 17px;
     padding: 6px 8px 4px 8px;
-    margin: 4px 8px 0 0;
+    margin: 0px 8px 0 0;
     color: #5bc4be;
     background: none;
     border: 1px solid #5bc4be;
@@ -412,4 +416,69 @@ span.error{
     font-size: 20px;
     margin:8px auto;
 }
->>>>>>> redirect to details page when submit resource
+
+
+/*login*/
+.minivideo_login h2{
+    font-weight: normal;
+    font-size: 28px;
+    margin-top: 30px;
+    margin-bottom: 8px;
+    padding-bottom: 3px;
+    color: #000;
+    border-bottom: 2px solid #5bc4be;
+}
+
+.minivideo_login form{
+    position: relative;
+    overflow: hidden;
+    font-size: 23px;
+    margin: 0 auto;
+    padding: 8px 0;
+    text-align: center;
+}
+
+.minivideo_login form p{
+    position: relative;
+    overflow: hidden;
+    padding: 5px 0;
+}
+
+.minivideo_login form span{
+    position: relative;
+    overflow: hidden;
+    padding: 3px 5px;
+    display:inline-block;
+    vertical-align: middle;
+}
+
+.minivideo_login form span.error{
+    margin-left: 1em;
+}
+
+.minivideo_login form input{
+    height: 33px;
+    font-size: 23px;
+    font-family: Microsoft Yahei;
+    padding: 2px;
+    border-radius: 2px;
+    border: 1px solid #5bc4be;
+    display: inline-block;
+}
+
+.minivideo_login form input.login_btn{
+    font-size: 23px;
+    background-color: #5bc4be;
+    color: #fff;
+    padding: 8px 15px;
+    display: block;
+    width: 100px;
+    margin:20px auto;
+    height: auto;
+}
+
+.minivideo_login form input.login_btn:hover{
+    background: rgb(9,108,111);
+    cursor: pointer;
+}
+>>>>>>> others can't see and modify my video

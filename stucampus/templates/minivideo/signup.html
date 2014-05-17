@@ -64,64 +64,68 @@
     <p style="text-align:center;"><a class="delete_btn" href="{% url 'minivideo:delete' %}?id={{ resource.id }}" onclick="return confirm('当前资源将被删除？')" >删除</a></p>
     <!-- 审核end -->
     {% else %}
-    <!-- 提交表单start -->
-    <div class="minivideo_form">
-        <h2>参赛作品提交表</h2>
-        <div class="hint_con">
-            <p class="hint" >温馨提示:</p>
-            <p class="hint">1.请在参赛视频的前面加上本次大赛片头 <a href="/media/minivideo/piantou.mpg">片头下载(右键另存为)</a></p>
-            <p class="hint">2.请将视频上传至优酷后提交网址，如：http://v.youku.com/v_show/id_XNDU2NzE2MA==.html</p>
-            <p class="hint">3.提交或者重新提交后都需接受审核，审核通过才会显示在首页</p>
-            <p class="hint">4.为了更好的显示效果，视频封面宽度建议为300-500px</p>
+        {% if personal_perm %}
+        <!-- 提交表单start -->
+        <div class="minivideo_form">
+            <h2>参赛作品提交表</h2>
+            <div class="hint_con">
+                <p class="hint" >温馨提示:</p>
+                <p class="hint">1.请在参赛视频的前面加上本次大赛片头 <a href="/media/minivideo/piantou.mpg">片头下载(右键另存为)</a></p>
+                <p class="hint">2.请将视频上传至优酷后提交网址，如：http://v.youku.com/v_show/id_XNDU2NzE2MA==.html</p>
+                <p class="hint">3.提交或者重新提交后都需接受审核，审核通过才会显示在首页</p>
+                <p class="hint">4.为了更好的显示效果，视频封面宽度建议为300-500px</p>
+            </div>
+            <form enctype="multipart/form-data" method="post" action="" >
+            {% csrf_token %}
+                <p style="display:none">{{ form.team_captain_stuno }}</p>
+
+                <p><span>视频封面</span><span>{{ form.video_cover }}</span></p>
+                <span class="error">
+                {% for error in form.video_cover.errors %}
+                    {{ error }}
+                {% endfor %}
+                </span>
+
+                <p><span>视频名字</span><span>{{ form.video_name }}</span></p>
+                <span class="error">
+                {% for error in form.video_name.errors %}
+                    {{ error }}
+                {% endfor %}
+                </span>
+
+                <p><span>视频链接</span><span>{{ form.video_link }}</span></p>
+                <span class="error">
+                {% for error in form.video_link.errors %}
+                    {{ error }}
+                {% endfor %}
+                </span>
+
+                <p><span>视频简介</span><span>{{ form.video_intro }}</span></p>
+                <span class="error">
+                {% for error in form.video_intro.errors %}
+                    {{ error }}
+                {% endfor %}
+                </span>
+
+                <p><span>密码</span><span>{{ form.confirm }}</span></p>
+                <span class="error">
+                {% for error in form.confirm.errors %}
+                    {{ error }}
+                {% endfor %}
+                </span>
+
+                <p style="text-align: center;"><input class="form_btn" type="submit" value="提交" /></p>
+
+                {% if resource.video_name %}
+                <p style="text-align:center;"><a class="details_btn" href="{% url 'minivideo:details' %}?id={{ resource.id }}">查看详情</a></p>
+                {% endif %}
+            </form>
+            
         </div>
-        <form enctype="multipart/form-data" method="post" action="" >
-        {% csrf_token %}
-            <p style="display:none">{{ form.team_captain_stuno }}</p>
-
-            <p><span>视频封面</span><span>{{ form.video_cover }}</span></p>
-            <span class="error">
-            {% for error in form.video_cover.errors %}
-                {{ error }}
-            {% endfor %}
-            </span>
-
-            <p><span>视频名字</span><span>{{ form.video_name }}</span></p>
-            <span class="error">
-            {% for error in form.video_name.errors %}
-                {{ error }}
-            {% endfor %}
-            </span>
-
-            <p><span>视频链接</span><span>{{ form.video_link }}</span></p>
-            <span class="error">
-            {% for error in form.video_link.errors %}
-                {{ error }}
-            {% endfor %}
-            </span>
-
-            <p><span>视频简介</span><span>{{ form.video_intro }}</span></p>
-            <span class="error">
-            {% for error in form.video_intro.errors %}
-                {{ error }}
-            {% endfor %}
-            </span>
-
-            <p><span>密码</span><span>{{ form.confirm }}</span></p>
-            <span class="error">
-            {% for error in form.confirm.errors %}
-                {{ error }}
-            {% endfor %}
-            </span>
-
-            <p style="text-align: center;"><input class="form_btn" type="submit" value="提交" /></p>
-
-            {% if resource.video_name %}
-            <p style="text-align:center;"><a class="details_btn" href="{% url 'minivideo:details' %}?id={{ resource.id }}">查看详情</a></p>
-            {% endif %}
-        </form>
-        
-    </div>
-    <!-- 提交表单end -->
+        <!-- 提交表单end -->
+        {% else %}
+            <p class="stop" >没有查看和操作别人作品的权限</p>
+        {% endif %}
     {% endif %}
 
 {% else %}

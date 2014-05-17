@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 
-from .views import SignUpView, resource_list, verify, details, index, resource_delete
+from .views import SignUpView, resource_list, verify, details, index, resource_delete, LoginView
 
 
 urlpatterns = patterns('',
@@ -9,5 +9,6 @@ urlpatterns = patterns('',
     url(r'^verify/$', verify, name='verify'),
     url(r'^$', index, name='index'),
     url(r'^details/$', details, name='details'),
-    url(r'^delete/$',resource_delete,name="delete"),  
+    url(r'^delete/$',resource_delete,name="delete"),
+    url(r'^login/$',LoginView.as_view(),name="login"),
 )
