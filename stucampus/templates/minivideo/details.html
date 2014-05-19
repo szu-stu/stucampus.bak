@@ -13,33 +13,42 @@
         <h2>{{ resource.video_name }}</h2>
         <div class="minivideo_details_view">
             <div class="minivideo_details_youku">
-                <embed src="http://player.youku.com/player.php/sid/{{ number }}/v.swf" allowFullScreen="true" quality="high" width="700" height="420" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
+                <embed src="http://player.youku.com/player.php/sid/{{ number }}/v.swf" allowFullScreen="true" quality="high" width="700" height="360" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
 
             </div>
             <div class="minivideo_details_vote">
                 <h3>队伍信息</h3>
-                <p>队长：{{ resource.team_captain }}</p>
-                {% if resource.team_members1_name %}
-                <p>队员：{{ resource.team_members1_name }}</p>
-                {% endif %}
+                <div class="team_category" >
+                    <p>队长：</p>
+                    {% if resource.team_members1_name %}
+                    <p>队员：</p>
+                    {% endif %}
+                </div>
+                <div class="team_member" >
+                    <p>{{ resource.team_captain }}</p>
+
+                    {% if resource.team_members1_name %}
+                    <p class="member_name">{{ resource.team_members1_name }}</p>
+                    {% endif %}
+                    
+                    {% if resource.team_members2_name %}
+                    <p class="member_name">{{ resource.team_members2_name }}</p>
+                    {% endif %}
+                    
+                    
+                    {% if resource.team_members3_name %}
+                    <p class="member_name">{{ resource.team_members3_name }}</p>
+                    {% endif %}
+                    
+                    {% if resource.team_members4_name %}
+                    <p class="member_name">{{ resource.team_members4_name }}</p>
+                    {% endif %}
+                    
+                    {% if resource.team_members5_name %}
+                    <p class="member_name">{{ resource.team_members5_name }}</p>
+                    {% endif %}
+                </div>
                 
-                {% if resource.team_members2_name %}
-                <p class="member_name">{{ resource.team_members2_name }}</p>
-                {% endif %}
-                
-                
-                {% if resource.team_members3_name %}
-                <p class="member_name">{{ resource.team_members3_name }}</p>
-                {% endif %}
-                
-                {% if resource.team_members4_name %}
-                <p class="member_name">{{ resource.team_members4_name }}</p>
-                {% endif %}
-                
-                {% if resource.team_members5_name %}
-                <p class="member_name">{{ resource.team_members5_name }}</p>
-                {% endif %}
-            
                 <!-- <span class="minivideo_details_vote_now">得票数：{{ resource.votes }}</span>
                 <input type="button" value="投票支持" class="minivideo_details_vote_btn" /> -->
             </div>

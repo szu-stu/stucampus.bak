@@ -224,6 +224,7 @@ span.error{
     position: relative;
     overflow: hidden;
     padding: 28px 0;
+    color:#515151;
 }
 
 .minivideo_details h2{
@@ -253,9 +254,9 @@ span.error{
     overflow: hidden;
     float: right;
     text-align: left;
-    padding: 28px 18px 0;
-    width: 220px;
-    height: 420px;
+    padding: 28px 0 0 10px;
+    width: 230px;
+    height: 380px;
     font-size: 20px;
 }
 
@@ -309,8 +310,21 @@ span.error{
     font-size: 20px;
 }
 
+.minivideo_details .team_category{
+    float: left;
+    height: 190px;
+}
+
+.minivideo_details .team_member{
+    float: left;
+    height: 190px;
+    width: 165px;
+}
+
 .minivideo_details .member_name{
-    margin-left: 3em;
+    float: left;
+    margin-right: 8px;
+    min-width: 60px;
 }
 
 

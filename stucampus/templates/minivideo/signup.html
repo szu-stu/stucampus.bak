@@ -36,7 +36,7 @@
 
         <div class="youku_container">
             {% if resource.video_link %}
-            <embed src="http://player.youku.com/player.php/sid/{{ number }}/v.swf" allowFullScreen="true" quality="high" width="700" height="420" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
+            <embed src="http://player.youku.com/player.php/sid/{{ number }}/v.swf" allowFullScreen="true" quality="high" width="700" height="360" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
             {% else %}
             <p>视频链接: </p>
             {% endif %}
@@ -60,6 +60,10 @@
         通过审核
         {% endif %}
     </a>
+
+    {% if resource.video_name %}
+    <p style="text-align:center;"><a class="details_btn" href="{% url 'minivideo:details' %}?id={{ resource.id }}">查看详情</a></p>
+    {% endif %}
 
     <p style="text-align:center;"><a class="delete_btn" href="{% url 'minivideo:delete' %}?id={{ resource.id }}" onclick="return confirm('当前资源将被删除？')" >删除</a></p>
     <!-- 审核end -->
