@@ -39,6 +39,12 @@ class Resource(models.Model):
     has_verified = models.BooleanField(default=False)
 
 
+class Vote(models.Model):
+    stu_no = models.CharField(max_length=20)
+    stu_ic = models.CharField(max_length=10)
+    voted_id = models.CharField(max_length=3)
+
+
 @receiver(pre_save, sender=Resource)
 def image_delete(sender, instance, **kwargs):
     if instance.id:

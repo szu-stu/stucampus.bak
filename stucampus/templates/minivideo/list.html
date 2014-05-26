@@ -7,7 +7,8 @@
 
 {% block content %}
 <div class="central">
-
+    {% load permission_check %}
+    {% if perms.minivideo.manager %}
     <div class="minivideo_list">
         <h2>青春的轨迹 - 已报名列表</h2>
         <div class="minivideo_list_grid">
@@ -76,6 +77,12 @@
         {% endif %}
         <a href="?page={{ page_list.paginator.num_pages }}">尾页</a>
     </div>
+
+    {% else %}
+    <div class="stop" >
+        报名和提交作品时间已截止  
+    </div>
+    {% endif %}
 
 </div><!--end of central-->
 {% endblock %}

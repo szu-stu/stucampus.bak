@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 
-from .views import SignUpView, resource_list, verify, details, index, resource_delete, LoginView
+from .views import SignUpView, resource_list, verify, details, index, resource_delete, LoginView, votes
 
 
 urlpatterns = patterns('',
@@ -10,5 +10,6 @@ urlpatterns = patterns('',
     url(r'^$', index, name='index'),
     url(r'^details/$', details, name='details'),
     url(r'^delete/$',resource_delete,name="delete"),
-    url(r'^login/$',LoginView.as_view(),name="login"),
+    #url(r'^login/$',LoginView.as_view(),name="login"),
+    url(r'^votes/$',votes,name="votes")
 )

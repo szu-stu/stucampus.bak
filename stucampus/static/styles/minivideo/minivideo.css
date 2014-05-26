@@ -270,33 +270,46 @@ span.error{
     line-height: 38px;
 }
 
-.minivideo_details .minivideo_details_vote .minivideo_details_vote_now{
+.minivideo_details .minivideo_details_vote .vote_con{
+    clear:both;
     position: absolute;
     overflow: hidden;
+    text-align: center;
+    height: 130px;
+    bottom: 20px;
+
+}
+
+.minivideo_details .minivideo_details_vote .minivideo_details_vote_now{
+    overflow: hidden;
     display: block;
-    font-size: 30px;
-    padding: 80px 0 15px;
+    font-size: 24px;
     color: rgb(238,156,69);
-    bottom: 70px;
 }
 
 .minivideo_details .minivideo_details_vote .minivideo_details_vote_btn{
-    position: absolute;
+    display: inline-block;
     overflow: hidden;
     background: #5bc4be;
     color: white;
     border: none;
     border-radius: 2px;
-    padding: 5px 18px 8px;
-    font-size: 38px;
+    padding: 7px 10px;
+    font-size: 22px;
     font-family: Microsoft Yahei;
     font-weight: normal;
     cursor: pointer;
-    bottom: 8px;
 }
 
 .minivideo_details .minivideo_details_vote .minivideo_details_vote_btn:hover{
     background: rgb(9,108,111);
+}
+
+.minivideo_details .minivideo_details_vote .vote_hint{
+    overflow: hidden;
+    display: block;
+    font-size: 18px;
+    color: rgb(238,156,69);
 }
 
 .minivideo_details .minivideo_details_intro{

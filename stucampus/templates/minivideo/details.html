@@ -7,8 +7,7 @@
 
 {% block content %}
 <div class="central">
-    {% load permission_check %}
-    {% if personal_perm or perms.minivideo.manager %}
+    
     <div class="minivideo_details">
         <h2>{{ resource.video_name }}</h2>
         <div class="minivideo_details_view">
@@ -49,8 +48,12 @@
                     {% endif %}
                 </div>
                 
-                <!-- <span class="minivideo_details_vote_now">得票数：{{ resource.votes }}</span>
-                <input type="button" value="投票支持" class="minivideo_details_vote_btn" /> -->
+                <div class="vote_con">
+                    <p class="minivideo_details_vote_now">票数：{{ resource.votes }}</p>
+                    <a class="minivideo_details_vote_btn" href="{% url 'minivideo:votes' %}?id={{ resource.id }}">投票支持</a>
+                    <p style="font-size:16px;line-height:110%;margin-top:5px;">一人可投两个作品</p>
+                    <p class="vote_hint">{{ Msg }}</p>
+                </div>
             </div>
         </div>
         <div class="minivideo_details_intro">
@@ -58,8 +61,6 @@
             <p>{{ resource.video_intro }}</p>
         </div>
     </div>
-    {% else %}
-    <p class="stop" >没有查看和操作别人作品的权限</p>
-    {% endif %}
+
 </div>
 {% endblock %}
