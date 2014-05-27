@@ -310,6 +310,7 @@ span.error{
     display: block;
     font-size: 18px;
     color: rgb(238,156,69);
+    line-height: 32px;
 }
 
 .minivideo_details .minivideo_details_intro{
