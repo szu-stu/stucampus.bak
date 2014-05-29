@@ -11,5 +11,5 @@ urlpatterns = patterns('',
     url(r'^details/$', details, name='details'),
     url(r'^delete/$',resource_delete,name="delete"),
     #url(r'^login/$',LoginView.as_view(),name="login"),
-    url(r'^votes/$',votes,name="votes")
+    #url(r'^votes/$',votes,name="votes")
 )
