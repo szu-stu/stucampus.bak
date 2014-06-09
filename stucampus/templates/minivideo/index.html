@@ -3,35 +3,19 @@
 {% block htmlhead %}
     {% load html_tools %}
     {{ 'minivideo/minivideo.css' | as_css }}
-    {{ 'minivideo/blocksit.min.js' | as_js }}
-
-    <script type="text/javascript">
-        $(window).load(function() {
-            $('#grid_container').BlocksIt({
-               numOfCol: 3,
-               offsetX: 8,
-               offsetY: 12,
-               blockElement: '.grid'
-            });
-        });
-    </script>
 {% endblock %}
 
 {% block content %}
 <div class="central">
        
     <div class="video_index">
-        <h2>青春的轨迹——在深大的日子
-            <span>
-                <a href="{% url 'minivideo:signup' %}">我要报名</a>
-                <a href="{% url 'minivideo:resource_list' %}">已报名列表</a>
-            </span>
-        </h2>
+        <h2>青春的轨迹——在深大的日子</h2>
         
         <div id="grid_container">
-            {% if resources %}
-            {% for resource in resources %}
-            <a class="grid" href="{% url 'minivideo:details' %}?id={{ resource.id }}">
+            
+            <h2>一等奖</h2>
+            {% for resource in resources|slice:"2:2" %}
+            <a class="grid" href="{% url 'minivideo:details' %}?id={{ resources.id }}" style="margin:auto;float:none;">
                 <div>
                     <img src="{{ resource.video_cover.url }}" alt="">
                 </div>
@@ -39,9 +23,95 @@
                 <div class="captainName">队长： {{ resource.team_captain }}</div>
             </a>
             {% endfor %}
-            {% else %}
-            <p class="stop">暂无作品</p>
-            {% endif %}
+            
+            <h2>二等奖</h2>
+            <div style="width:640px;overflow:hidden;margin:0 auto;">
+                {% for resource in resources|slice:"3:3" %}
+                <a class="grid" href="{% url 'minivideo:details' %}?id={{ resources.id }}">
+                    <div>
+                        <img src="{{ resource.video_cover.url }}" alt="">
+                    </div>
+                    <div class="videoName">{{ resource.video_name }}</div>
+                    <div class="captainName">队长： {{ resource.team_captain }}</div>
+                </a>
+                {% endfor %}
+                {% for resource in resources|slice:"8:8" %}
+                <a class="grid" href="{% url 'minivideo:details' %}?id={{ resources.id }}">
+                    <div>
+                        <img src="{{ resource.video_cover.url }}" alt="">
+                    </div>
+                    <div class="videoName">{{ resource.video_name }}</div>
+                    <div class="captainName">队长： {{ resource.team_captain }}</div>
+                </a>
+                {% endfor %}
+            </div>
+
+            <h2>三等奖</h2>
+            <div style="width:640px;overflow:hidden;margin:0 auto;">
+                {% for resource in resources|slice:"4:4" %}
+                <a class="grid" href="{% url 'minivideo:details' %}?id={{ resources.id }}">
+                    <div>
+                        <img src="{{ resource.video_cover.url }}" alt="">
+                    </div>
+                    <div class="videoName">{{ resource.video_name }}</div>
+                    <div class="captainName">队长： {{ resource.team_captain }}</div>
+                </a>
+                {% endfor %}
+                {% for resource in resources|slice:"7:7" %}
+                <a class="grid" href="{% url 'minivideo:details' %}?id={{ resources.id }}">
+                    <div>
+                        <img src="{{ resource.video_cover.url }}" alt="">
+                    </div>
+                    <div class="videoName">{{ resource.video_name }}</div>
+                    <div class="captainName">队长： {{ resource.team_captain }}</div>
+                </a>
+                {% endfor %}
+            </div>
+
+            <h2>人气奖</h2>
+            {% for resource in resources|slice:"5:5" %}
+            <a class="grid" href="{% url 'minivideo:details' %}?id={{ resources.id }}" style="margin:auto;float:none;">
+                <div>
+                    <img src="{{ resource.video_cover.url }}" alt="">
+                </div>
+                <div class="videoName">{{ resource.video_name }}</div>
+                <div class="captainName">队长： {{ resource.team_captain }}</div>
+            </a>
+            {% endfor %}
+
+            <h2>入围奖</h2>
+            <div style="overflow:hidden;margin:0 auto;">
+                {% for resource in resources|slice:"6:6" %}
+                <a class="grid" href="{% url 'minivideo:details' %}?id={{ resources.id }}" style="margin:auto;float:none;">
+                    <div>
+                        <img src="{{ resource.video_cover.url }}" alt="">
+                    </div>
+                    <div class="videoName">{{ resource.video_name }}</div>
+                    <div class="captainName">队长： {{ resource.team_captain }}</div>
+                </a>
+                {% endfor %}
+
+                {% for resource in resources|slice:"1:1" %}
+                <a class="grid" href="{% url 'minivideo:details' %}?id={{ resources.id }}" style="margin:auto;float:none;">
+                    <div>
+                        <img src="{{ resource.video_cover.url }}" alt="">
+                    </div>
+                    <div class="videoName">{{ resource.video_name }}</div>
+                    <div class="captainName">队长： {{ resource.team_captain }}</div>
+                </a>
+                {% endfor %}
+
+                {% for resource in resources|slice:"0:0" %}
+                <a class="grid" href="{% url 'minivideo:details' %}?id={{ resources.id }}" style="margin:auto;float:none;">
+                    <div>
+                        <img src="{{ resource.video_cover.url }}" alt="">
+                    </div>
+                    <div class="videoName">{{ resource.video_name }}</div>
+                    <div class="captainName">队长： {{ resource.team_captain }}</div>
+                </a>
+                {% endfor %}
+            </div>
+
         </div>
 
     </div>

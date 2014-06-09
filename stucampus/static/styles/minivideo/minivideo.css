@@ -383,7 +383,14 @@ span.error{
 #grid_container{
     position: relative;
     margin-left: 20px;
+    overflow: hidden;
 }
+
+#grid_container>h2{
+    margin:20px 0;
+    text-align: center;
+}
+
 #grid_container .grid{
     color:black;
     display: block;
@@ -395,6 +402,9 @@ span.error{
     -moz-transition: box-shadow 1s;  /* Firefox 4 */
     -webkit-transition: box-shadow 1s;   /* Safari 和 Chrome */
     -o-transition: box-shadow 1s;    /* Opera */
+    width: 276px;
+    float: left;
+    margin: 0 8px;
 }
 
 #grid_container .grid:visited{

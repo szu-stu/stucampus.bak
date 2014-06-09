@@ -88,7 +88,7 @@ def verify(request):
 
 
 def index(request):
-    resources = Resource.objects.all().filter(has_verified=True).order_by('?')
+    resources = Resource.objects.all().filter(has_verified=True).order_by('pk')
     return render(request,'minivideo/index.html',{'resources':resources})
 
 
