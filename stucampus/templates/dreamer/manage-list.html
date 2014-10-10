@@ -1,0 +1,31 @@
+{% extends 'master/base.html' %}
+
+{% block content %}
+<div class="articles_container">
+    
+    {% for resource in page %}
+    <a href="{% url 'apply:view' %}?id={{ resource.id }}">
+    
+    <li>
+    <label>学号</label>
+        {{ resource.name }}
+    <li>
+
+    <label>姓名</label>
+        {{ resource.name }}
+    <li>
+
+    <label>性别</label>
+        {{ resource.name }}
+    <li>
+
+    <label>学院</label>
+        {{ resource.name }}
+    <li>
+
+    </a>
+    {% endfor %}
+
+</div>
+{% include 'utils/paginator.html' with page=page %}
+{% endblock %}

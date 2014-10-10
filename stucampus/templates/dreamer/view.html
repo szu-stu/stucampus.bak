@@ -1,0 +1,45 @@
+{% extends 'master/base.html' %}
+
+
+{% block content %}
+
+        <li>
+            <label>学号</label>
+            {{ app.stu_num }}
+        </li>
+
+        <li>
+            <label>姓名</label>
+            {{ app.name }}
+        </li>
+
+
+        <li>
+            <label>性别</label>
+            {{ app.sex }}
+        </li>
+
+
+        <li>
+            <label>学院</label>
+            {{ app.college }}
+        </li>
+
+
+        <li>
+            <label>喜欢的运动</label>
+            {{ app.fav_sports }}
+        </li>
+
+
+        <li>
+            <label>兴趣特长</label>
+            {{ app.interest }}
+        </li>
+
+         <li>
+            <label>自我介绍</label>
+            {{ app.self_intro }}
+        </li>
+
+{% endblock %}

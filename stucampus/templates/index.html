@@ -58,6 +58,48 @@
 			{% endfor %}
 		</div><!--end of cont_articles-->
 
+		<div class="co_social">
+			<h2>热门关注</h2>
+			<a href="/static/images/socialaccount/stucampusweixin.jpg" target="_blank">
+				<div class="co_social_box">
+					<div class="co_social_logo"><img src="/static/images/socialaccount/stucampusweixin.jpg" height="130px" width="130px" /></div>
+					<h3>学子天地官方微信</h3>
+					<p>
+						关注学子天地官方订阅号，了解最新资讯，参与线上互动！
+					</p>
+				</div>
+			</a>
+			<a href="http://weibo.com/stucampus" target="_blank">
+				<div class="co_social_box">
+					<div class="co_social_logo"><img src="/static/images/socialaccount/stucampusweibo.jpg" height="130px" width="130px" /></div>
+					<h3>学子天地官方微博</h3>
+					<p>
+						关注学子天地官方微博，捕捉校园热点。
+					</p>
+				</div>
+			</a>
+
+			<a href="http://weibo.com/szuspeech" target="_blank">
+				<div class="co_social_box">
+					<div class="co_social_logo"><img src="/static/images/socialaccount/szupptwb.jpg" height="130px" width="130px" /></div>
+					<h3>深大演讲</h3>
+					<p>
+						及时整理发布的荔园资讯，及时采集热辣的讲座咨询，及时发布火热的讲座资源
+					</p>
+				</div>
+			</a>
+
+			<a href="/static/images/socialaccount/szubaikewx.jpg" target="_blank">
+				<div class="co_social_box">
+					<div class="co_social_logo"><img src="/static/images/socialaccount/szubaikewx.jpg" height="130px" width="130px" /></div>
+					<h3>深大百科</h3>
+					<p>
+						深圳大学学生事务服务中心官方微信
+					</p>
+				</div>
+			</a>
+		</div><!--end of co_social-->
+
 		<div class="co_media">
 			<h2>合作媒体</h2>
 			<a href="{% url 'magazine:list' 'szuyouth'%}">
@@ -87,15 +129,46 @@
 	</div><!--end of content-->
 
 	<div class="sidebar">
-<!-- 		<div class="widget">
-			<h2>信息中心</h2><a class="widget_more" href="">更多…</a>
+
+		<div class="widget">
+			<ul class="widget_banner">
+				<li><a href="http://stu.szu.edu.cn/dreamer/" target="_blank" title="点击报名加入学子天地"><img src="/static/images/banner/joinus2014.png" width="290px" height="76px" /></a></li>
+			</ul>
+		</div>
+
+		<div class="widget">
+			<h2>校园导航</h2>
 			<div class="widget_content">
-				<ul>
-					<li><a href="">title</a></li>
+				<ul class="widget_co_guide">
+					<li>
+						<h3>日常</h3>
+						<a href="http://www.szu.edu.cn/board/" target="_blank">公文通</a>
+						<a href="http://elearning.szu.edu.cn/" target="_blank">Blackboard</a>
+						<a href="https://exmail.qq.com/domain/email.szu.edu.cn" target="_blank">学生邮箱</a>
+						<a href="http://stu.szu.edu.cn:8080/" target="_blank">校园场地申请</a>
+						<a href="http://tycg.szu.edu.cn/Home.aspx" target="_blank">体育场馆订票</a>
+					</li>
+					<li>
+						<h3>生活</h3>
+						<a href="http://www.szu.edu.cn/nc/" target="_blank">网络服务</a>
+						<a href="http://swzx.szu.edu.cn/" target="_blank">事务中心</a>
+						<a href="http://gyzx.szu.edu.cn/" target="_blank">公寓管理</a>
+						<a href="http://www.lib.szu.edu.cn/" target="_blank">图书馆</a>
+						<a href="http://www.szu.edu.cn/tv/" target="_blank">网上电视</a>
+						<a href="http://192.168.2.113/" target="_blank">火车订票</a>
+					</li>
+					<li>
+						<h3>学习</h3>
+						<a href="http://192.168.2.20/" target="_blank">教务管理</a>
+						<a href="http://192.168.2.168/paike/selectXYMC_BJMC.asp" target="_blank">排课查询</a>
+						<a href="http://192.168.240.168/xuanke/edu_login.asp" target="_blank">网上选课</a>
+						<a href="http://192.168.2.20/axsxx/AASZUstd.ASP" target="_blank">成绩查询</a>
+					</li>
 				</ul>
 			</div>
-		</div> -->
-		<div class="widget">
+		</div>
+
+<!--		<div class="widget">
 			<h2>讲座预告</h2><a class="widget_more" href="{% url 'lecture:index' %}">更多…</a>
 			<div class="widget_content">
 				<ul class="widget_content_list">
@@ -115,20 +188,7 @@
 				</ul>
 			</div>
 		</div>
-<!--		<div class="widget">
-			<h2>活动预告</h2><a class="widget_more" href="{% url 'activity:index' %}">更多…</a>
-			<div class="widget_content">
-				<ul>
-					{% for activity in activity_list %}
-					<li>
-						<a href="">
-							{{ activity.title | truncatechars:18 }}
-						</a>
-					</li>
-					{% endfor %}
-				</ul>
-			</div>
-		</div>-->
+-->
 
 		<div class="widget">
 			<h2>最新评论</h2>
@@ -140,7 +200,7 @@
 		<div class="widget">
 			<h2>最近访客</h2>
 			<div class="widget_content">
-				<ul class="ds-recent-visitors"></ul>
+				<ul class="ds-recent-visitors" data-num-items="25"></ul>
 			</div>
 		</div>
 
@@ -161,15 +221,6 @@
 				<li><a href="http://stu.szu.edu.cn:8080" target="_blank" title="点击进入场地申请系统"><img src="/static/images/banner/cdsq.gif" width="290px" height="155px" /></a></li>
 			</ul>
 		</div>
-
-		<!--<div class="widget">
-			<h2>公文通</h2>
-			<div class="widget_content">
-				<ul>
-					<iframe src="http://www.szu.edu.cn/board/mylist.asp?ptime=0&fsize=14&top=8" height="360px" width="310px;" name="frmmails" frameborder="0" scrolling="yes"></iframe>
-				</ul>
-			</div>
-		</div>-->
 
 
 	</div><!--end of sidebar-->

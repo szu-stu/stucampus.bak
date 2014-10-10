@@ -39,6 +39,7 @@
                 {% if user %}
                     <a href="/manage/index">后台管理</a>
                 {% endif %}
+                <a href="{% url 'apply:list' %}">报名申请</a>
                 {% if perms.account.student_manager %}
                     <a href="/manage/account/list">用户管理</a>
                 {% endif %}

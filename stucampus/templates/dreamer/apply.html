@@ -1,0 +1,50 @@
+<html>
+
+<body>
+    <form method="post" action="">
+    {% csrf_token %}
+        <li>
+            <label>学号</label>
+            {{ form.stu_num }}
+        </li>
+
+        <li>
+            <label>姓名</label>
+            {{ form.name }}
+        </li>
+
+
+        <li>
+            <label>性别</label>
+            {{ form.sex }}
+        </li>
+
+
+        <li>
+            <label>学院</label>
+            {{ form.college }}
+        </li>
+
+
+        <li>
+            <label>喜欢的运动</label>
+            {{ form.fav_sports }}
+        </li>
+
+
+        <li>
+            <label>兴趣特长</label>
+            {{ form.interest }}
+        </li>
+
+         <li>
+            <label>自我介绍</label>
+            {{ form.self_intro }}
+        </li>
+     
+        <input type="submit" value="提交">   
+    </form>
+
+</body>
+
+</html>
