@@ -1,4 +1,4 @@
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 from django.core.exceptions import ValidationError
 
 
@@ -6,6 +6,7 @@ def validate_file_extension(valid_file_extension):
     ''' used by models.FileField '''
     if not isinstance(valid_file_extension, (dict, list, tuple)):
         valid_file_extension = [valid_file_extension]
+
     def validate(value):
         ''' function do the actual validate work '''
         for extension in valid_file_extension:

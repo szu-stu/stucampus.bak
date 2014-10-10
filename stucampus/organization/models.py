@@ -1,4 +1,4 @@
-#-*- coding: utf-8
+# -*- coding: utf-8
 from django.db import models
 
 from stucampus.account.models import Student
@@ -20,4 +20,3 @@ class Organization(models.Model):
     is_banned = models.BooleanField(default=False)
     ban_reason = models.CharField(max_length=250, null=True, blank=True)
     is_deleted = models.BooleanField(default=False)
-

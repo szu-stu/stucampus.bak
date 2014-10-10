@@ -1,10 +1,6 @@
-#-*- coding: utf-8 -*-
-from django.http import HttpResponseRedirect
+# -*- coding: utf-8 -*-
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import Group
-from django.contrib.auth import REDIRECT_FIELD_NAME
-
-from stucampus.utils import spec_json
 
 
 def guest_or_redirect(function=None):
@@ -33,4 +29,3 @@ def org_manage_group_check(user):
     except Group.DoesNotExist:
         return False
     return (org_manage_group in user.groups.all())
-

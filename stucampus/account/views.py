@@ -1,8 +1,7 @@
 from django.views.generic import View
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.utils.decorators import method_decorator
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 
 from stucampus.utils import spec_json, get_client_ip
@@ -54,8 +53,6 @@ class SignUp(View):
             messages = form.errors.values()
             return spec_json(status='errors', messages=messages)
 
-        email = form.cleaned_data['email']
-        password = form.cleaned_data['password']
         account_signup(request, form.cleaned_data)
         return spec_json(status='success')
 
@@ -103,4 +100,3 @@ class Password(View):
         current_user.set_password(form.cleaned_data.get('new_password'))
         current_user.save()
         return spec_json(status='success')
-

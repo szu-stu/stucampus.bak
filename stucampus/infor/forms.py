@@ -1,4 +1,4 @@
-#-*- coding: utf-8
+# -*- coding: utf-8
 from django import forms
 from django.utils.translation import ugettext as _
 
@@ -30,7 +30,13 @@ class InforPostForm(forms.Form):
 
 
 class InforEditForm(forms.ModelForm):
-    title = forms.CharField(label=_(u'Title'), max_length=50,
+
+    class Meta:
+        model = Infor
+        fields = ('title', 'organization', 'content')
+
+    title = forms.CharField(
+        label=_(u'Title'), max_length=50,
         error_messages={
             'required': _(u'Title is required.'),
             'max_length': _(u'Title must less than 50 characters.')
@@ -50,7 +56,3 @@ class InforEditForm(forms.ModelForm):
         super(InforEditForm, self).__init__(*args, **kwargs)
         orgs_query_set = user.student.orgs_as_manager.all()
         self.fields['organization'].queryset = orgs_query_set
-
-    class Meta:
-        model = Infor
-        fields = ('title', 'organization', 'content')

@@ -1,9 +1,8 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 from django import forms
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
-from stucampus.account.models import Student
 from stucampus.organization.models import Organization
 
 
@@ -48,7 +47,8 @@ class AddOrganizationForm(forms.Form):
 
 
 class AddOrganizationManagerForm(forms.Form):
-    email = forms.EmailField(label=_(u'Email address of organization manager'),
+    email = forms.EmailField(
+        label=_(u'Email address of organization manager'),
         error_messages={'required': _(u'Email address is required.')})
 
     def clean_email(self):

@@ -1,17 +1,21 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 import re
-from django.utils import timezone
 import datetime
 
-from stucampus.spider.models import Notification
-from stucampus.spider.spider import find_content_between_two_marks, MatchError
+from stucampus.spider.spider import MatchError
 from stucampus.lecture.models import LectureMessage
 
 
+def is_lecture_msg_exists(obj):
+    return LectureMessage.objects.filter(url_id=obj.url_id).exists()
+
+
+def academic_notif_filter(obj):
+    return obj.category == u'学术' and not is_lecture_msg_exists(obj)
+
+
 def update_lecture_from_notification(new_notif_list):
-    academic_notif = [ n for n in new_notif_list \
-            if n.category == u'学术' \
-            and not LectureMessage.objects.filter(url_id=n.url_id).exists()]
+    academic_notif = filter(academic_notif_filter, new_notif_list)
     lecture_notif = search_lecture_notification(academic_notif)
     lecture_messages = []
     for notif in lecture_notif:
@@ -32,14 +36,15 @@ def search_lecture_notification(academic_notifications):
     return lecture_notifications
 
 
-KEYWORDS = (u'报告题目',
-            u'报告地点',
-            u'报告时间',
-            u'报告会',
-            u'学术沙龙',
-            u'论坛',
-            u'讲座',
-            )
+KEYWORDS = (
+    u'报告题目',
+    u'报告地点',
+    u'报告时间',
+    u'报告会',
+    u'学术沙龙',
+    u'论坛',
+    u'讲座',
+)
 
 
 def is_about_lecture(content):
@@ -96,10 +101,10 @@ TITLE_PATTERN = (
     (u'报.*?告.*?题.*?目' + COLON + WHITESPACE, u'\n'),
     (u'演.*?讲.*?题.*?目' + COLON + WHITESPACE, u'\n'),
     (u'题.*?目' + COLON + WHITESPACE, u'\n'),
-    (u'题' + COLON + WHITESPACE +u'目：' + WHITESPACE, u'\n'),
+    (u'题' + COLON + WHITESPACE + u'目：' + WHITESPACE, u'\n'),
     (u'主.*?题' + COLON + WHITESPACE, u'\n'),
     (u'主' + COLON + WHITESPACE + u'题：' + WHITESPACE, u'\n'),
-    )
+)
 
 
 PLACE_PATTERN = (
@@ -107,7 +112,7 @@ PLACE_PATTERN = (
     (u'报.*?告.*?地.*?点' + COLON + WHITESPACE, u'\n'),
     (u'地.*?点' + COLON + WHITESPACE, u'\n'),
     (u'地' + COLON + WHITESPACE + u'点' + WHITESPACE, u'\n'),
-    )
+)
 
 
 SPEAKER_PATTERN = (
@@ -118,7 +123,7 @@ SPEAKER_PATTERN = (
     (u'主.*?讲：' + COLON + WHITESPACE, u'\n'),
     (u'主' + COLON + WHITESPACE + u'讲' + WHITESPACE, u'\n'),
     (u'\n', u'教.*?授.*?简.*?介'),
-    )
+)
 
 
 DATETIME_PATTERN = (
@@ -126,7 +131,7 @@ DATETIME_PATTERN = (
     (u'报.*?告.*?时.*?间' + COLON + WHITESPACE, u'\n'),
     (u'时.*?间' + COLON + WHITESPACE, u'\n'),
     (u'时' + COLON + WHITESPACE + u'间：' + WHITESPACE, u'\n'),
-    )
+)
 
 
 DATE_PATTERN = (
@@ -134,7 +139,7 @@ DATE_PATTERN = (
     r'\d{4}'+u'年'+r'\d{1,2}'+u'月'+r'\d{1,2}' + u'号',
     r'\d{4}'+r'\w'+r'\d{1,2}'+r'\w'+r'\d{1,2}',
     r'\d{4}'+r'.'+r'\d{1,2}'+r'.'+r'\d{1,2}',
-    )                   
+)
 
 
 def parse_date(content):
@@ -154,7 +159,7 @@ TIME_PATTERN = (
     r'\d{1,2}' + u'：' + r'\d{1,2}' + u'—' + r'\d{1,2}' + u'：' + r'\d{1,2}',
     r'\d{1,2}:\d{1,2}',
     r'\d{1,2}' + u'：' + r'\d{1,2}',
-    )
+)
 
 
 def parse_time(content):
@@ -164,7 +169,7 @@ def parse_time(content):
     if datetime.datetime.strptime(start_time, '%H:%M').hour < 12:
         return u'上午'
     else:
-        return  u'下午'
+        return u'下午'
 
 
 def find_by_iter_wrap_pattern(patterns, content, to_search=r'.*?'):
@@ -173,7 +178,7 @@ def find_by_iter_wrap_pattern(patterns, content, to_search=r'.*?'):
         raise an error if no pattern match
     '''
     for left, right in patterns:
-        reg = left+ r'(?P<content>' + to_search + r')' + right
+        reg = left + r'(?P<content>' + to_search + r')' + right
         match = re.search(reg, content)
         if match:
             return match.group('content')
@@ -212,4 +217,3 @@ def add_new_lecture_from_notification(new_notif):
         lecture.speaker = lect['speaker']
 
         lecture.save()
-

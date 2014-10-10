@@ -1,10 +1,7 @@
-#-*- coding:utf-8 -*-
-import re
-from django.db import IntegrityError
+# -*- coding:utf-8 -*-
 import lxml.html
 
-from stucampus.spider.spider import fetch_html_by_post, fetch_html_by_get
-from stucampus.spider.spider import MatchError
+from stucampus.spider.spider import fetch_html_by_post
 from stucampus.spider.models import Notification
 from stucampus.lecture.implementation import update_lecture_from_notification
 
@@ -25,7 +22,7 @@ DAYS_CHOICE = {1: '1#一天',
                30: '30#一个月',
                90: '90#三个月',
                182: '182#半年',
-               365: '365#一年',}
+               365: '365#一年', }
 
 
 def search_notifications(days=30, keyword='', search_type='title',
@@ -44,7 +41,7 @@ def search_notifications(days=30, keyword='', search_type='title',
     # fetch all elements containing notification information
     xpath = ('/html/body/table/tr[2]/td/table/tr[3]/td/table'
              '/tr[3]/td/table/tr[position()>2]')
-    elist = etree.xpath(xpath) 
+    elist = etree.xpath(xpath)
 
     notif_list = []
     for element in elist:

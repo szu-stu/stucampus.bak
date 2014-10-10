@@ -11,7 +11,5 @@ class LectureForm(forms.ModelForm):
         widgets = {'date': SelectDateWidget()}
 
 
-LectureFormset = modelformset_factory(LectureMessage,
-                                      form=LectureForm,
-                                      can_delete=True,
-                                      extra=1)
+LectureFormset = modelformset_factory(
+    LectureMessage, form=LectureForm, can_delete=True, extra=1)

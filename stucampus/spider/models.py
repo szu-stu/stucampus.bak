@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 import django.db.models
 from django.db import IntegrityError
 
@@ -16,7 +16,7 @@ CATEGORY_CHOICES = (
     (u'行政', u'行政'),
     (u'学工', u'学工'),
     (u'教务', u'教务'),
-    )
+)
 
 
 class Notification(django.db.models.Model):
@@ -53,13 +53,13 @@ class Notification(django.db.models.Model):
         h = html2text.HTML2Text()
         h.ignore_emphasis = True
         content = h.handle(lxml.html.etree.tostring(element_contain_content))
-        #content = element_contain_content.text_content()
+        # content = element_contain_content.text_content()
         return content.replace('\r', '\n')
 
     @classmethod
     def save_new_notification(cls, new_notif):
         num_of_new_get = 0
-        for notification in new_notif: 
+        for notification in new_notif:
             try:
                 notification.save()
                 num_of_new_get += 1

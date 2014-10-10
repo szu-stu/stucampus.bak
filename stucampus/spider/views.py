@@ -1,7 +1,5 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.shortcuts import render
-from django.core.urlresolvers import reverse
-from django.views import generic
 from django.core.paginator import Paginator, InvalidPage
 
 from stucampus.spider.notification_spider import update_notification
@@ -24,10 +22,3 @@ def index(request):
 def update(request):
     num_of_update = update_notification(7)
     return HttpResponse(str(num_of_update))
-
-
-# for debug
-@check_perms('spider.spider_manager')
-def delete(request):
-    Notification.objects.all().delete()
-    return HttpResponseRedirect(reverse('spider:index'))

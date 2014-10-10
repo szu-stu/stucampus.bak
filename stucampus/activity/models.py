@@ -14,16 +14,16 @@ class ActivityMessage(models.Model):
     TIME = (
         (MORNING, MORNING),
         (AFTERNOON, AFTERNOON),
-        )
+    )
 
     title = models.CharField(max_length=30)
-    date= models.DateField()
+    date = models.DateField()
     time = models.CharField(max_length=10, choices=TIME)
     specific_time = models.CharField(max_length=20)
     place = models.CharField(max_length=20)
     summary = models.CharField(max_length=140)
 
-    modified_date_time = models.DateTimeField(editable=False, auto_now=True) 
+    modified_date_time = models.DateTimeField(editable=False, auto_now=True)
     checked = models.BooleanField(default=False)
 
     @classmethod

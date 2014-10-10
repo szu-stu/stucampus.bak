@@ -7,4 +7,4 @@ urlpatterns = patterns(
     url(r'^$', index, name='index'),
     url(r'^update/$', update, name='update'),
     url(r'^delete/$', delete, name='delete'),
-    )
+)

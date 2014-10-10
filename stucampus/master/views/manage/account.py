@@ -1,10 +1,6 @@
-from django.http import HttpResponse
 from django.views.generic import View
 from django.shortcuts import render, get_object_or_404
 from django.utils.decorators import method_decorator
-from django.contrib.auth.models import Group
-from django.contrib.auth.decorators import (user_passes_test,
-                                            permission_required)
 from django.core.paginator import InvalidPage, Paginator
 
 from stucampus.account.models import Student

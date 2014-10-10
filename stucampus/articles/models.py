@@ -1,10 +1,8 @@
-#-*- coding: utf-8
+# -*- coding: utf-8
 from django.db import models
 from django.contrib.auth.models import User
 
 from DjangoUeditor.models import UEditorField
-
-from stucampus.custom.models_utils import file_save_path
 
 
 class Category(models.Model):
@@ -46,4 +44,3 @@ class Article(models.Model):
     deleted = models.BooleanField(default=False)
     important = models.BooleanField(default=False)
     publish = models.BooleanField(default=False)
-

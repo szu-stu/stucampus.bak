@@ -1,4 +1,5 @@
 import StringIO
+
 from django import forms
 from PIL import Image
 
@@ -7,7 +8,7 @@ from stucampus.szuspeech.models import Resource
 
 class ResourceForm(forms.ModelForm):
 
-    resource_intro = forms.CharField(widget=forms.Textarea({'maxlength':200}))
+    resource_intro = forms.CharField(widget=forms.Textarea({'maxlength': 200}))
 
     maxwidth = 1024.0
 

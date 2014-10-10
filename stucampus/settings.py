@@ -8,14 +8,15 @@ ROOT = os.path.dirname(os.path.dirname(__file__))
 def path(*a):
     return os.path.abspath(os.path.join(ROOT, *a))
 
+
 # DjangoUeditor setting
 UEDITOR_SETTINGS = {
-    "images_upload":{
+    "images_upload": {
         'allow_type': 'jpg, png, gif',
         'path': 'img_upload_file/',
         'max_size': '3000kb',
-        },
-    }
+    },
+}
 
 
 ALLOWED_HOSTS = ["*"]
@@ -91,7 +92,7 @@ INSTALLED_APPS = (
     'stucampus.minivideo',
     'stucampus.dreamer',
     # Uncomment the next line to enable the admin:
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
@@ -101,9 +102,8 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format': '''[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s]
-                         %(message)s''',
-            'datefmt': "%d/%b/%Y %H:%M:%S"
+            'format': '''[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s]'''
+                      '''%(message)s''',
          }
     },
     'filters': {
@@ -113,9 +113,9 @@ LOGGING = {
     },
     'handlers': {
         'file': {
-            'level': 'ERROR',
+            'level': 'WARNING',
             'class': 'logging.FileHandler',
-            'filename': 'stucampus_error.log',
+            'filename': 'logs/stucampus.log',
             'formatter': 'verbose',
         },
         'mail_admins': {
@@ -127,7 +127,7 @@ LOGGING = {
     'loggers': {
         'stucampus': {
             'handlers': ['file'],
-            'level': 'ERROR',
+            'level': 'WARNING',
         },
         'django.request': {
             'handlers': ['mail_admins'],
@@ -136,7 +136,6 @@ LOGGING = {
         },
     }
 }
-
 
 
 try:

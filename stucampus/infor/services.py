@@ -1,7 +1,4 @@
-from django.shortcuts import render, get_object_or_404
-
 from stucampus.infor.models import Infor
-from stucampus.organization.models import Organization
 
 
 def post_infor(request, cleaned_data):
