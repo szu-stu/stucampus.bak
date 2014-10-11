@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 
-from stucampus.organization.model import Organization
+from stucampus.organization.models import Organization
 
 
 def guest_or_redirect(function=None):

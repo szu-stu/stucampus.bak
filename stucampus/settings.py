@@ -92,7 +92,7 @@ INSTALLED_APPS = (
     'stucampus.minivideo',
     'stucampus.dreamer',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
@@ -104,7 +104,7 @@ LOGGING = {
         'verbose': {
             'format': '''[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s]'''
                       '''%(message)s''',
-         }
+         },
     },
     'filters': {
         'require_debug_false': {
