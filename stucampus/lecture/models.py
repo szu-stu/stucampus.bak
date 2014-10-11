@@ -1,10 +1,6 @@
-#-*- coding: utf-8 -*-
-from itertools import chain
+# -*- coding: utf-8 -*-
 from datetime import datetime, timedelta
-from django.utils import timezone
 from django.db import models
-from django.db import IntegrityError
-from django.core.exceptions import ObjectDoesNotExist
 
 
 MORNING = u'上午'
@@ -16,7 +12,7 @@ class LectureMessage(models.Model):
     TIME = (
         (MORNING, MORNING),
         (AFTERNOON, AFTERNOON),
-        )
+    )
 
     title = models.CharField(null=True, max_length=150)
     date = models.DateField(null=True)
@@ -55,11 +51,9 @@ class LectureMessage(models.Model):
         to_be_published = messages_this_week.filter(checked=True)
         for msg in to_be_published:
             if msg.time == MORNING:
-                message_table['morning'] \
-                        [msg.date.weekday()].append(msg)
+                message_table['morning'][msg.date.weekday()].append(msg)
             else:
-                message_table['afternoon'] \
-                        [msg.date.weekday()].append(msg)
+                message_table['afternoon'][msg.date.weekday()].append(msg)
         return message_table
 
     @classmethod
@@ -71,4 +65,3 @@ class LectureMessage(models.Model):
             date__gte=date_of_this_Monday,
             date__lt=date_of_next_Monday)
         return lecture_held_this_week
-

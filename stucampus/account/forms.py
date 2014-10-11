@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
@@ -82,6 +82,7 @@ class ProfileEditForm(forms.ModelForm):
     internal_phone_number = forms.CharField(max_length=6, required=False)
     job_id = forms.CharField(max_length=10, required=False)
     card_id = forms.CharField(max_length=6, required=False)
+
     class Meta:
         model = Student
         fields = ('true_name', 'college', 'screen_name', 'gender', 'birthday',
@@ -128,4 +129,3 @@ class PasswordForm(forms.Form):
         if not password == confirm:
             raise forms.ValidationError(_(u'Password must match'))
         return confirm
-

@@ -6,7 +6,6 @@ from django.contrib.auth.decorators import (user_passes_test,
 
 from stucampus.infor.models import Infor
 from stucampus.infor.services import post_infor
-from stucampus.organization.models import Organization
 from stucampus.infor.forms import InforPostForm, InforEditForm
 from stucampus.custom.permission import admin_group_check
 from stucampus.utils import spec_json

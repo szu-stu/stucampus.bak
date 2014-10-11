@@ -1,16 +1,17 @@
-#-*- coding: utf-8
+# -*- coding: utf-8
 import os
 
 from django.db import models
-from django.db.models.signals import pre_save,post_delete
+from django.db.models.signals import pre_save, post_delete
 from django.dispatch import receiver
+
 
 def save_path(instance, filename):
     return os.path.join('minivideo', 'cover', filename)
 
 
 class Resource(models.Model):
-    
+
     class Meta:
         permissions = (
             ('manager', u'微视大赛管理员'),
@@ -19,7 +20,7 @@ class Resource(models.Model):
     team_captain = models.CharField(max_length=20)
     team_captain_phone = models.CharField(max_length=30)
     team_captain_stuno = models.CharField(max_length=10)
-    team_captain_college = models.CharField(max_length=30)    
+    team_captain_college = models.CharField(max_length=30)
     team_members1_name = models.CharField(max_length=20, blank=True)
     team_members1_id = models.CharField(max_length=10, blank=True)
     team_members2_name = models.CharField(max_length=20, blank=True)

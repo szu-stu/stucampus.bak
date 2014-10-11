@@ -1,4 +1,4 @@
-from django.forms import forms, ModelForm
+from django.forms import ModelForm
 from django.forms.models import modelformset_factory
 from django.forms.extras.widgets import SelectDateWidget
 
@@ -11,8 +11,5 @@ class ActivityMessageForm(ModelForm):
         widgets = {'date': SelectDateWidget()}
 
 
-ActivityMessageFormSet = modelformset_factory(ActivityMessage,
-                                              form=ActivityMessageForm,
-                                              can_delete=True,
-                                              extra=1)
-
+ActivityMessageFormSet = modelformset_factory(
+    ActivityMessage, form=ActivityMessageForm, can_delete=True, extra=1)

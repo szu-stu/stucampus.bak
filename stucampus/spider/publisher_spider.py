@@ -16,7 +16,7 @@ def get_publisher():
     publisher_list = []
     for msg_mixed_with_tags in all_needed_list:
         row_text = fing_content_between_two_marks(left_tag, right_tag,
-                                                 msg_mixed_with_tags)
+                                                  msg_mixed_with_tags)
         row_text = row_text[1:]  # delete the prefix point
         publisher_list.append(row_text)
     return publisher_list

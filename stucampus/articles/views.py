@@ -1,6 +1,6 @@
-#-*- coding: utf-8
+# -*- coding: utf-8
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views.generic import View
 from django.core.paginator import InvalidPage, Paginator
@@ -9,11 +9,12 @@ from django.utils.decorators import method_decorator
 from stucampus.articles.forms import ArticleForm
 from stucampus.articles.forms import CategoryFormset
 from stucampus.articles.models import Article, Category
-from stucampus.utils import get_client_ip 
+from stucampus.utils import get_client_ip
 from stucampus.account.permission import check_perms
 
 
 NO_CATEGORY = u'未分类'
+
 
 @check_perms('articles.article_add')
 def manage(request):
@@ -27,13 +28,13 @@ def manage(request):
             category = get_object_or_404(Category, name=category)
             article_list = Article.objects.filter(category=category)
     paginator = Paginator(
-            article_list.filter(deleted=False).order_by('-pk'), 10)
+        article_list.filter(deleted=False).order_by('-pk'), 10)
     try:
         page = paginator.page(request.GET.get('page'))
     except InvalidPage:
         page = paginator.page(1)
     return render(request, 'articles/manage.html',
-            {'page': page})
+                  {'page': page})
 
 
 class AddView(View):
@@ -42,14 +43,14 @@ class AddView(View):
     def get(self, request):
         form = ArticleForm()
         return render(request, 'articles/article-form.html',
-                {'form': form, 'post_url': reverse('articles:add')})
+                      {'form': form, 'post_url': reverse('articles:add')})
 
     @method_decorator(check_perms('articles.article_add'))
     def post(self, request):
         form = ArticleForm(request.POST)
         if not form.is_valid():
             return render(request, 'articles/article-form.html',
-                    {'form': form, 'post_url': reverse('articles:add')})
+                          {'form': form, 'post_url': reverse('articles:add')})
         article = form.save(commit=False)
         article.editor = request.user
         article.create_ip = get_client_ip(request)
@@ -65,8 +66,8 @@ class ModifyView(View):
         article = get_object_or_404(Article, pk=article_id)
         form = ArticleForm(instance=article)
         return render(request, 'articles/article-form.html',
-                {'form': form, 'article_id': article_id,
-                 'post_url': reverse('articles:modify')})
+                      {'form': form, 'article_id': article_id,
+                       'post_url': reverse('articles:modify')})
 
     @method_decorator(check_perms('articles.article_add'))
     def post(self, request):
@@ -75,8 +76,8 @@ class ModifyView(View):
         form = ArticleForm(request.POST, instance=article)
         if not form.is_valid():
             return render(request, 'articles/article-form.html',
-                {'form': form, 'article_id': article_id,
-                 'post_url': reverse('articles:modify')})
+                          {'form': form, 'article_id': article_id,
+                           'post_url': reverse('articles:modify')})
         form.save()
         return HttpResponseRedirect(reverse('articles:manage'))
 
@@ -98,6 +99,7 @@ def set_important(request):
     article.save()
     return HttpResponseRedirect(reverse('articles:manage'))
 
+
 @check_perms('articles.article_manage')
 def publish(request):
     article_id = request.GET.get('id')
@@ -111,12 +113,16 @@ class CategoryView(View):
 
     @staticmethod
     def create_category_list():
+        def get_category_len(category):
+            objects = Article.objects.filter(category=category, deleted=False)
+            return len(objects)
+
         category_list = Category.objects.all()
-        category_list = {category.name: \
-                len(Article.objects.filter(category=category, deleted=False)) \
-                for category in Category.objects.all()}
-        category_list[NO_CATEGORY] = \
-                len(Article.objects.filter(category=None, deleted=False))
+        category_list = {
+            category.name: get_category_len(category)
+            for category in Category.objects.all()
+        }
+        category_list[NO_CATEGORY] = get_category_len(None)
         return category_list
 
     @method_decorator(check_perms('articles.article_manage'))
@@ -124,7 +130,7 @@ class CategoryView(View):
         category_list = CategoryView.create_category_list()
         formset = CategoryFormset()
         return render(request, 'articles/category-form.html',
-                {'formset': formset, 'category_list': category_list})
+                      {'formset': formset, 'category_list': category_list})
 
     @method_decorator(check_perms('articles.article_manage'))
     def post(self, request):
@@ -132,7 +138,7 @@ class CategoryView(View):
         if not formset.is_valid():
             category_list = CategoryView.create_category_list()
             return render(request, 'articles/category-form.html',
-                    {'formset': formset, 'category_list': category_list})
+                          {'formset': formset, 'category_list': category_list})
         formset.save()
         return HttpResponseRedirect(reverse('articles:category'))
 
@@ -148,18 +154,16 @@ def article_list(request, category=None):
     except InvalidPage:
         page = paginator.page(1)
 
-    hot_articles_list = \
-        Article.objects.filter(
-                publish=True,
-                deleted=False).order_by('click_count')[:10]
-    newest_articles_list = \
-        Article.objects.filter(
-                publish=True,
-                deleted=False).order_by('-pk')[:10]
+    hot_articles_list = (Article.objects
+                         .filter(publish=True, deleted=False)
+                         .order_by('click_count')[:10])
+    newest_articles_list = (Article.objects
+                            .filter(publish=True, deleted=False)
+                            .order_by('-pk')[:10])
     return render(request, 'articles/article-list.html',
-            {'page': page, 'category': category,
-             'hot_articles_list': hot_articles_list,
-             'newest_articles_list': newest_articles_list})
+                  {'page': page, 'category': category,
+                   'hot_articles_list': hot_articles_list,
+                   'newest_articles_list': newest_articles_list})
 
 
 def article_display(request, id=None):
@@ -167,5 +171,4 @@ def article_display(request, id=None):
     article.click_count += 1
     article.save()
     return render(request, 'articles/article-display.html',
-            {'article': article})
-
+                  {'article': article})

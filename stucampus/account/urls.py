@@ -3,6 +3,7 @@ from django.conf.urls import patterns, url
 from stucampus.account.views import SignIn, SignOut, SignUp, Profile
 from stucampus.account.views import ProfileEdit, Password
 
+
 urlpatterns = patterns(
     '',
     url(r'^signup$', SignUp.as_view(), name='sign_up'),

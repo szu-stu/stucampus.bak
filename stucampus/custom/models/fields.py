@@ -73,13 +73,6 @@ class URLField(models.URLField):
         return super(URLField, self).formfield(**defaults)
 
 
-class CharField(models.CharField):
-    def formfield(self, **kwargs):
-        defaults = {'form_class': forms.CharField}
-        defaults.update(kwargs)
-        return super(CharField, self).formfield(**defaults)
-
-
 class BooleanField(models.BooleanField):
     def formfield(self, **kwargs):
         defaults = {'form_class': forms.BooleanField}

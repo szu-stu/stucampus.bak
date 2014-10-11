@@ -1,5 +1,6 @@
-#-*- coding: utf-8
-#produced by publiser_spider.py
+# -*- coding: utf-8
+# produced by publiser_spider.py
+
 PUBLISHER_CHOICES = (
     ('江潭瑜', '江潭瑜'),
     ('李清泉', '李清泉'),

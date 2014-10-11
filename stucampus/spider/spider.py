@@ -1,6 +1,4 @@
 import re
-from urllib2 import urlopen
-import lxml.html
 import requests
 
 
@@ -35,7 +33,7 @@ def fetch_html_by_post(url, form_data, encoding=None):
 
 
 def find_content_between_two_marks(left_tag, right_tag,
-                                  text, to_search=r'.*?'):
+                                   text, to_search=r'.*?'):
     reg = left_tag + r'(?P<content>' + to_search + r')' + right_tag
     match = re.search(reg, text)
     if not match:

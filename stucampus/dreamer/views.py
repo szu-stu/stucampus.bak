@@ -4,8 +4,8 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views.generic import View
 
-from .models import Application
-from .forms import AppForm
+from stucampus.dreamer.models import Application
+from stucampus.dreamer.forms import AppForm
 
 
 class ApplyView(View):

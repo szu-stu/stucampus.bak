@@ -1,12 +1,9 @@
-#-*- coding: utf-8 -*-
-from django.http import HttpResponseRedirect
+# -*- coding: utf-8 -*-
 from django.contrib.auth.decorators import user_passes_test
-from django.contrib.auth.models import Group
-from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 
-from stucampus.utils import spec_json
+from stucampus.organization.models import Organization
 
 
 def guest_or_redirect(function=None):
@@ -30,7 +27,7 @@ def check_perms(perm, message=u'无权限'):
                 perms = perm
             if not request.user.has_perms(perms):
                 return render(request, 'master/deny.html',
-                        {'message': message})
+                              {'message': message})
             return function(request, *args, **kwargs)
         return wrapped_check
     return decorator
@@ -43,9 +40,8 @@ def check_org_manager(function):
             org = Organization.objects.get(id=id)
         except ObjectDoesNotExist:
             raise ObjectDoesNotExist(u'id对应的组织不存在')
-        if not request.user.student in org.managers.all():
+        if request.user.student not in org.managers.all():
             return render(request, 'master/deny.html',
-                    {'message': u'非s%的管理员' % org.name})
+                          {'message': u'非%s的管理员' % org.name})
         return function(request, *args, **kwargs)
     return wrapped_check
-

@@ -2,7 +2,7 @@ from django.contrib.auth.models import Group
 
 
 def organization_manager_update(student, organization):
-    if not organization in student.orgs_as_member.all():
+    if organization not in student.orgs_as_member.all():
         organization.members.add(student)
     organization.managers.add(student)
     try:

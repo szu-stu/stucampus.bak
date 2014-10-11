@@ -37,13 +37,14 @@ urlpatterns = patterns(
 
 # serve media file when using developing server
 if settings.DEBUG:
-    urlpatterns += patterns('',
+    urlpatterns += patterns(
+        '',
         url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
             {'document_root': settings.MEDIA_ROOT,}),
         url(r'^pdfjs/(?P<path>.*)$', 'django.views.static.serve',
             {'document_root': os.path.join(settings.ROOT, 'stucampus',
                                            'static', 'pdfjs'),}),
-        )
+    )
 
 
 handler404 = 'stucampus.master.views.front.page_not_found'

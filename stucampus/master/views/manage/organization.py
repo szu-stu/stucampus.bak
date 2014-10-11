@@ -2,8 +2,6 @@ from django.views.generic import View
 from django.utils.decorators import method_decorator
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import (user_passes_test,
-                                            permission_required)
 
 from stucampus.organization.forms import AddOrganizationForm
 from stucampus.organization.forms import AddOrganizationManagerForm
@@ -70,4 +68,3 @@ class OrganzationManager(View):
         organization_manager_update(student, organization)
 
         return spec_json(status='success')
-

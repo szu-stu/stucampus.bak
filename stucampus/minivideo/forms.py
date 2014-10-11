@@ -1,8 +1,9 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 from django import forms
 from django.utils.translation import ugettext as _
 
 from stucampus.minivideo.models import Resource
+
 
 class SignUpForm(forms.ModelForm):
 
@@ -14,7 +15,7 @@ class SignUpForm(forms.ModelForm):
             'max_length': _(u'密码长度不得超过30')
         }
     )
-    
+
     confirm = forms.CharField(
         label=_(u'密码确认'), max_length=30,
         widget=forms.PasswordInput(),
@@ -38,14 +39,16 @@ class SignUpForm(forms.ModelForm):
         return confirm
 
     class Meta:
-         model = Resource
-         exclude = ('video_cover', 'video_name', 'video_intro', 'video_link', 'votes', 'has_verified')
+        model = Resource
+        exclude = ('video_cover', 'video_name', 'video_intro',
+                   'video_link', 'votes', 'has_verified')
+
 
 class CommitForm(forms.ModelForm):
 
     video_intro = forms.CharField(
-        widget=forms.Textarea({'maxlength':200}),
-        )
+        widget=forms.Textarea({'maxlength': 200}),
+    )
 
     confirm = forms.CharField(
         label=_(u'密码'), max_length=30,
@@ -72,17 +75,18 @@ class CommitForm(forms.ModelForm):
         return cover
 
     class Meta:
-         model = Resource
-         exclude = ('team_captain', 'team_captain_phone', 
+        model = Resource
+        exclude = (
+            'team_captain', 'team_captain_phone',
             'team_captain_college',
             'team_members1_name', 'team_members1_id',
             'team_members2_name', 'team_members2_id',
-            'team_members3_name', 'team_members3_id', 
-            'team_members4_name', 'team_members4_id', 
+            'team_members3_name', 'team_members3_id',
+            'team_members4_name', 'team_members4_id',
             'team_members5_name', 'team_members5_id',
             'team_psw', 'votes', 'has_verified')
 
-       
+
 class loginForm(forms.ModelForm):
 
     confirm = forms.CharField(
@@ -107,13 +111,14 @@ class loginForm(forms.ModelForm):
 
     class Meta:
         model = Resource
-        exclude = ('team_captain', 'team_captain_phone', 
-             'team_captain_college',
+        exclude = (
+            'team_captain', 'team_captain_phone',
+            'team_captain_college',
             'team_members1_name', 'team_members1_id',
             'team_members2_name', 'team_members2_id',
-            'team_members3_name', 'team_members3_id', 
-            'team_members4_name', 'team_members4_id', 
+            'team_members3_name', 'team_members3_id',
+            'team_members4_name', 'team_members4_id',
             'team_members5_name', 'team_members5_id',
             'team_psw', 'votes', 'has_verified',
             'video_cover', 'video_name', 'video_intro',
-             'video_link', 'votes', 'has_verified')
+            'video_link', 'votes', 'has_verified')

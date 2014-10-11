@@ -9,4 +9,4 @@ class AppForm(forms.ModelForm):
 
     class Meta:
         model = Application
-        exclude = ('apply_date')
+        exclude = ('apply_date',)
