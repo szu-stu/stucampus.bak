@@ -1,0 +1,10 @@
+{
+  "name": "stucampus",
+  "moduleType": [
+    "globals"
+  ],
+  "private": true,
+  "dependencies": {
+    "pdfjs-build": "*"
+  }
+}

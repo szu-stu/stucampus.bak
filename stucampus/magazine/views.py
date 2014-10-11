@@ -28,7 +28,9 @@ def magazine_list(request, name):
 
 def display(request, id):
     magazine = get_object_or_404(Magazine, id=id)
-    pdfjs_url = os.path.join('/', 'pdfjs', 'web', 'viewer.html')
+    # FIXME reverse route here / do not hard coding
+    pdfjs_url = '/pdfjs/web/viewer.html'
+    # FIXME url encode for query string
     pdf_path = os.path.join('/', 'media', str(magazine.pdf_file))
     return HttpResponseRedirect(pdfjs_url + '?file=' + pdf_path)
 
