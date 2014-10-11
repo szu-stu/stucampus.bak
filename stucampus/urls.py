@@ -17,19 +17,19 @@ urlpatterns = patterns(
     url(r'^account/', include('stucampus.account.urls', namespace='account')),
     url(r'^organization/', include('stucampus.organization.urls',
                                    namespace='organization')),
-    #url(r'^infor/', include('stucampus.infor.urls', namespace='infor')),
+    # url(r'^infor/', include('stucampus.infor.urls', namespace='infor')),
     url(r'^articles/', include('stucampus.articles.urls',
-                                namespace='articles')),
+                               namespace='articles')),
     url(r'^magazine/', include('stucampus.magazine.urls',
-                                namespace='magazine')),
+                               namespace='magazine')),
     url(r'^lecture/', include('stucampus.lecture.urls',
                               namespace='lecture')),
     url(r'^activity/', include('stucampus.activity.urls',
                                namespace='activity')),
     url(r'^szuspeech/', include('stucampus.szuspeech.urls',
-                               namespace='szuspeech')),
+                                namespace='szuspeech')),
     url(r'^minivideo/', include('stucampus.minivideo.urls',
-                               namespace='minivideo')),
+                                namespace='minivideo')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^spider/', include('stucampus.spider.urls', namespace='spider')),
     url(r'^dreamer/', include('stucampus.dreamer.urls', namespace='dreamer')),
@@ -37,13 +37,15 @@ urlpatterns = patterns(
 
 # serve media file when using developing server
 if settings.DEBUG:
+    # FIXME do not hard coding here / use django-bower
+    pdfjs_path = os.path.join(
+        settings.ROOT, 'stucampus/static/components/pdfjs-build/generic/')
     urlpatterns += patterns(
         '',
         url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
-            {'document_root': settings.MEDIA_ROOT,}),
+            {'document_root': settings.MEDIA_ROOT}),
         url(r'^pdfjs/(?P<path>.*)$', 'django.views.static.serve',
-            {'document_root': os.path.join(settings.ROOT, 'stucampus',
-                                           'static', 'pdfjs'),}),
+            {'document_root': pdfjs_path}),
     )
 
 

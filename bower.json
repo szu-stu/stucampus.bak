@@ -3,5 +3,8 @@
   "moduleType": [
     "globals"
   ],
-  "private": true
+  "private": true,
+  "dependencies": {
+    "pdfjs-build": "*"
+  }
 }
