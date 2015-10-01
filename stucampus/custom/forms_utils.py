@@ -10,8 +10,10 @@ class FormsetPaginator(Paginator):
         self.model_class = model_class
         self.Formset = formset
         object_list = object_list.order_by('-pk')
-        super(FormsetPaginator, self).__init__(
-            object_list, per_page, orphans=0, allow_empty_first_page=True)
+        super(FormsetPaginator, self).__init__(object_list,
+                                               per_page,
+                                               orphans=0,
+                                               allow_empty_first_page=True)
 
     def page(self, page_num):
         page = super(FormsetPaginator, self).page(page_num)

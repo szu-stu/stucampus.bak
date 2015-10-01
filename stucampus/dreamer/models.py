@@ -2,18 +2,35 @@
 from django.db import models
 
 
-class Application(models.Model):
+SEX = (
+    ('male', u'男'),
+    ('female', u'女'),
+)
 
-    SEX = (
-        ('boy', u'男'),
-        ('girl', u'女'),
-    )
+DEPT = (
+    ('xzb', u'行政部'),
+    ('sjb', u'设计部'),
+    ('jsb', u'技术部'),
+    ('cbb', u'采编部'),
+    ('yyb', u'运营部'),
+)
 
-    stu_num = models.CharField(max_length=20)
-    name = models.CharField(max_length=30)
-    sex = models.CharField(max_length=5, choices=SEX)
+
+class Register(models.Model):
+
+    class Meta:
+        permissions = (
+            ('mangaer', u'报名信息管理员'),
+        )
+
+    name = models.CharField(max_length=20)
+    gender = models.CharField(max_length=6, choices=SEX, default='male')
+    stu_ID = models.IntegerField(max_length=10)
     college = models.CharField(max_length=30)
-    apply_date = models.DateTimeField(auto_now=True)
-    fav_sports = models.CharField(max_length=30)
-    interest = models.CharField(max_length=30)
-    self_intro = models.CharField(max_length=200)
+    mobile = models.CharField(max_length=11)
+    dept1 = models.CharField(max_length=4, choices=DEPT, dept1='cbb')
+    dept2 = models.CharField(max_length=4, choices=DEPT, dept2='jsb')
+    ip = models.IPAddressField()
+    sign_up_date = models.DateField(auto_new_add=True)
+    self_intro = models.CharField(max_length=500)
+    status = models.BooleanField(default=True)

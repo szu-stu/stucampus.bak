@@ -19,22 +19,28 @@ NO_CATEGORY = u'未分类'
 @check_perms('articles.article_add')
 def manage(request):
     category = request.GET.get('category')
-    if not category:
-        article_list = Article.objects.all()
-    else:
-        if category == NO_CATEGORY:
-            article_list = Article.objects.filter(category=None)
+    editor = request.user
+    page = request.GET.get('page')
+    if editor.has_perm('articles.article_manage'):
+        if not category:
+            article_list = Article.objects.all()
         else:
-            category = get_object_or_404(Category, name=category)
-            article_list = Article.objects.filter(category=category)
+            if category == NO_CATEGORY:
+                article_list = Article.objects.filter(category=None)
+            else:
+                category = get_object_or_404(Category, name=category)
+                article_list = Article.objects.filter(category=category)
+    else:
+        article_list = Article.object.filter(editor=editor)
+
     paginator = Paginator(
         article_list.filter(deleted=False).order_by('-pk'), 10)
     try:
-        page = paginator.page(request.GET.get('page'))
+        pager = paginator.page(page)
     except InvalidPage:
-        page = paginator.page(1)
+        pager = paginator.page(1)
     return render(request, 'articles/manage.html',
-                  {'page': page})
+                  {'page': page, 'pager': pager})
 
 
 class AddView(View):
@@ -65,8 +71,9 @@ class ModifyView(View):
         article_id = request.GET.get('id')
         article = get_object_or_404(Article, pk=article_id)
         form = ArticleForm(instance=article)
+        page = request.GET.get('page')
         return render(request, 'articles/article-form.html',
-                      {'form': form, 'article_id': article_id,
+                      {'form': form, 'article_id': article_id, 'page': page,
                        'post_url': reverse('articles:modify')})
 
     @method_decorator(check_perms('articles.article_add'))
@@ -74,12 +81,14 @@ class ModifyView(View):
         article_id = request.GET.get('id')
         article = get_object_or_404(Article, pk=article_id)
         form = ArticleForm(request.POST, instance=article)
+        page = request.GET.get('page')
         if not form.is_valid():
             return render(request, 'articles/article-form.html',
                           {'form': form, 'article_id': article_id,
                            'post_url': reverse('articles:modify')})
         form.save()
-        return HttpResponseRedirect(reverse('articles:manage'))
+        url = '%s?page=%d' % (reverse('articles:manage'), page)
+        return HttpResponseRedirect(url)
 
 
 @check_perms('articles.article_manage')

@@ -17,6 +17,11 @@ def index(request):
     return render_to_response('activity/home.html', {'table': table})
 
 
+def mobile(request):
+    table = ActivityMessage.generate_messages_table()
+    return render(request, 'activity/mobile.html', {'table': table})
+
+
 class ManageView(generic.View):
 
     @classmethod
